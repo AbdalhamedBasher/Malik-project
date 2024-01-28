@@ -9,8 +9,24 @@ class items extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function lines()
+    public function lines_data()
     {
         return $this->belongsTo(line::class, 'line', 'id');
+    }
+    public function catogery_data()
+    {
+        return $this->belongsTo(catogery::class, 'catogery', 'id');
+    }
+    public function size_data()
+    {
+        return $this->belongsTo(size::class, 'size', 'id');
+    }
+    public function brand_data()
+    {
+        return $this->belongsTo(brand::class, 'brand', 'id');
+    }
+    public function type_data()
+    {
+        return $this->belongsTo(type::class, 'type', 'id');
     }
 }

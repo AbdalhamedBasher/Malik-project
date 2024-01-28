@@ -15,7 +15,7 @@
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn" id="icons" style="background-color: #433483a3 ; color:aliceblue">
-                إضافة ماركة جديد
+                إضافة مقاس جديد
             </a>
         </div>
     </div>

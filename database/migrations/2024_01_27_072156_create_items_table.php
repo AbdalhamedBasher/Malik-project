@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->text("name");
             $table->string('price');
-            // مهىثس
+            $table->unsignedBigInteger('size_number'); // here is the size for item
             $table->unsignedBigInteger('line')->onDelete('cascade')->nullable();
             $table->foreign('line')->references('id')->on('lines')->onDelete('cascade');
 
@@ -31,9 +31,9 @@ return new class extends Migration
             // // type
             $table->unsignedBigInteger('type')->onDelete('cascade')->nullable();
             $table->foreign('type')->references('id')->on('types')->onDelete('cascade');
-            // // size
+            // // size or measure for items
             $table->unsignedBigInteger('size')->onDelete('cascade')->nullable();
-            $table->foreign('size')->references('id')->on('size')->onDelete('cascade');
+            $table->foreign('size')->references('id')->on('sizes')->onDelete('cascade');
 
 
             $table->timestamps();

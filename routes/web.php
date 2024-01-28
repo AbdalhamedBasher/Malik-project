@@ -37,10 +37,10 @@ Route::put('lines/store', [LineController::class,"store"])->name('lines.store');
 
 
 // items route
-Route::get('items', [ItemsController::class,"index"])->name('item');
-Route::post('items', [ItemsController::class,"store"])->name('items');
-Route::post('items/delete', [ItemsController::class,"destroy"])->name('items.delete');
-Route::put('items/update', [ItemsController::class,"update"])->name('item.update');
+Route::get('item', [ItemsController::class,"index"])->name('item');
+Route::post('item', [ItemsController::class,"store"])->name('item');
+Route::post('item/delete', [ItemsController::class,"destroy"])->name('item.delete');
+Route::put('item/update', [ItemsController::class,"update"])->name('item.update');
 
 // catogery route
 Route::get('catogery', [CatogeryController::class,"index"])->name('catogery');

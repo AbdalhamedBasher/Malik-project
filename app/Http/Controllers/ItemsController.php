@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\items;
 use App\Models\line;
+use App\Models\size;
+use App\Models\brand;
+use App\Models\catogery;
+use App\Models\type;
 use Illuminate\Http\Request;
 
 class ItemsController extends Controller
@@ -21,7 +25,11 @@ class ItemsController extends Controller
         $breadcrumb="إضافة منتج";
         $item=items::get();
         $lines=line::where('main_line', '<>', '')->get();
-        return view("items.index",['items'=>$item , 'breadcrumb'=>$breadcrumb ,"lines"=>$lines]);
+        $brand=brand::get();
+        $size=size::get();
+        $type=type::get();
+        $catogery=catogery::get();
+        return view("items.index",['items'=>$item , 'breadcrumb'=>$breadcrumb ,"lines"=>$lines,"brand"=>$brand,"catogery"=>$catogery,"type"=>$type,  "size"=>$size]);
     }
 
 
@@ -40,12 +48,16 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+
         $line=items::create([
             "name"=>$request->name,
             "line"=>$request->line,
+            "brand"=>$request->brand,
             "price"=>$request->price,
-
+            "size_number"=>$request->size_number,
+            "type"=>$request->type,
+            "size"=>$request->size,
+            "catogery"=>$request->catogery,
          ]);
 
     if( $line) {
@@ -90,7 +102,7 @@ $id=$request->id;
      */
     public function destroy( Request $request)
     {
-        $item=lines::find($request->id)->delete();
+        $item=items::find($request->id)->delete();
         if( $item) {
             return  redirect()->back()->with(['message'=>"تم حذف العنصر بنجاح"]);
         }
