@@ -9,8 +9,7 @@ class line extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $casts = [
-        'validator ' => 'json',];
+
         public function main_catog()
         {
             return $this->belongsTo(line::class, 'main_line', 'id');

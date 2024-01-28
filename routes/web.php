@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineController;
+use App\Http\Controllers\CatogeryController;
+use App\Http\Controllers\ItemsController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\TypeController;
+use App\Http\Controllers\SizeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +22,47 @@ Route::get('/', function () {
     return view('admin.home');
 
 });
+
+
+
+// lines route
 Route::get('lines/create', [LineController::class,"create"]);
 Route::get('lines/{master?}', [LineController::class,"index"])->name('lines');
-
 Route::post('lines', [LineController::class,"store"])->name('lines');
 Route::post('lines/delete', [LineController::class,"destroy"])->name('lines.delete');
 Route::put('lines/update', [LineController::class,"update"])->name('lines.update');
+Route::put('lines/store', [LineController::class,"store"])->name('lines.store');
+
+
+
+
+// items route
+Route::get('items', [ItemsController::class,"index"])->name('item');
+Route::post('items', [ItemsController::class,"store"])->name('items');
+Route::post('items/delete', [ItemsController::class,"destroy"])->name('items.delete');
+Route::put('items/update', [ItemsController::class,"update"])->name('item.update');
+
+// catogery route
+Route::get('catogery', [CatogeryController::class,"index"])->name('catogery');
+Route::post('catogery', [CatogeryController::class,"store"])->name('Catogery');
+Route::post('catogery/delete', [CatogeryController::class,"destroy"])->name('catogery.delete');
+Route::put('catogery/update', [CatogeryController::class,"update"])->name('catogery.update');
+
+// brand
+Route::get('brand', [BrandController::class,"index"])->name('brand');
+Route::post('brand', [BrandController::class,"store"])->name('brand');
+Route::post('brand/delete', [BrandController::class,"destroy"])->name('brand.delete');
+Route::put('brand/update', [BrandController::class,"update"])->name('brand.update');
+
+
+// brand
+Route::get('type', [TypeController::class,"index"])->name('type');
+Route::post('type', [TypeController::class,"store"])->name('type');
+Route::post('type/delete', [TypeController::class,"destroy"])->name('type.delete');
+Route::put('type/update', [TypeController::class,"update"])->name('type.update');
+
+// size
+Route::get('size', [SizeController::class,"index"])->name('size');
+Route::post('size', [SizeController::class,"store"])->name('size');
+Route::post('size/delete', [SizeController::class,"destroy"])->name('size.delete');
+Route::put('size/update', [SizeController::class,"update"])->name('size.update');

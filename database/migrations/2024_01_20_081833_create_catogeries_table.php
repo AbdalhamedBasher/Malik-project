@@ -13,12 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lines', function (Blueprint $table) {
+        Schema::create('catogeries', function (Blueprint $table) {
             $table->id();
             $table->text("name");
-            $table->text("terms")->nullable();
-            $table->unsignedBigInteger('main_line')->onDelete('cascade')->nullable();
-            $table->foreign('main_line')->references('id')->on('lines')->onDelete('cascade');
+            $table->unsignedBigInteger('main_catogery')->onDelete('cascade')->nullable();
+            $table->foreign('main_catogery')->references('id')->on('catogeries')->onDelete('cascade');
+            $table->unsignedBigInteger('line')->onDelete('cascade')->nullable();
+            $table->foreign('line')->references('id')->on('lines')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lines');
+        Schema::dropIfExists('catogeries');
     }
 };

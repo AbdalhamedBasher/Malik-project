@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pages extends Model
+class type extends Model
 {
     use HasFactory;
-    protected $fillable=['name','path','active'];
+    protected $guarded = [];
 }
