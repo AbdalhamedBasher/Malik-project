@@ -126,7 +126,7 @@
 
                             <div>
 
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
+                                <input class="btn btn-bd-primary" style="" type="submit" value="حفظ">
                             </div>
                         </form>
 
@@ -178,7 +178,7 @@
                             <hr>
                             <div>
 
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
+                                <input class="btn btn-bd-primary" style="" type="submit" value="حفظ">
                             </div>
                         </form>
 

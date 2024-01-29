@@ -79,12 +79,21 @@ class ItemsController extends Controller
      */
     public function update(Request $request)
     {
-$id=$request->id;
-        $item=items::find($id)->update([
-            "name"=>$request->name,
-            "line"=>$request->line,
-            "price"=>$request->price,
-         ]);
+
+            $id=$request->id;
+
+            $item=items::find($id)->update([
+                "name"=>$request->name,
+                "catogery"=>$request->catogery,
+                "price"=>$request->price,
+                "brand"=>$request->brand,
+                "size"=>$request->size,
+                "size_number"=>$request->size_number,
+
+
+             ]);
+
+
 
     if( $item) {
         return  redirect()->back()->with(['message'=>"تم تعديل العنصر بنجاح"]);
@@ -102,6 +111,7 @@ $id=$request->id;
      */
     public function destroy( Request $request)
     {
+
         $item=items::find($request->id)->delete();
         if( $item) {
             return  redirect()->back()->with(['message'=>"تم حذف العنصر بنجاح"]);

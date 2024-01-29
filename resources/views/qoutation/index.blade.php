@@ -15,10 +15,111 @@
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
             <a class="btn" id="icons" style="background-color: #433483a3 ; color:aliceblue">
-                إضافة خدمة جديد
+                إضافة تسعيرة جديد
             </a>
         </div>
     </div>
+    <div class="card mt-1">
+        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+        </div>
+        {{-- quotaion master --}}
+        <div class="card-body">
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">رقم التسعيرة</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputState">المواد</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>-- إختر --</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label for="inputCity">العميل</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">تاريخ التسعيرة</label>
+                        <input type="date" class="form-control" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">العامل</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+
+
+
+
+        </div>
+    </div>
+    <div class="card mt-1">
+        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+        </div>
+
+        <div class="card-body">
+
+
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="inputState">المواد</label>
+                    <select id="inputState" class="form-control">
+                        <option selected>-- إختر --</option>
+                        <option>...</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group col-md-2">
+                    <label for="inputZip">الكمية</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label for="inputZip">المواد المساعدة</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">الدكور -مواد </label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">غير ذلك -مواد </label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">الايادي العاملة</label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">الديكور-ايادي </label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip">غير ذلك-أيادي </label>
+                    <input type="text" class="form-control" id="inputZip">
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip"> &emsp14; </label>
+                    <input type="submit" value="حفظ" class="form-control btn-bd-primary" id="inputZip">
+                </div>
+            </div>
+
+        </div>
+
+        </form>
+    </div>
+
+
     <div class="card mt-1">
         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
@@ -37,16 +138,34 @@
                             </th>
 
                             <th style="text-align: center">
-                                اسم النشاط
+                                اسم المادة
                             </th>
                             <th style="text-align: center">
-                                النشاط الاساسي
+                                الوحدات
                             </th>
                             <th style="text-align: center">
-                                شروط التعاقد
+                                الكمية
                             </th>
+                            <th style="text-align: center">
+                                مج/المواد </th>
+                            <th style="text-align: center">
+                                المواد المساعدة
+                            </th>
+                            <th style="text-align: center">
+                                د/المواد
+                            </th>
+                            <th style="text-align: center">
+                                -غير ذلك المواد
+                            </th>
+                            <th style="text-align: center">
+                                الايادي العاملة</th>
+                            <th style="text-align: center">
+                                الايادي العاملة</th>
+                            <th style="text-align: center">
+                                د/ الايادي </th>
+                            <th style="text-align: center">
+                                غير ذلك- الايادي </th>
 
-                            <th>
                                 &nbsp;
                             </th>
                         </tr>
@@ -57,30 +176,20 @@
                         @php
                             $i = 1;
                         @endphp
-                        @foreach ($line_catogery as $item)
+                        {{-- @foreach ($brands as $item)
                             <tr data-entry-id="">
                                 <td>{{ $i++ }}</td>
                                 <td id="name">{{ $item->name }}</td>
-                                <td id="catogery">
-                                    @isset($item->main_line)
-                                        {{ $item->main_catog->name }}
-                                    @endisset
-                                </td>
 
-                                <td class="terms" id="{{ $item->terms }}">
-                                    @if (is_null($item->main_line))
-                                        <a class="btn m-1 terms" style="background-color: #433483a3 ; color:aliceblue"
-                                            id="{{ $item->terms }}">
-                                            الشروط </a>
-                                    @endif
 
-                                </td>
+                                <td id="name">{{ $item->company }}</td>
+
                                 <td>
 
                                     <span class="d-flex space-x-1">
                                         <a class="btn update m-1" style="background-color: #433483a3 ; color:aliceblue"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->name }}"
-                                            data-catogery="{{ $item->main_line }}">
+                                            data-id="{{ $item->id }}" data-name="{{ $item->name }}"  data-company="{{ $item->company }}"
+                                         ">
                                             تعديل </a>
 
                                         <button type="submit" class="btn btn-danger m-1 delete"
@@ -90,7 +199,7 @@
 
                                 </td>
                             </tr>
-                        @endforeach
+                        @endforeach --}}
 
 
 
@@ -102,6 +211,51 @@
 
         </div>
     </div>
+    <div class="card mt-1">
+        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+        </div>
+
+        <div class="card-body">
+
+
+
+              <div class="form-row">
+
+
+
+
+
+                <div class="form-group col-md-2">
+                  <label for="inputZip"> مجموع المواد المساعدة</label>
+                  <input type="text" class="form-control" id="inputZip" disabled>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="inputZip"> مجموع الايادي العاملة</label>
+                    <input type="text" class="form-control" id="inputZip" disabled>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputZip">مجموع الموادالمساعدة/الايادي </label>
+                    <input type="text" class="form-control" id="inputZip" disabled>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputZip">التوقع للمواد </label>
+                    <input type="text" class="form-control" id="inputZip" disabled>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputZip">ت/الايادي العاملة</label>
+                    <input type="text" class="form-control" id="inputZip" disabled>
+                  </div>
+                  <div class="form-group col-md-2">
+                    <label for="inputZip">المجموع </label>
+                    <input type="text" class="form-control" id="inputZip" disabled>
+                  </div>
+
+              </div>
+
+        </div>
+
+    </form>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -112,7 +266,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('lines') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('brand') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                                 <label for="name">اﻹسم*</label>
@@ -127,36 +281,10 @@
                                     {{ trans('cruds.user.fields.name_helper') }}
                                 </p>
                             </div>
-                            <div class="form-group {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                <label for="line_catogery">الخدمة الاساسية</label>
-                                <select class="form-control" id="exampleFormControlSelect1 main_catog" name="line_catogery">
-                                    <option selected value="">-- إختر --</option>
-                                    @foreach ($line_catogery as $items)
-                                        <option value="{{ $items->id }}">{{ $items->name }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('main_line'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('main_line') }}
-                                    </em>
-                                @endif
-                            </div>
-
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
-                                style="border-radius: 50%;border:1px">
-                                <span style="border-radius: 3rem">
-                                </span>
-                            </div>
-
-                            <hr>
-
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="name">شروط التعاقد</label>
-
-                                <textarea name="terms" id="" class="form-control" cols="30" rows="10" value="{{ old('terms') }}"></textarea>
-
-
+                                <label for="name">الشركة المصنعة*</label>
+                                <input type="text" id="company" name="company" class="form-control"
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
                                 @if ($errors->has('name'))
                                     <em class="invalid-feedback">
                                         {{ $errors->first('name') }}
@@ -166,6 +294,16 @@
                                     {{ trans('cruds.user.fields.name_helper') }}
                                 </p>
                             </div>
+
+
+                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
+                                style="border-radius: 50%;border:1px">
+                                <span style="border-radius: 3rem">
+                                </span>
+                            </div>
+
+                            <hr>
+
                             <div>
 
                                 <input class="btn btn-primary" style="" type="submit" value="حفظ">
@@ -190,7 +328,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ url('lines/update') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('brand/update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
@@ -209,21 +347,21 @@
                                     {{ trans('cruds.user.fields.name_helper') }}
                                 </p>
                             </div>
+                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
+                                <input type="hidden" id="id" name="id" class="form-control"
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
 
-                            <div class="form-group {{ $errors->has('main_line') ? 'has-error' : '' }}">
-                                <label for="main_line">الخدمة الاساسية</label>
-                                <select class="form-control" id="exampleFormControlSelect1 catogery" name="main_line">
-                                    <option selected value="">-- إختر --</option>
-                                    @foreach ($line_catogery as $items)
-                                        <option value="{{ $items->id }}">{{ $items->name }}</option>
-                                    @endforeach
-                                </select>
-
-                                @if ($errors->has('main_line'))
+                                <label for="name">الشركة الصنعة*</label>
+                                <input type="text" id="company" name="company" class="form-control"
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                @if ($errors->has('name'))
                                     <em class="invalid-feedback">
-                                        {{ $errors->first('main_line') }}
+                                        {{ $errors->first('name') }}
                                     </em>
                                 @endif
+                                <p class="helper-block">
+                                    {{ trans('cruds.user.fields.name_helper') }}
+                                </p>
                             </div>
 
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
@@ -234,7 +372,7 @@
                             <hr>
                             <div>
 
-                                <input class="btn btn-bd-primary" style="" type="submit" value="حفظ">
+                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
                             </div>
                         </form>
 
@@ -258,42 +396,42 @@
 
                     <div class="card-body">
 
-                            <P class="text-bold">
-                                هل تريد مسح الخدمة؟
-                            </P>
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
+                        <P class="text-bold">
+                            هل تريد مسح الخدمة؟
+                        </P>
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
 
 
 
-                                <input type="text" id="name" name="name" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" disabled>
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
+                            <input type="text" id="name" name="name" class="form-control"
+                                value="{{ old('name', isset($user) ? $user->name : '') }}" disabled>
+                            @if ($errors->has('name'))
+                                <em class="invalid-feedback">
+                                    {{ $errors->first('name') }}
+                                </em>
+                            @endif
+                            <p class="helper-block">
+                                {{ trans('cruds.user.fields.name_helper') }}
+                            </p>
+                        </div>
 
 
 
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
-                                style="border-radius: 50%;border:1px">
-                                <span style="border-radius: 3rem">
-                                </span>
-                            </div>
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
+                            style="border-radius: 50%;border:1px">
+                            <span style="border-radius: 3rem">
+                            </span>
+                        </div>
 
 
-                            <div class="d-flex">
-                                <form action="{{ url('lines/delete') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="hidden" id="id" name="id" class="form-control"
+                        <div class="d-flex">
+                            <form action="{{ url('brand/delete') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" id="id" name="id" class="form-control"
                                     value="{{ old('name', isset($user) ? $user->name : '') }}" required>
                                 <input class="btn btn-danger b-a-1" style="" type="submit" value="مسح">
-                                </form>
-                            </div>
+                            </form>
+                        </div>
 
                     </div>
 
@@ -308,54 +446,6 @@
 
     </div>
 
-    </div>
-
-
-
-
-
-
-    <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
-
-                    </div>
-
-                    <div class="card-body">
-                        <form action="{{ route('lines') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-
-
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="name">شروط التعاقد</label>
-
-                                <textarea name="terms" id="terms" class="form-control" cols="30" rows="10"
-                                    value="{{ old('terms') }}"></textarea>
-
-
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-                            <div>
-
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                            </div>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 @section('scripts')
@@ -447,7 +537,7 @@
                 $('#updateModal #id').val($(this).data('id'))
                 $('#updateModal #name').val($(this).data('name'))
 
-                $('#updateModal select').val($(this).data('catogery'))
+                $('#updateModal #company').val($(this).data('company'))
                 console.log($('#updateModal select').val());
 
                 // $('#updateModal #id').val(this.parent().find('#name'))

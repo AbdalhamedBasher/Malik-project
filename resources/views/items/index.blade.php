@@ -73,21 +73,21 @@
                             <tr data-entry-id="{{$item->id}}" id="{{$item->id}}">
                                 <td>{{ $i++ }}</td>
                                 <td id="name">{{ $item->name }}</td>
-                                <td id="name">{{ $item->price }}</td>
-                                <td id="line">
+                                <td id="price">{{ $item->price }}</td>
+                                <td id="{{$item->catogery}}">
                                     {{ isset($item->catogery) ? $item->catogery_data->name : '' }}
                                 </td>
                                 <td class="catogery" id="{{$item->catogery}}">
                                     {{ isset($item->catogery) ? $item->catogery_data->lines->name : '' }}
                                 </td>
-                                <td id="brand">
+                                <td class="brand" id="{{$item->brand}}">
                                     {{ is_null($item->brand) ? '':$item->brand_data->name  }}
                                 </td>
-                                <td id="type">
+                                <td class="type" id="{{$item->type}}">
                                     {{ is_null($item->type) ?"": $item->type_data->name  }}
                                 </td>
-                                <td id="size">
-                                    {{($item->size_number)}}{{ isset($item->size) ? $item->size_data->name : '' }}
+                                <td class="size" id="{{$item->size}}">
+                                   <span class="size_number"  {{($item->size_number)}}> {{($item->size_number)}}</span>{{ isset($item->size) ? $item->size_data->name : '' }}
                                 </td>
 
 
@@ -302,11 +302,12 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('item') }}" method="POST"   class="form-inlineform-row" enctype="multipart/form-data">
+                        <form action="{{ route('item.update') }}" method="post"   class="form-inlineform-row" enctype="multipart/form-data">
                             @csrf
 @method("PUT")
                                 <div class="form-group">
                                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                                    <input type="hidden" name="id" id="id">
                                     <label for="name">اﻹسم*</label>
                                     <input type="text" id="name" name="name" class="form-control"
                                         value="{{ old('name', isset($user) ? $user->name : '') }}" required>
@@ -385,11 +386,11 @@
 
 
                                 </div>
-                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }} px-3 px-5">
                                     <label for="line_catogery" class="m-1">المقاس</label>
                                     <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
                                         <div class="form-row">
-                                        <input type="text" id="size_number" name="size_number" class="form-control col-8"
+                                        <input type="text" id="size_number" name="size_number" class="form-control col-8 size_number"
                                             value="{{ old('price') }}" required>
                                         @if ($errors->has('price'))
                                             <em class="invalid-feedback">
@@ -421,7 +422,7 @@
                                     <label for="line_catogery">الماركة</label>
 
 
-                                    <select class="form-control" id="exampleFormControlSelect1 brand"
+                                    <select class="form-control brand" id="exampleFormControlSelect1 brand"
                                         name="brand">
                                         <option selected value="">-- إختر --</option>
                                         @foreach ($brand as $item)
@@ -526,48 +527,6 @@
 
 
 
-    <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
-
-                    </div>
-
-                    <div class="card-body">
-                        <form action="{{ route('lines') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-
-
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="name">شروط التعاقد</label>
-
-                                <textarea name="terms" id="terms" class="form-control" cols="30" rows="10"
-                                    value="{{ old('terms') }}"></textarea>
-
-
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-                            <div>
-
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                            </div>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 @section('scripts')
     @parent
@@ -657,17 +616,20 @@
 
                 $('#updateModal').modal('show');
                 $('#updateModal #id').val($(this).data('id'))
+                $('#updateModal #price').val($(this).data('price'))
                 $('#updateModal #name').val($(this).data('name'))
-                $('#updateModal #price').val($('#'+$(this).data('id')+'>.catogery').attr("id"))
+                $('#updateModal .catogery').val($('#'+$(this).data('id')+'>.catogery').attr("id"))
+                $('#updateModal .type').val($('#'+$(this).data('id')+'>.type').attr("id"))
+                $('#updateModal .size').val($('#'+$(this).data('id')+'>.size').attr("id"))
+                $('#updateModal .brand').val($('#'+$(this).data('id')+'>.brand').attr("id"))
+                $('#updateModal .size_number').val($('#'+$(this).data('id')+'>.size span').html())
+console.log($('#'+$(this).data('id')+'>.size span').html());
 
-                $('#updateModal form select .catogery').val(1).change()
-console.log(  $('#updateModal form .catogery').val(1));
-
-                // $('#updateModal form #exampleFormControlSelect1 #brand').val(1).change()
-                // $('#updateModal form #exampleFormControlSelect1 #type').val(1).change()
+                $('#updateModal form #exampleFormControlSelect1 .brand').val('brand').change()
+                $('#updateModal form #exampleFormControlSelect1 .type').val('type').change()
                 // console.log($(this).data('type'));
-                // $('#updateModal form #exampleFormControlSelect1 #size').val($(this).data('size')).change()
-                // $('#updateModal form #exampleFormControlSelect1 #size_number').val($(this).data('size_number')).change()
+                $('#updateModal form #exampleFormControlSelect1 .size').val($(this).data('size')).change()
+                $('#updateModal form #exampleFormControlSelect1 .size_number').val($(this).data('size_number')).change()
 
                 // $('#updateModal #id').val(this.parent().find('#name'))
                 // console.log($(this).parent().parent().find('td #name').val());

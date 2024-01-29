@@ -7,6 +7,7 @@ use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\PagesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +20,7 @@ use App\Http\Controllers\SizeController;
 */
 
 Route::get('/', function () {
-    return view('admin.home');
+    return redirect()->to("lines");
 
 });
 
@@ -40,7 +41,7 @@ Route::put('lines/store', [LineController::class,"store"])->name('lines.store');
 Route::get('item', [ItemsController::class,"index"])->name('item');
 Route::post('item', [ItemsController::class,"store"])->name('item');
 Route::post('item/delete', [ItemsController::class,"destroy"])->name('item.delete');
-Route::put('item/update', [ItemsController::class,"update"])->name('item.update');
+Route::post('item/update', [ItemsController::class,"update"])->name('item.update');
 
 // catogery route
 Route::get('catogery', [CatogeryController::class,"index"])->name('catogery');
@@ -65,4 +66,11 @@ Route::put('type/update', [TypeController::class,"update"])->name('type.update')
 Route::get('size', [SizeController::class,"index"])->name('size');
 Route::post('size', [SizeController::class,"store"])->name('size');
 Route::post('size/delete', [SizeController::class,"destroy"])->name('size.delete');
-Route::put('size/update', [SizeController::class,"update"])->name('size.update');
+Route::POST('size/update', [SizeController::class,"update"])->name('size.update');
+
+
+
+// quotation
+Route::get('qoutation/{id?}', function ($id) {
+    return view('qoutation.index');
+});
