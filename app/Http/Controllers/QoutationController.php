@@ -48,7 +48,7 @@ class QoutationController extends Controller
      */
     public function store(Request $request)
     {
-
+     $qout_line=[];
        $qoute=qoutation::create([
 
         "customer_name" => $request->customer_name,
@@ -60,7 +60,7 @@ class QoutationController extends Controller
 
 
        for ($i=0; $i <sizeof($request->item) ; $i++) {
-        $qoute->qoute_lines()->create([
+        $qout_line[$i]=   $qoute->qoute_lines()->create([
             'item'=>$request->item[$i],
             'qty'=>$request->qty[$i],
 
@@ -75,7 +75,14 @@ class QoutationController extends Controller
 
 
             ]);
+
        }
+       if (sizeof($qout_line)) {
+      return redirect()->route('lines',$request->line_id)->with(['message'=>'تم حفظ التسعيرة']);
+       } else {
+      return redirect()->back()->with(["error"=>'هناك خطا']);
+       }
+
 
     }
 
