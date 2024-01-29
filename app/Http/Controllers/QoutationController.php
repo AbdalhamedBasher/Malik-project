@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\qoutation;
+use App\Models\line;
 use Illuminate\Http\Request;
 
 class QoutationController extends Controller
@@ -12,20 +13,20 @@ class QoutationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($line)
     {
-        //
+      $qoute=qoutation::where(['line'=>$line])->get();
+    $qoute_id=qoutation::get()->count();
+    if(line::find($line)){
+      $line_name=line::find($line)->name;
+      return view('qoutation.index')->with(['line'=>$line_name,'qoute'=>$qoute,'qoute_id'=>$qoute_id+1]);
+    }
+    else {
+        return redirect()->route("lines")->with('error', 'لايوجد نشاط بهذا الاسم');
+    }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.

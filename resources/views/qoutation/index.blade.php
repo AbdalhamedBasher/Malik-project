@@ -12,13 +12,7 @@
 
     </div>
 
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn" id="icons" style="background-color: #433483a3 ; color:aliceblue">
-                إضافة تسعيرة جديد
-            </a>
-        </div>
-    </div>
+
     <div class="card mt-1">
         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
@@ -27,33 +21,29 @@
         <div class="card-body">
             <form>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">رقم التسعيرة</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputState">المواد</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>-- إختر --</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-row">
                     <div class="form-group col-md-8">
                         <label for="inputCity">العميل</label>
                         <input type="text" class="form-control" id="inputCity">
                     </div>
-                    <div class="form-group col-md-2">
+                    <div class="form-group col-md-4">
                         <label for="inputZip">تاريخ التسعيرة</label>
                         <input type="date" class="form-control" id="inputZip">
                     </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">رقم التسعيرة</label>
+                        <input type="text" class="form-control" id="inputCity" value="{{ $qoute_id }}" readonly>
+                    </div>
                     <div class="form-group col-md-2">
-                        <label for="inputZip">العامل</label>
-                        <input type="text" class="form-control" id="inputZip">
+                        <label for="inputZip"> &emsp14; </label>
+                        <input type="submit" value="أضافة نشاط" class="form-control btn-bd-primary new_line"
+                            id="inputZip">
                     </div>
                 </div>
+
+
 
 
 
@@ -66,54 +56,72 @@
         </div>
 
         <div class="card-body">
+            <div class="line_form">
+                <div class="details">
+                    <div class="form-row ">
+
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">العامل</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputState">النشاط</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>-- إختر --</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row mt-3">
+                        <div class="form-group col-md-4">
+                            <label for="inputState">المواد</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>-- إختر --</option>
+                                <option>...</option>
+                            </select>
+                        </div>
 
 
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الكمية</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="inputState">المواد</label>
-                    <select id="inputState" class="form-control">
-                        <option selected>-- إختر --</option>
-                        <option>...</option>
-                    </select>
-                </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">المواد المساعدة</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الدكور -مواد </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">غير ذلك -مواد </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الايادي العاملة</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الديكور-ايادي </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">غير ذلك-أيادي </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip"> &emsp14; </label>
+                            <input type="submit" value=""
+                                class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
+                        </div>
+                    </div>
 
-
-                <div class="form-group col-md-2">
-                    <label for="inputZip">الكمية</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-
-                <div class="form-group col-md-2">
-                    <label for="inputZip">المواد المساعدة</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">الدكور -مواد </label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">غير ذلك -مواد </label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">الايادي العاملة</label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">الديكور-ايادي </label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">غير ذلك-أيادي </label>
-                    <input type="text" class="form-control" id="inputZip">
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip"> &emsp14; </label>
-                    <input type="submit" value="حفظ" class="form-control btn-bd-primary" id="inputZip">
                 </div>
             </div>
-
         </div>
 
         </form>
@@ -166,7 +174,7 @@
                             <th style="text-align: center">
                                 غير ذلك- الايادي </th>
 
-                                &nbsp;
+                            &nbsp;
                             </th>
                         </tr>
                     </thead>
@@ -220,102 +228,102 @@
 
 
 
-              <div class="form-row">
+            <div class="form-row">
 
 
 
 
 
                 <div class="form-group col-md-2">
-                  <label for="inputZip"> مجموع المواد المساعدة</label>
-                  <input type="text" class="form-control" id="inputZip" disabled>
+                    <label for="inputZip"> مجموع المواد المساعدة</label>
+                    <input type="text" class="form-control" id="inputZip" readonly>
                 </div>
                 <div class="form-group col-md-2">
                     <label for="inputZip"> مجموع الايادي العاملة</label>
-                    <input type="text" class="form-control" id="inputZip" disabled>
-                  </div>
-                  <div class="form-group col-md-2">
+                    <input type="text" class="form-control" id="inputZip" readonly>
+                </div>
+                <div class="form-group col-md-2">
                     <label for="inputZip">مجموع الموادالمساعدة/الايادي </label>
-                    <input type="text" class="form-control" id="inputZip" disabled>
-                  </div>
-                  <div class="form-group col-md-2">
+                    <input type="text" class="form-control" id="inputZip" readonly>
+                </div>
+                <div class="form-group col-md-2">
                     <label for="inputZip">التوقع للمواد </label>
-                    <input type="text" class="form-control" id="inputZip" disabled>
-                  </div>
-                  <div class="form-group col-md-2">
+                    <input type="text" class="form-control" id="inputZip" readonly>
+                </div>
+                <div class="form-group col-md-2">
                     <label for="inputZip">ت/الايادي العاملة</label>
-                    <input type="text" class="form-control" id="inputZip" disabled>
-                  </div>
-                  <div class="form-group col-md-2">
+                    <input type="text" class="form-control" id="inputZip" readonly>
+                </div>
+                <div class="form-group col-md-2">
                     <label for="inputZip">المجموع </label>
-                    <input type="text" class="form-control" id="inputZip" disabled>
-                  </div>
+                    <input type="text" class="form-control" id="inputZip" readonly>
+                </div>
 
-              </div>
+            </div>
 
         </div>
 
-    </form>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
+        </form>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                    </div>
+                        </div>
 
-                    <div class="card-body">
-                        <form action="{{ route('brand') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="name">اﻹسم*</label>
-                                <input type="text" id="name" name="name" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                <label for="name">الشركة المصنعة*</label>
-                                <input type="text" id="company" name="company" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-
-
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
-                                style="border-radius: 50%;border:1px">
-                                <span style="border-radius: 3rem">
-                                </span>
-                            </div>
-
-                            <hr>
-
-                            <div>
-
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                            </div>
-                        </form>
+                        <div class="card-body">
+                            <form action="{{ route('brand') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                                    <label for="name">اﻹسم*</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    @if ($errors->has('name'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('name') }}
+                                        </em>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('cruds.user.fields.name_helper') }}
+                                    </p>
+                                </div>
+                                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                                    <label for="name">الشركة المصنعة*</label>
+                                    <input type="text" id="company" name="company" class="form-control"
+                                        value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    @if ($errors->has('name'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('name') }}
+                                        </em>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('cruds.user.fields.name_helper') }}
+                                    </p>
+                                </div>
 
 
+                                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
+                                    style="border-radius: 50%;border:1px">
+                                    <span style="border-radius: 3rem">
+                                    </span>
+                                </div>
+
+                                <hr>
+
+                                <div>
+
+                                    <input class="btn btn-primary" style="" type="submit" value="حفظ">
+                                </div>
+                            </form>
+
+
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     {{-- modal for terms --}}
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -509,55 +517,77 @@
         })
         $(document).ready(function() {
 
+console.log("trur");
+// /
+        $(".new_line").click(function(e) {
+            e.preventDefault();
+console.log("true");
 
-            $("#icons").click(function(e) {
+            $(".line_form").append(`      <div class="details">
+                    <div class="form-row ">
 
-                $('#exampleModal').modal('show');
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">العامل</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputState">النشاط</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>-- إختر --</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-row mt-3">
+                        <div class="form-group col-md-4">
+                            <label for="inputState">المواد</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>-- إختر --</option>
+                                <option>...</option>
+                            </select>
+                        </div>
 
 
-            })
-            $("#icons").click(function(e) {
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الكمية</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
 
-                $('#exampleModal').modal('show');
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">المواد المساعدة</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الدكور -مواد </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">غير ذلك -مواد </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الايادي العاملة</label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">الديكور-ايادي </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip">غير ذلك-أيادي </label>
+                            <input type="text" class="form-control" id="inputZip">
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="inputZip"> &emsp14; </label>
+                            <input type="submit" value=""
+                                class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
+                        </div>
+                    </div>
 
+                </div>`);
 
-            })
-            $(".terms").click(function(e) {
-
-                $('#termsModal').modal('show');
-                $('#termsModal #terms').val(this.id)
-
-
-            })
-
-
-            $(".update").click(function(e) {
-
-                $('#updateModal').modal('show');
-                $('#updateModal #id').val($(this).data('id'))
-                $('#updateModal #name').val($(this).data('name'))
-
-                $('#updateModal #company').val($(this).data('company'))
-                console.log($('#updateModal select').val());
-
-                // $('#updateModal #id').val(this.parent().find('#name'))
-                // console.log($(this).parent().parent().find('td #name').val());
-
-            })
-            $(".icons_modal").click(function(e) {
-                e.preventDefault
-
-                $("#icon_name").val(this.id);
-
-                // console.log( $("#icons_modal").find('.fa')[0].attr('id'));
-            })
-        });
-
-        $(".delete").click(function(e) {
-
-            $('#deleteModal').modal('show');
-            $('#deleteModal #id').val($(this).data('id'))
-            $('#deleteModal #name').val($(this).data('name'))
 
 
 
@@ -565,6 +595,22 @@
             // console.log($(this).parent().parent().find('td #name').val());
 
         })
+        // $(".remove_line").click(function(e) {
+        //     e.preventDefault();
+        //     $(this).parent().parent().remove()
+        //     console.log()
+
+
+        //     // $('#updateModal #id').val(this.parent().find('#name'))
+        //     // console.log($(this).parent().parent().find('td #name').val());
+
+        // })
+        // function remove_details(e) {
+        //     e.preventDefault();
+        //     $(this).parent().remove()
+        //     console.log( $(this).parent().html(()))
+        // }
+    });
     </script>
 @endsection
 

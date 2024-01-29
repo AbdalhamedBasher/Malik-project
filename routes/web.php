@@ -8,6 +8,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\QoutationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,6 +72,9 @@ Route::POST('size/update', [SizeController::class,"update"])->name('size.update'
 
 
 // quotation
-Route::get('qoutation/{id?}', function ($id) {
-    return view('qoutation.index');
-});
+Route::get('quote/create', [QoutationController::class,"create"]);
+Route::get('quote/{line?}', [QoutationController::class,"index"])->name('quote');
+Route::post('quote', [QoutationController::class,"store"])->name('quote');
+Route::post('quote/delete', [QoutationController::class,"destroy"])->name('quote.delete');
+Route::put('quotation/update', [QoutationController::class,"update"])->name('quotation.update');
+Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');

@@ -24,7 +24,7 @@ class QoutationLineController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

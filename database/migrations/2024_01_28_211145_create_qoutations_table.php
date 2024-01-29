@@ -18,6 +18,8 @@ return new class extends Migration
             $table->date("qoutation_date");
             $table->string("customer_name");
             $table->unsignedDouble("rate");
+            $table->unsignedBigInteger('line')->onDelete('cascade')->nullable();
+            $table->foreign('line')->references('id')->on('lines')->onDelete('cascade');
             $table->timestamps();
         });
     }
