@@ -29,4 +29,8 @@ class items extends Model
     {
         return $this->belongsTo(type::class, 'type', 'id');
     }
+    public function qoute_line()
+    {
+        return $this->belongsTo(qoutation::class,'id','qoute');
+    }
 }

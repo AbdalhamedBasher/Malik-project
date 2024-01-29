@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form action="{{ route('catogery') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ url('catogery') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                                 <label for="name">اﻹسم*</label>

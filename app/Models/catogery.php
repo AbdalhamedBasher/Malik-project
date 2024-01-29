@@ -16,7 +16,7 @@ class catogery extends Model
     }
     public function child()
     {
-        return $this->hasMany(line::class, 'id', 'catogery');
+        return $this->hasMany( catogery::class, 'id', 'catogery');
     }
     public function lines()
     {

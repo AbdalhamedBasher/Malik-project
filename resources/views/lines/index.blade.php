@@ -36,7 +36,7 @@
                                 @endforeach
 
                                 <div class="col-lg-2 col-sm-6 grid-column py-3">
-                                    <a href="{{isset($master)?url('qoutation/'.$master):''}}" class="" {{isset($master)?'#':''}}>
+                                    <a href="{{isset($master)?url('quote/'.$master):''}}" class="" {{isset($master)?'#':''}}>
                                         <div
                                             class="grid-item border p-4 rounded-xl text-center position-relative shadow-xl hover:shadow-lg">
                                             <i class="fa fas fa fa-file-text-o fa-2x pb-2" style="

@@ -19,28 +19,26 @@
         </div>
         {{-- quotaion master --}}
         <div class="card-body">
-            <form>
+            <form  method="POST" action="{{route('quote')}}"   >
+                @csrf
                 <div class="form-row">
                     <div class="form-group col-md-8">
                         <label for="inputCity">العميل</label>
-                        <input type="text" class="form-control" id="inputCity">
+                        <input type="text" class="form-control" name="customer_name" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">رقم التسعيرة</label>
+                        <input type="text" class="form-control" id="inputCity"  value="Q.{{$qoute_id->id}}" name="qouation_number"  readonly>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputZip">تاريخ التسعيرة</label>
-                        <input type="date" class="form-control" id="inputZip">
+                        <input type="date" class="form-control" name="quotation_date" id="inputZip">
                     </div>
                 </div>
                 <div class="form-row">
 
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">رقم التسعيرة</label>
-                        <input type="text" class="form-control" id="inputCity" value="{{ $qoute_id }}" readonly>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip"> &emsp14; </label>
-                        <input type="submit" value="أضافة نشاط" class="form-control btn-bd-primary new_line"
-                            id="inputZip">
-                    </div>
+
+
                 </div>
 
 
@@ -50,68 +48,79 @@
 
         </div>
     </div>
-    <div class="card mt-1">
+    <div class="card mt-1 card-detail">
         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
         </div>
 
         <div class="card-body">
             <div class="line_form">
-                <div class="details">
-                    <div class="form-row ">
-
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">العامل</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputState">النشاط</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>-- إختر --</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-
+                <div class="form-row">
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">النشاط</label>
+                        <input type="text" class="form-control" value="{{ $line->name}}" readonly id="inputZip">
+                        <input type="hidden" name="line_id" value="{{ $line->id}}">
                     </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">العامل</label>
+                        <input type="text" class="form-control" name="factor" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip"> &emsp14; </label>
+                        <input type="submit" value="أضافة مادة" class="form-control btn-bd-primary new_product"
+                            id="inputZip">
+                    </div>
+
+                </div>
+                <div class="details">
+
 
                     <div class="form-row mt-3">
                         <div class="form-group col-md-4">
                             <label for="inputState">المواد</label>
-                            <select id="inputState" class="form-control">
+                            <select id="inputState" name="item[]" class="form-control">
                                 <option selected>-- إختر --</option>
-                                <option>...</option>
+                                <option value="new"  class="new_item">-- مادة جديدة --</option>
+@foreach ($items as $item )
+<option value="{{$item->id}}">{{$item->name.' '.$item->brand.' '.$item->type.' '.$item->size_number.''.$item->size.' '.$item->price}}</option>
+
+
+
+@endforeach
+
+
                             </select>
                         </div>
 
 
                         <div class="form-group col-md-2">
                             <label for="inputZip">الكمية</label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control" name="qty[]" id="inputZip">
                         </div>
 
                         <div class="form-group col-md-2">
                             <label for="inputZip">المواد المساعدة</label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control" name="material[]" id="inputZip">
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputZip">الدكور -مواد </label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <label for="inputZip">الديكور -مواد </label>
+                            <input type="text" class="form-control" name="material_acc[]" id="inputZip">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">غير ذلك -مواد </label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control" name="material_other[]" id="inputZip">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">الايادي العاملة</label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control" name="labour[]" id="inputZip">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">الديكور-ايادي </label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control"  name="labour_acc[]" id="inputZip">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip">غير ذلك-أيادي </label>
-                            <input type="text" class="form-control" id="inputZip">
+                            <input type="text" class="form-control" name="labour_other[]" id="inputZip">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputZip"> &emsp14; </label>
@@ -123,7 +132,11 @@
                 </div>
             </div>
         </div>
-
+        <div class="form-group col-md-2 justify-center">
+            <label for="inputZip"> &emsp14; </label>
+            <input type="submit" value="حفظ" class="form-control btn-bd-primary"
+                id="inputZip">
+        </div>
         </form>
     </div>
 
@@ -265,17 +278,19 @@
 
         </form>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="card">
-                        <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                        </div>
+                    </div>
 
-                        <div class="card-body">
-                            <form action="{{ route('brand') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                    <div class="card-body">
+                        <form action="{{ route('item') }}" method="POST"   class="form-inlineform-row" enctype="multipart/form-data">
+                            @csrf
+
+                                <div class="form-group">
                                 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                                     <label for="name">اﻹسم*</label>
                                     <input type="text" id="name" name="name" class="form-control"
@@ -289,41 +304,142 @@
                                         {{ trans('cruds.user.fields.name_helper') }}
                                     </p>
                                 </div>
-                                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                    <label for="name">الشركة المصنعة*</label>
-                                    <input type="text" id="company" name="company" class="form-control"
-                                        value="{{ old('name', isset($user) ? $user->name : '') }}" required>
-                                    @if ($errors->has('name'))
+                                <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
+                                    <label for="price">السعر*</label>
+                                    <input type="text" id="price" name="price" class="form-control"
+                                        value="{{ old('price') }}" required  onkeypress="return
+                                        onlyNumberKey(event)">
+                                    @if ($errors->has('price'))
                                         <em class="invalid-feedback">
-                                            {{ $errors->first('name') }}
+                                            {{ $errors->first('price') }}
                                         </em>
                                     @endif
-                                    <p class="helper-block">
-                                        {{ trans('cruds.user.fields.name_helper') }}
-                                    </p>
+
                                 </div>
 
 
-                                <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
+                                <div class=" {{ $errors->has('price') ? 'has-error' : '' }}"
                                     style="border-radius: 50%;border:1px">
                                     <span style="border-radius: 3rem">
                                     </span>
                                 </div>
 
+                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                    <label for="line_catogery">التصنيف</label>
+
+
+                                    <select class="form-control" id="exampleFormControlSelect1 main_catog"
+                                        name="catogery">
+                                        <option selected value="">-- إختر --</option>
+                                        @foreach ($catogery as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+
+                                </div>
+
+
+                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                    <label for="line_catogery">النوع</label>
+
+
+                                    <select class="form-control" id="exampleFormControlSelect1 main_catog"
+                                        name="type">
+                                        <option selected value="">-- إختر --</option>
+                                        @foreach ($type as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+
+                                </div>
+                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                    <label for="line_catogery" class="m-1">المقاس</label>
+                                    <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
+                                        <div class="form-row">
+                                        <input type="text" id="price" name="size_number" class="form-control col-8"
+                                            value="{{ old('price') }}" required>
+                                        @if ($errors->has('price'))
+                                            <em class="invalid-feedback">
+                                                {{ $errors->first('price') }}
+                                            </em>
+                                        @endif
+                                        <select class="form-control col-4" id="exampleFormControlSelect1 main_catog"
+                                        name="size">
+                                        <option selected value="">-- إختر --</option>
+                                        @foreach ($size as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    </div>
+
+
+                                </div>
+                                </div>
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+
+                                </div>
+                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                    <label for="line_catogery">الماركة</label>
+
+
+                                    <select class="form-control" id="exampleFormControlSelect1 main_catog"
+                                        name="brand">
+                                        <option selected value="">-- إختر --</option>
+                                        @foreach ($brand as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+
+                                </div>
+
                                 <hr>
 
-                                <div>
-
-                                    <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                                </div>
-                            </form>
-
-
                         </div>
+                            <div>
+
+                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
+                            </div>
+                        </form>
+
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     {{-- modal for terms --}}
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -517,100 +633,201 @@
         })
         $(document).ready(function() {
 
-console.log("trur");
-// /
-        $(".new_line").click(function(e) {
-            e.preventDefault();
-console.log("true");
+            // /
 
-            $(".line_form").append(`      <div class="details">
-                    <div class="form-row ">
-
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">العامل</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputState">النشاط</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>-- إختر --</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div class="form-row mt-3">
-                        <div class="form-group col-md-4">
-                            <label for="inputState">المواد</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>-- إختر --</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الكمية</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">المواد المساعدة</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الدكور -مواد </label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">غير ذلك -مواد </label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الايادي العاملة</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الديكور-ايادي </label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">غير ذلك-أيادي </label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip"> &emsp14; </label>
-                            <input type="submit" value=""
-                                class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
-                        </div>
-                    </div>
-
-                </div>`);
+$('.new_item').click(function () {
+    $('#exampleModal').modal('show');
+})
 
 
 
+            $(".new_product").click(function(e) {
+                e.preventDefault();
+                $(".details").append(`
+                        <div class="form-row mt-3">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputState">المواد</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected>-- إختر --</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
 
+
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الكمية</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">المواد المساعدة</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الدكور -مواد </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">غير ذلك -مواد </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الايادي العاملة</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الديكور-ايادي </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">غير ذلك-أيادي </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="submit" value=""
+                                            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
+                                    </div>
+                                </div>
+                        `).ready(function() {
+                    $(".remove_line").click(function(e) {
+                        e.preventDefault();
+                        console.log("true");
+                        console.log($(this).parent().parent().remove())
+
+                    })
+
+                })
+
+                e.preventDefault();
+                $(".remove_line").click(function(e) {
+                    e.preventDefault();
+                    console.log("true");
+                    console.log($(this).parent().parent().remove())
+
+                })
+
+            });
+            $(".remove_line").click(function(e) {
+                e.preventDefault();
+
+                console.log($(this).parent().parent().remove())
+
+            })
+            // new procut outside the appends
+            $(".new_product").click(function(e) {
+                e.preventDefault();
+                $(".details").append(`<div class="form-row mt-3 p-1">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputState">المواد</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected>-- إختر --</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الكمية</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">المواد المساعدة</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الدكور -مواد </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">غير ذلك -مواد </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الايادي العاملة</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الديكور-ايادي </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">غير ذلك-أيادي </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="submit" value=""
+                                            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
+                                    </div>
+                                </div>
+                        `).ready(function () {
+                            e.preventDefault();
+                $(".remove_line").click(function(e) {
+                    e.preventDefault();
+                    console.log("true");
+                    console.log($(this).parent().parent().remove())
+
+                })
+                        })
+            })
             // $('#updateModal #id').val(this.parent().find('#name'))
             // console.log($(this).parent().parent().find('td #name').val());
+            /*
+                                    <div class="form-row mt-3">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputState">المواد</label>
+                                        <select id="inputState" class="form-control">
+                                            <option selected>-- إختر --</option>
+                                            <option>...</option>
+                                        </select>
+                                    </div>
 
-        })
-        // $(".remove_line").click(function(e) {
-        //     e.preventDefault();
-        //     $(this).parent().parent().remove()
-        //     console.log()
+
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الكمية</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">المواد المساعدة</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الدكور -مواد </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">غير ذلك -مواد </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الايادي العاملة</label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">الديكور-ايادي </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip">غير ذلك-أيادي </label>
+                                        <input type="text" class="form-control" id="inputZip">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="submit" value=""
+                                            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
+                                    </div>
+                                </div>
 
 
-        //     // $('#updateModal #id').val(this.parent().find('#name'))
-        //     // console.log($(this).parent().parent().find('td #name').val());
 
-        // })
-        // function remove_details(e) {
-        //     e.preventDefault();
-        //     $(this).parent().remove()
-        //     console.log( $(this).parent().html(()))
-        // }
-    });
+
+
+            */
+            // })
+
+
+        });
     </script>
 @endsection
 

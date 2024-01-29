@@ -623,7 +623,7 @@
                 $('#updateModal .size').val($('#'+$(this).data('id')+'>.size').attr("id"))
                 $('#updateModal .brand').val($('#'+$(this).data('id')+'>.brand').attr("id"))
                 $('#updateModal .size_number').val($('#'+$(this).data('id')+'>.size span').html())
-console.log($('#'+$(this).data('id')+'>.size span').html());
+                console.log($('#'+$(this).data('id')+'>.size span').html());
 
                 $('#updateModal form #exampleFormControlSelect1 .brand').val('brand').change()
                 $('#updateModal form #exampleFormControlSelect1 .type').val('type').change()
