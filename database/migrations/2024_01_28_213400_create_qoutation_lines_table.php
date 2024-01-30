@@ -19,14 +19,14 @@ return new class extends Migration
 
             $table->unsignedBigInteger('item')->onDelete('cascade')->nullable();
             $table->foreign('item')->references('id')->on('items')->onDelete('cascade');
-            $table->unsignedBigInteger('qoute')->onDelete('cascade')->nullable();
-            $table->foreign('qoute')->references('id')->on('qoutations')->onDelete('cascade');
-            $table->unsignedInteger("material");
-            $table->unsignedInteger("material_acc");
-            $table->unsignedInteger("material_other");
-            $table->unsignedInteger("labour");
-            $table->unsignedInteger("labour_acc");
-            $table->unsignedInteger("labour_other");
+            $table->unsignedBigInteger('qoute_batch')->onDelete('cascade')->nullable();
+            $table->foreign('qoute_batch')->references('id')->on('qoutation_batches')->onDelete('cascade');
+            $table->unsignedDouble("material");
+            $table->unsignedDouble("material_acc");
+            $table->unsignedDouble("material_other");
+            $table->unsignedDouble("labour");
+            $table->unsignedDouble("labour_acc");
+            $table->unsignedDouble("labour_other");
             $table->timestamps();
         });
     }

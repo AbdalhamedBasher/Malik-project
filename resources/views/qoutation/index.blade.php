@@ -651,14 +651,8 @@
 <div class="form-row mt-3">
     <div class="form-group col-md-4">
         <label for="inputState">المواد</label>
-        <select id="inputState" name="item[]" class="form-control">
-            <option selected>-- إختر --</option>
-            <option value="new" class="new_item">-- مادة جديدة --</option>
-            @foreach ($items as $item)
-                <option value="{{ $item->id }}">
-                    {{ $item->name . ' ' . $item->brand . ' ' . $item->type . ' ' . $item->size_number . '' . $item->size . ' ' . $item->price }}
-                </option>
-            @endforeach
+        <select id="inputState" name="item[]" class="form-control items">
+
 
 
         </select>
@@ -702,6 +696,28 @@
 </div>
 
 </div> `).ready(function() {
+
+
+
+
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "{{ url('item/data') }}",
+
+        type : 'GET',
+        dataType : 'json',
+        success : function(result){
+
+        //    result.forEach(element => {
+
+        //     });
+console.log(result);
+        }
+    });
+
+
                     $(".remove_line").click(function(e) {
                         e.preventDefault();
                         console.log("true");
@@ -726,117 +742,7 @@
                 console.log($(this).parent().parent().remove())
 
             })
-            // new procut outside the appends
-            $(".new_product").click(function(e) {
-                e.preventDefault();
-                $(".details").append(`<div class="form-row mt-3 p-1">
-                                    <div class="form-group col-md-4">
-                                        <label for="inputState">المواد</label>
-                                        <select id="inputState" class="form-control">
-                                            <option selected>-- إختر --</option>
-                                            <option>...</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الكمية</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
 
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">المواد المساعدة</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الدكور -مواد </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">غير ذلك -مواد </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الايادي العاملة</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الديكور-ايادي </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">غير ذلك-أيادي </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip"> &emsp14; </label>
-                                        <input type="submit" value=""
-                                            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
-                                    </div>
-                                </div>
-                        `).ready(function() {
-                    e.preventDefault();
-                    $(".remove_line").click(function(e) {
-                        e.preventDefault();
-                        console.log("true");
-                        console.log($(this).parent().parent().remove())
-
-                    })
-                })
-            })
-            // $('#updateModal #id').val(this.parent().find('#name'))
-            // console.log($(this).parent().parent().find('td #name').val());
-            /*
-                                    <div class="form-row mt-3">
-                                    <div class="form-group col-md-4">
-                                        <label for="inputState">المواد</label>
-                                        <select id="inputState" class="form-control">
-                                            <option selected>-- إختر --</option>
-                                            <option>...</option>
-                                        </select>
-                                    </div>
-
-
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الكمية</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">المواد المساعدة</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الدكور -مواد </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">غير ذلك -مواد </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الايادي العاملة</label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">الديكور-ايادي </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip">غير ذلك-أيادي </label>
-                                        <input type="text" class="form-control" id="inputZip">
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputZip"> &emsp14; </label>
-                                        <input type="submit" value=""
-                                            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
-                                    </div>
-                                </div>
-
-
-
-
-
-            */
-            // })
 
 
         });

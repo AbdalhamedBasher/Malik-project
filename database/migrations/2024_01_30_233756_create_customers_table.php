@@ -13,15 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('qoutations', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->date("qoutation_date");
-            $table->date("expire_date");
-            $table->string("customer_name");
-            $table->string("project_name");
-            $table->string("statues");
-            $table->unsignedDouble("factor");
-
             $table->timestamps();
         });
     }
@@ -33,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qoutations');
+        Schema::dropIfExists('customers');
     }
 };

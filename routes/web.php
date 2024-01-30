@@ -43,6 +43,10 @@ Route::get('item', [ItemsController::class,"index"]);
 Route::post('item', [ItemsController::class,"store"])->name('item');
 Route::post('item/delete', [ItemsController::class,"destroy"])->name('item.delete');
 Route::post('item/update', [ItemsController::class,"update"])->name('item.update');
+// grtItems
+Route::get('item/data', [ItemsController::class,"getItems"])->name('getItems');
+
+
 
 // catogery route
 Route::get('catogery', [CatogeryController::class,"index"]);

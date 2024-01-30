@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('qoutations', function (Blueprint $table) {
+        Schema::create('qoutation_batches', function (Blueprint $table) {
             $table->id();
-            $table->date("qoutation_date");
-            $table->date("expire_date");
-            $table->string("customer_name");
-            $table->string("project_name");
-            $table->string("statues");
+            $table->unsignedBigInteger('line')->onDelete('cascade')->nullable();
+            $table->foreign('line')->references('id')->on('lines')->onDelete('cascade');
+            $table->unsignedBigInteger('qoute')->onDelete('cascade')->nullable();
+            $table->foreign('qoute')->references('id')->on('qoutations')->onDelete('cascade');
             $table->unsignedDouble("factor");
-
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('qoutations');
+        Schema::dropIfExists('qoutation_batches');
     }
 };

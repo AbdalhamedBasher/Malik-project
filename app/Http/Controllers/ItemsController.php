@@ -120,4 +120,34 @@ class ItemsController extends Controller
             return  redirect()->back()->withErrors($validator)->withInput();
         }
     }
+    public function getItems()
+    {
+
+
+
+
+        $item=items::get();
+        $lines=line::where('main_line', '<>', '')->get();
+        $brand=brand::get();
+        $size=size::get();
+        $type=type::get();
+        $catogery=catogery::get();
+         $data=[];
+
+
+        foreach ($item as $key => $value) {
+        $data["name"]=$value->name;
+        $data["id"]=$value->id;
+        $data["price"]=$value->price;
+        $data["brand"]=$value->brand;
+        $data["size"]=$value->size_number.' '.$value->size;
+        $data["type"]=$value->type;
+        $data["catogery"]=$value->catogery;
+      }
+
+return $data;
+
+
+        // return (['items'=>$item]);
+    }
 }
