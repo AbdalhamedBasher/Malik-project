@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LineController;
 use App\Http\Controllers\CatogeryController;
@@ -10,6 +11,8 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\QoutationController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +28,14 @@ use App\Http\Controllers\QoutationController;
 //     return redirect()->to("lines");
 
 // });
+// Auth::login();
+// Route::get('login', LoginController::class,"login");
 
+Auth::routes();
 
-
+ Route::get('/',function(){
+    view('home');
+ });
 // lines route
 Route::get('lines/create', [LineController::class,"create"]);
 Route::get('lines/{master?}', [LineController::class,"index"]);
@@ -93,6 +101,11 @@ Route::post('customer', [customerController::class,"store"])->name('customer');
 Route::post('customer/delete', [customerController::class,"destroy"])->name('customer.delete');
 Route::put('customer/update', [customerController::class,"update"])->name('customer.update');
 
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

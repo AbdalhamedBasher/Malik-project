@@ -15,6 +15,14 @@ use function PHPSTORM_META\type;
 
 class QoutationController extends Controller
 {
+
+
+
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
