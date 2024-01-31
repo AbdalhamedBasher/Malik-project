@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->text("name");
-            $table->string('price');
+            $table->unsignedDouble('price');
             $table->unsignedBigInteger('size_number'); // here is the size for item
             $table->unsignedBigInteger('line')->onDelete('cascade')->nullable();
             $table->foreign('line')->references('id')->on('lines')->onDelete('cascade');

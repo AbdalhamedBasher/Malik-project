@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->date("qoutation_date");
             $table->date("expire_date");
-            $table->string("customer_name");
             $table->string("project_name");
             $table->string("statues");
+            $table->text("description");
+            $table->string("refrence");
             $table->unsignedDouble("factor");
-
+            $table->unsignedBigInteger('customer')->onDelete('cascade')->nullable();
+            $table->foreign('customer')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

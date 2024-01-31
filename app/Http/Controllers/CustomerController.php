@@ -24,7 +24,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -35,7 +35,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $coustomer=customer::create([
+            "name"=>$request->name,
+            'phone_number'=>$request->phone_number,
+           'email'=>$request->phone_number,
+           "tax_number"=>$request->tax_number,
+           'username'=>$request->phone_number, //for portal use
+           "password"=>$request->tax_number,
+         ]);
+
+    if( $coustomer) {
+        return  redirect()->back()->with(['message'=>"تم إضافة عميل بنجاح"]);
+    }
+    else{
+        return  redirect()->back()->withErrors($validator)->withInput();
+    }
     }
 
     /**
