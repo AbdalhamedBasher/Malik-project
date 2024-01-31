@@ -86,11 +86,12 @@ Route::POST('size/update', [SizeController::class,"update"])->name('size.update'
 
 // quotation
 
-Route::get('quote/{line?}', [QoutationController::class,"index"]);
-Route::post('quote', [QoutationController::class,"store"])->name('quote');
-Route::post('quote/delete', [QoutationController::class,"destroy"])->name('quote.delete');
-Route::put('quotation/update', [QoutationController::class,"update"])->name('quotation.update');
-Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');
+Route::get('qoute', [QoutationController::class,"index"]);
+Route::get('qoute/create', [QoutationController::class,"create"])->name('qoute.create');
+Route::post('qoute/create', [QoutationController::class,"store"])->name('qoute');
+Route::post('qoute/delete', [QoutationController::class,"destroy"])->name('qoute.delete');
+Route::put('qoute/update', [QoutationController::class,"update"])->name('quotation.update');
+// Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');
 
 
 
@@ -100,12 +101,10 @@ Route::get('customer', [CustomerController::class,"index"]);
 Route::post('customer', [customerController::class,"store"])->name('customer');
 Route::post('customer/delete', [customerController::class,"destroy"])->name('customer.delete');
 Route::put('customer/update', [customerController::class,"update"])->name('customer.update');
-
+Route::get('customer/data/{id}', [customerController::class,"data_customer"])->name('customer.data');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

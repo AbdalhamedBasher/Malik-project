@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\customer;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Response;
 class CustomerController extends Controller
 {
     /**
@@ -96,5 +96,15 @@ $customer=customer::find($request->id);
             return  redirect()->back()->withErrors($validator)->withInput();
         }
 
+    }
+    public function data_customer($id){
+$customer =customer::find($id);
+if($customer){
+return Response::json(['data' => $customer], 200);
+}
+else{
+    return response()->json(['error' => 'Error msg'], 404); // Status code here
+
+}
     }
 }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('qoute')->onDelete('cascade')->nullable();
             $table->foreign('qoute')->references('id')->on('qoutations')->onDelete('cascade');
             $table->unsignedDouble("factor");
+
+
             $table->timestamps();
         });
     }

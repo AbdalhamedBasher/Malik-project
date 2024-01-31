@@ -9,4 +9,8 @@ class customer extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function scopeName($query,$name)
+    {
+        return $query->Where('name', 'like', '%' . $name. '%');
+    }
 }

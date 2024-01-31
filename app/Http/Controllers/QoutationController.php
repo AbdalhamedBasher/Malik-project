@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\brand;
 use App\Models\catogery;
+use App\Models\customer;
 use App\Models\items;
 use App\Models\qoutation;
 use App\Models\line;
@@ -28,26 +29,42 @@ class QoutationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($line)
+    public function index()
     {
-      $qoute=qoutation::where(['line'=>$line])->get();
+      $qoute=qoutation::get();
     $qoute_id=qoutation::get()->count()==0?qoutation::get()->count()+1:qoutation::get()->max();
-    if(line::find($line)){
-      $line_name=line::find($line);
+
+      $line_name=line::get();
       $items=items::get();
       $catogery=catogery::get();
       $type=type::get();
       $size=size::get();
       $brand=brand::get();
       return view('qoutation.index')->with(['line'=>$line_name,'qoute_id'=>$qoute_id,'items'=>$items,'catogery'=>$catogery,'type'=>$type,'size'=>$size,'brand'=>$brand]);
-    }
-    else {
-        return redirect()->route("lines")->with('error', 'لايوجد نشاط بهذا الاسم');
-    }
+
     }
 
 
+  /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $qoute=qoutation::get();
+        $qoute_id=qoutation::get()->count()==0?qoutation::get()->count()+1:qoutation::get()->max();
+        $customer=customer::get();
+          $line=line::get();
+          $items=items::get();
+          $catogery=catogery::get();
+          $type=type::get();
+          $size=size::get();
+          $brand=brand::get();
+          return view('qoutation.create')->with(['line'=>$line,'qoute_id'=>$qoute_id,'customer'=>$customer,'items'=>$items,'catogery'=>$catogery,'type'=>$type,'size'=>$size,'brand'=>$brand]);
 
+
+    }
     /**
      * Store a newly created resource in storage.
      *

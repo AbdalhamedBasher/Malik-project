@@ -14,40 +14,14 @@
 
 
     <div class="card mt-1">
-        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
-
+        <div class="card-header d-flex justify-content-between" style="background-color: #433483a3 ; color:aliceblue">
+<h1 class=" text-5xl">نظام التسعيرة</h1> <a href="{{route('qoute.create')}}" class="btn  btn-secondary  btn-md"> <i class="icon-pencil"></i>تسعيرة جديدة</a>
         </div>
-        {{-- quotaion master --}}
-        <div class="card-body">
-            <form method="POST" action="{{ route('quote') }}">
-                @csrf
-                <div class="form-row">
-                    <div class="form-group col-md-8">
-                        <label for="inputCity">العميل</label>
-                        <input type="text" class="form-control" name="customer_name" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">رقم التسعيرة</label>
-                        <input type="text" class="form-control" id="inputCity" value="Q.{{ $qoute_id->id }}"
-                            name="qouation_number" readonly>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip">تاريخ التسعيرة</label>
-                        <input type="date" class="form-control" name="quotation_date" id="inputZip">
-                    </div>
-                </div>
-                <div class="form-row">
-
-
-
-                </div>
+        <div id="chart"></div>
 
 
 
 
-
-
-        </div>
     </div>
     <div class="card mt-1 card-detail">
         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
@@ -57,85 +31,63 @@
         <div class="card-body">
             <div class="line_form">
                 <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">النشاط</label>
-                        <input type="text" class="form-control" value="{{ $line->name }}" readonly id="inputZip">
-                        <input type="hidden" name="line_id" value="{{ $line->id }}">
+                    <div class="form-group col-md-3">
+                        <label for="inputZip">المرجع</label>
+                        <input type="text" name="id" class="form-control"   id="inputZip">
+
+
                     </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">العامل</label>
-                        <input type="text" class="form-control" name="factor" id="inputZip">
+                    <div class="form-group col-md-3">
+                        <label for="inputZip">المشروع</label>
+                        <input type="text" class="form-control project" name="projec" id="inputZip">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="inputZip">النشاط</label>
+                        <input type="text" class="form-control line" name="factor" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputZip">الحالة</label>
+                        <input type="text" class="form-control statues" name="statues" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip">                    تاريخ إصادار التسعيرة
+                        </label>
+                        <input type="date" class="form-control issue_date" name="statues" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip"> &emsp14; </label>
+                        <input type="text" class="form-control issue_from" name="issue_from" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip"> &emsp14; </label>
+                        <input type="text" class="form-control issue_todate" name="todate" id="inputZip">
+                    </div>
+                    {{-- تاريخ الانتهاء --}}
+                    <div class="form-group col-md-4">
+                        <label for="inputZip">                    تاريخ إنتهاء التسعيرة
+                        </label>
+                        <input type="date" class="form-control expire_date" name="expire_date" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip"> &emsp14; </label>
+                        <input type="text" class="form-control from_expire_date" name="from_expire_date" id="inputZip">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputZip"> &emsp14; </label>
+                        <input type="text" class="form-control expire_date" name="expire_date" id="inputZip">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputZip"> &emsp14; </label>
-                        <input type="submit" value="أضافة مادة" class="form-control btn-bd-primary new_product"
+                        <input type="submit" value=" بحث" class="form-control btn-bd-primary new_product"
                             id="inputZip">
                     </div>
-
+                    {{-- statues --}}
                 </div>
-                <div class="details">
 
-
-                    <div class="form-row mt-3">
-                        <div class="form-group col-md-4">
-                            <label for="inputState">المواد</label>
-                            <select id="inputState" name="item[]" class="form-control">
-                                <option selected>-- إختر --</option>
-                                <option value="new" class="new_item">-- مادة جديدة --</option>
-                                @foreach ($items as $item)
-                                    <option value="{{ $item->id }}">
-                                        {{ $item->name . ' ' . $item->brand . ' ' . $item->type . ' ' . $item->size_number . '' . $item->size . ' ' . $item->price }}
-                                    </option>
-                                @endforeach
-
-
-                            </select>
-                        </div>
-
-
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الكمية</label>
-                            <input type="text" class="form-control" name="qty[]" id="inputZip">
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">المواد المساعدة</label>
-                            <input type="text" class="form-control" name="material[]" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الديكور -مواد </label>
-                            <input type="text" class="form-control" name="material_acc[]" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">غير ذلك -مواد </label>
-                            <input type="text" class="form-control" name="material_other[]" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الايادي العاملة</label>
-                            <input type="text" class="form-control" name="labour[]" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">الديكور-ايادي </label>
-                            <input type="text" class="form-control" name="labour_acc[]" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip">غير ذلك-أيادي </label>
-                            <input type="text" class="form-control" name="labour_other[]" id="inputZip">
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="inputZip"> &emsp14; </label>
-                            <input type="submit" value=""
-                                class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
-        <div class="form-group col-md-2 justify-center">
-            <label for="inputZip"> &emsp14; </label>
-            <input type="submit" value="حفظ" class="form-control btn-bd-primary" id="inputZip">
-        </div>
+
         </form>
     </div>
 
@@ -149,7 +101,7 @@
 
 
             <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-Course"
+                <table class=" table table-bordered table-striped table-hover datatable datatable-Course overflow-x-scroll"
                     style="text-align: center">
                     <thead>
                         <tr>
@@ -196,30 +148,6 @@
                         @php
                             $i = 1;
                         @endphp
-                        {{-- @foreach ($brands as $item)
-                            <tr data-entry-id="">
-                                <td>{{ $i++ }}</td>
-                                <td id="name">{{ $item->name }}</td>
-
-
-                                <td id="name">{{ $item->company }}</td>
-
-                                <td>
-
-                                    <span class="d-flex space-x-1">
-                                        <a class="btn update m-1" style="background-color: #433483a3 ; color:aliceblue"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->name }}"  data-company="{{ $item->company }}"
-                                         ">
-                                            تعديل </a>
-
-                                        <button type="submit" class="btn btn-danger m-1 delete"
-                                            data-id="{{ $item->id }}" data-name="{{ $item->name }}">مسح</button>
-
-                                    </span>
-
-                                </td>
-                            </tr>
-                        @endforeach --}}
 
 
 
@@ -286,7 +214,7 @@
                         </div>
 
                         <div class="card-body">
-                            <form action="{{ route('item') }}" method="POST" class="form-inlineform-row"
+                            <form action="#" method="POST" class="form-inlineform-row"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -576,178 +504,124 @@
 @section('scripts')
     @parent
     <script>
-        $(function() {
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('course_delete')
-                let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-                let deleteButton = {
-                    text: deleteButtonTrans,
-                    url: "#1",
-                    className: 'btn-danger',
-                    action: function(e, dt, node, config) {
-                        var ids = $.map(dt.rows({
-                            selected: true
-                        }).nodes(), function(entry) {
-                            return $(entry).data('entry-id')
-                        });
+        // $(function() {
+        //     let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+        //     @can('course_delete')
+        //         let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+        //         let deleteButton = {
+        //             text: deleteButtonTrans,
+        //             url: "#1",
+        //             className: 'btn-danger',
+        //             action: function(e, dt, node, config) {
+        //                 var ids = $.map(dt.rows({
+        //                     selected: true
+        //                 }).nodes(), function(entry) {
+        //                     return $(entry).data('entry-id')
+        //                 });
 
-                        if (ids.length === 0) {
-                            alert('{{ trans('global.datatables.zero_selected') }}')
+        //                 if (ids.length === 0) {
+        //                     alert('{{ trans('global.datatables.zero_selected') }}')
 
-                            return
-                        }
+        //                     return
+        //                 }
 
-                        if (confirm('{{ trans('global.areYouSure') }}')) {
-                            $.ajax({
-                                    headers: {
-                                        'x-csrf-token': _token
-                                    },
-                                    method: 'POST',
-                                    url: config.url,
-                                    data: {
-                                        ids: ids,
-                                        _method: 'DELETE'
-                                    }
-                                })
-                                .done(function() {
-                                    location.reload()
-                                })
-                        }
-                    }
-                }
-                dtButtons.push(deleteButton)
-            @endcan
+        //                 if (confirm('{{ trans('global.areYouSure') }}')) {
+        //                     $.ajax({
+        //                             headers: {
+        //                                 'x-csrf-token': _token
+        //                             },
+        //                             method: 'POST',
+        //                             url: config.url,
+        //                             data: {
+        //                                 ids: ids,
+        //                                 _method: 'DELETE'
+        //                             }
+        //                         })
+        //                         .done(function() {
+        //                             location.reload()
+        //                         })
+        //                 }
+        //             }
+        //         }
+        //         dtButtons.push(deleteButton)
+        //     @endcan
 
-            $.extend(true, $.fn.dataTable.defaults, {
-                order: [
-                    [1, 'desc']
-                ],
-                pageLength: 100,
-            });
-            $('.datatable-Course:not(.ajaxTable)').DataTable({
-                buttons: dtButtons
-            })
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                $($.fn.dataTable.tables(true)).DataTable()
-                    .columns.adjust();
-            });
-        })
-        $(document).ready(function() {
-
-            // /
-
-            $('.new_item').click(function() {
-                $('#exampleModal').modal('show');
-            })
-
-
-
-            $(".new_product").click(function(e) {
-                e.preventDefault();
-                $(".details").append(`
-                <div class="details">
-
-
-<div class="form-row mt-3">
-    <div class="form-group col-md-4">
-        <label for="inputState">المواد</label>
-        <select id="inputState" name="item[]" class="form-control items">
-
-
-
-        </select>
-    </div>
-
-
-    <div class="form-group col-md-2">
-        <label for="inputZip">الكمية</label>
-        <input type="text" class="form-control" name="qty[]" id="inputZip">
-    </div>
-
-    <div class="form-group col-md-2">
-        <label for="inputZip">المواد المساعدة</label>
-        <input type="text" class="form-control" name="material[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">الديكور -مواد </label>
-        <input type="text" class="form-control" name="material_acc[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">غير ذلك -مواد </label>
-        <input type="text" class="form-control" name="material_other[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">الايادي العاملة</label>
-        <input type="text" class="form-control" name="labour[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">الديكور-ايادي </label>
-        <input type="text" class="form-control" name="labour_acc[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">غير ذلك-أيادي </label>
-        <input type="text" class="form-control" name="labour_other[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip"> &emsp14; </label>
-        <input type="submit" value=""
-            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
-    </div>
-</div>
-
-</div> `).ready(function() {
-
-
-
-
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        url : "{{ url('item/data') }}",
-
-        type : 'GET',
-        dataType : 'json',
-        success : function(result){
-
-        //    result.forEach(element => {
-
+        //     $.extend(true, $.fn.dataTable.defaults, {
+        //         order: [
+        //             [1, 'desc']
+        //         ],
+        //         pageLength: 100,
         //     });
-console.log(result);
-        }
-    });
-
-
-                    $(".remove_line").click(function(e) {
-                        e.preventDefault();
-                        console.log("true");
-                        console.log($(this).parent().parent().remove())
-
-                    })
-
-                })
-
-                e.preventDefault();
-                $(".remove_line").click(function(e) {
-                    e.preventDefault();
-                    console.log("true");
-                    console.log($(this).parent().parent().remove())
-
-                })
-
-            });
-            $(".remove_line").click(function(e) {
-                e.preventDefault();
-
-                console.log($(this).parent().parent().remove())
-
-            })
-
-
+        //     $('.datatable-Course:not(.ajaxTable)').DataTable({
+        //         buttons: dtButtons
+        //     })
+        //     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        //         $($.fn.dataTable.tables(true)).DataTable()
+        //             .columns.adjust();
+        //     });
+        // })
+        $(document).ready(function() {
 
         });
     </script>
+    <script>
+        var options = {
+            series: [{
+                name: 'Net Profit',
+                data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+            }, {
+                name: 'Revenue',
+                data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            }, {
+                name: 'Free Cash Flow',
+                data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+            }],
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            },
+            yaxis: {
+                title: {
+                    text: '$ (thousands)'
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function(val) {
+                        return "$ " + val + " thousands"
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+        console.log(chart);
+    </script>
 @endsection
+
+@section('script')
 
 
 @endsection
