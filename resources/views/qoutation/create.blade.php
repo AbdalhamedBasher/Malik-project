@@ -93,30 +93,30 @@
 
 
                                     <tbody class="customer_data">
-                                        <tr class=" border-bottom-0">
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
+                                        <tr class=" border-bottom-0 ">
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
 
 
 
                                         </tr>
-                                        <tr class=" border-bottom-0">
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
+                                        <tr class=" border-bottom-0 ">
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
 
 
 
                                         </tr>
-                                        <tr class=" border-bottom-0">
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
+                                        <tr class=" border-bottom-0 ">
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
 
 
 
                                         </tr>
-                                        <tr class= "border-bottom-0">
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
-                                            <td class=" border-bottom-0 border-top-0">&emsp13;</td>
+                                        <tr class= "border-bottom-0 ">
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">&emsp13;</td>
 
 
 
@@ -143,17 +143,25 @@
                     </div>
                 </div>
                 @foreach ($line as $item)
-                    <div class="card mt-1 card-detail">
-                        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
-                            {{ $item->name }}
-                        </div>
+                    <div class="card mt-1 card-detail border-0">
 
-                        <div class="card-body">
+
+
+                        <div class="card-body border-2">
+
                             <div class="table-responsive">
-                                <table class=" table table-bordered table-striped table-hover datatable datatable-Course"
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                    <label class="custom-control-label" for="customSwitch1">
+                                        {{ $item->name }}
+                                    </label>
+                                </div>
+
+                                <table
+                                    class=" table table-bordered   overflow-x-scroll"
                                     style="text-align: center">
-                                    <thead>
-                                        <tr>
+                                    <thead class=" overflow-x-scroll bg-blue-50">
+                                        <tr class=" overflow-x-scroll">
                                             <th width="10">
                                                 #
                                             </th>
@@ -198,7 +206,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="line_data" id="{{$item->id}}">
+                                    <tbody class="line_data" id="{{ $item->id }}">
 
                                         <tr>
                                             <td width="10">
@@ -206,41 +214,70 @@
                                             </td>
 
                                             <td style="text-align: center">
-                                                اسم المادة
+                                                <select class="form-control" id=""
+                                                    name="main_line[{{$item->id}}]">
+                                                    <option selected value="">-- إختر --</option>
+                                                    @foreach ($items as $product)
+                                                        <option value="{{ $product->id }}">{{ $product->name }} <span id="{{ $product->id}}">{{ $product->price}}</span> </option>
+                                                    @endforeach
+                                                </select>
                                             </td>
                                             <td style="text-align: center">
-                                                الوحدات
+                                                <input type="text" name="units" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 سعر الوحدة
+                                                <input type="text" name="units" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 الكمية
+                                                <input type="text" name="units" id="">
                                             </td>
                                             <td style="text-align: center">
-                                                المجموع</td>
+                                                المجموع
+                                                <input type="text" name="units" id=""></td>
                                             <td style="text-align: center">
                                                 المواد المساعدة
+                                                <input type="text" name="units" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 د/المواد
+                                                <input type="text" name="units" id="">
                                             </td>
                                             <td style="text-align: center">
+
                                                 -غير ذلك المواد
+                                                <input type="text" name="units" id="">
                                             </td>
                                             <td style="text-align: center">
-                                                المجموع المواد</td>
+                                                المجموع المواد
+                                                <input type="text" name="units" id="">
+                                            </td>
                                             <td style="text-align: center">
-                                                الايادي العاملة</td>
-                                            <td style="text-align: center">
-                                                الايادي العاملة</td>
+                                                الايادي العاملة
+                                                <input type="text" name="units" id="">
+                                            </td>
+
 
                                             <td style="text-align: center">
-                                                غير ذلك- الايادي </td>
+                                                غير ذلك- الايادي
+                                                <input type="text" name="units" id="">
+                                            </td>
                                             <td style="text-align: center">
-                                                المجموع العمالة</td>
+                                                المجموع العمالة
+
+                                                <input type="text" name="units" id="">
+                                            </td>
                                             <td style="text-align: center">
-                                                مجموع التكلفة الكلية </td>
+                                                مجموع التكلفة الكلية
+                                                <input type="text" name="units" id="">
+
+                                            </td>
+                                            <td style="text-align: center">
+                                                مجموع التكلفة الكلية
+                                                <input type="text" name="units" id="">
+
+                                            </td>
                                             &nbsp;
                                             </td>
                                         </tr>
@@ -252,18 +289,18 @@
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
-                                <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line" id="{{$item->id}}">
+                                <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
+                                    id="{{ $item->id }}">
                             </div>
                         </div>
-                        <div class="form-group col-md-2 justify-center">
-                            <label for="inputZip"> &emsp14; </label>
-                            <input type="submit" value="حفظ" class="form-control mx-3 btn-outline-success border-2"
-                                id="inputZip">
-                        </div>
+                @endforeach
+                <div class="form-group col-md-2 justify-center">
+                    <label for="inputZip"> &emsp14; </label>
+                    <input type="submit" value="حفظ" class="form-control mx-3 btn-outline-success border-2"
+                        id="inputZip">
+                </div>
             </form>
         </div>
-        @endforeach
-
         <div class="card mt-1">
             <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
@@ -735,58 +772,79 @@
 
             })
 
-            $(".new_product").click(function(e) {
+            $(".new_line").click(function(e) {
                 e.preventDefault();
                 $(".details").append(`
-                <div class="details">
+                <tr>
+                                            <td width="10">
+                                                #
+                                            </td>
+
+                                            <td style="text-align: center">
+                                                <select class="form-control" id=""
+                                                    name="main_line[{{$item->id}}]">
+                                                    <option selected value="">-- إختر --</option>
+                                                    @foreach ($items as $product)
+                                                        <option value="{{ $product->id }}">{{ $product->name }} <span id="{{ $product->id}}">{{ $product->price}}</span> </option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                سعر الوحدة
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                الكمية
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                المجموع
+                                                <input type="text" name="units" id=""></td>
+                                            <td style="text-align: center">
+                                                المواد المساعدة
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                د/المواد
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+
+                                                -غير ذلك المواد
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                المجموع المواد
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                الايادي العاملة
+                                                <input type="text" name="units" id="">
+                                            </td>
 
 
-<div class="form-row mt-3">
-    <div class="form-group col-md-4">
-        <label for="inputState">المواد</label>
-        <select id="inputState" name="item[]" class="form-control items">
+                                            <td style="text-align: center">
+                                                غير ذلك- الايادي
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                المجموع العمالة
 
+                                                <input type="text" name="units" id="">
+                                            </td>
+                                            <td style="text-align: center">
+                                                مجموع التكلفة الكلية
+                                                <input type="text" name="units" id="">
 
-
-        </select>
-    </div>
-
-
-    <div class="form-group col-md-2">
-        <label for="inputZip">الكمية</label>
-        <input type="text" class="form-control" name="qty[]" id="inputZip">
-    </div>
-
-    <div class="form-group col-md-2">
-        <label for="inputZip">المواد المساعدة</label>
-        <input type="text" class="form-control" name="material[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">الديكور -مواد </label>
-        <input type="text" class="form-control" name="material_acc[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">غير ذلك -مواد </label>
-        <input type="text" class="form-control" name="material_other[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">الايادي العاملة</label>
-        <input type="text" class="form-control" name="labour[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">الديكور-ايادي </label>
-        <input type="text" class="form-control" name="labour_acc[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip">غير ذلك-أيادي </label>
-        <input type="text" class="form-control" name="labour_other[]" id="inputZip">
-    </div>
-    <div class="form-group col-md-2">
-        <label for="inputZip"> &emsp14; </label>
-        <input type="submit" value=""
-            class="form-control btn-danger btn-sm btn-close h-6 remove_line" id="inputZip">
-    </div>
-</div>
+                                            </td>
+                                            <td style="text-align: center">
+                                                مجموع التكلفة الكلية
+                                                <input type="text" name="units" id=""></td>&nbsp;
+</td>
+                                        </tr>
 
 </div> `).ready(function() {
 
