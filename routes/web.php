@@ -5,6 +5,7 @@ use App\Http\Controllers\LineController;
 use App\Http\Controllers\CatogeryController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\PagesController;
@@ -83,3 +84,15 @@ Route::post('quote/delete', [QoutationController::class,"destroy"])->name('quote
 Route::put('quotation/update', [QoutationController::class,"update"])->name('quotation.update');
 Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');
 
+
+
+
+// customer route
+Route::get('customer', [CustomerController::class,"index"]);
+Route::post('customer', [customerController::class,"store"])->name('customer');
+Route::post('customer/delete', [customerController::class,"destroy"])->name('customer.delete');
+Route::put('customer/update', [customerController::class,"update"])->name('customer.update');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

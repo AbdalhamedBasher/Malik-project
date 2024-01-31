@@ -14,17 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
+     $customer=customer::get();
+     return view('cusomer.index')->with(['customers'=>$customer]);
     }
 
     /**
@@ -35,16 +26,15 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $coustomer=customer::create([
+        $customer=customer::create([
             "name"=>$request->name,
             'phone_number'=>$request->phone_number,
-           'email'=>$request->phone_number,
+           'email'=>$request->email,
            "tax_number"=>$request->tax_number,
-           'username'=>$request->phone_number, //for portal use
-           "password"=>$request->tax_number,
+
          ]);
 
-    if( $coustomer) {
+    if( $customer) {
         return  redirect()->back()->with(['message'=>"تم إضافة عميل بنجاح"]);
     }
     else{
@@ -52,27 +42,7 @@ class CustomerController extends Controller
     }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function show(customer $customer)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\customer  $customer
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(customer $customer)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -81,10 +51,28 @@ class CustomerController extends Controller
      * @param  \App\Models\customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, customer $customer)
+    public function update(Request $request)
     {
-        //
+$customer=customer::find($request->id);
+
+
+
+    if( $customer) {
+        $customer->update([
+            "name"=>$request->name,
+            'phone_number'=>$request->phone_number,
+           'email'=>$request->email,
+           "tax_number"=>$request->tax_number,
+
+         ]);
+        return  redirect()->back()->with(['message'=>"تم تعديل العميل بنجاح"]);
     }
+    else{
+        return  redirect()->back()->withErrors($validator)->withInput();
+    }
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -92,8 +80,16 @@ class CustomerController extends Controller
      * @param  \App\Models\customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function destroy(customer $customer)
+    public function destroy(Request $request)
     {
-        //
+        $customer=customer::find( $request->id);
+        if( $customer) {
+            $customer->delete();
+            return  redirect()->back()->with(['message'=>"تم إضافة عميل بنجاح"]);
+        }
+        else{
+            return  redirect()->back()->withErrors($validator)->withInput();
+        }
+
     }
 }
