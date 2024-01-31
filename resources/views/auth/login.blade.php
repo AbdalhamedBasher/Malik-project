@@ -4,15 +4,12 @@
     text-align: center;
 ">
         <div class="col-md-6">
-            <div class="card " style="
-    box-shadow: 0px 3px 19px 5px #c7c7c757;
+            <div class="card " style=";
 ">
                 <div class="card-body " style="
     text-align: center;
 ">
-                    <img src="{{ asset('img/logo.png') }}" alt="logo" style="
-    width: 90px;
-">
+
                     <p class="text-muted">تسجيل الدخول</p>
 
                     @if (session('status'))
@@ -72,8 +69,8 @@
 
                         <div class="row">
                             <div class="col-12">
-                                <button type="submit" class="btn btn-primary" style="
-    background: #213e21d1;
+                                <button type="submit" class="btn btn-bd-primary text-white" style="
+    background: #4a288ed1;
 ">
                                     دخول
                                 </button>

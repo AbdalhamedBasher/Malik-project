@@ -83,7 +83,7 @@ font-family: 'OptimusPrinceps';
         #loader {
             border: 8px solid #f3f3f3;
             border-radius: 50%;
-            border-top: 8px solid #444444;
+            border-top: 8px solid #615375;
             width: 70px;
             height: 70px;
             animation: spin 1s linear infinite;
@@ -104,11 +104,10 @@ font-family: 'OptimusPrinceps';
             }
         }
     </style>
-    @livewireStyles
-    @powerGridStyles
+
 </head>
 
-<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done" style="visibility: hidden;background:#415841">
+<body class="app header-fixed sidebar-fixed aside-menu-fixed pace-done" style="visibility: hidden;background:#835ea6">
     <div id="loader" class="center"></div>
 
  {{-- @include('sweetalert::alert') --}}
