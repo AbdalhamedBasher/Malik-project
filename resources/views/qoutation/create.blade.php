@@ -50,25 +50,37 @@
 
                         <div class="form-group row-md-3">
                             <label for="inputZip">الوصف</label>
-                            <input type="text" name="id" class="form-control" id="inputZip">
+                            <input type="text" name="description" class="form-control" id="inputZip">
+
+
+                        </div>
+                        <div class="form-group row-md-3">
+                            <label for="inputZip">المعامل</label>
+                            <input type="text" name="factor" class="form-control" id="inputZip">
 
 
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">المشروع</label>
-                            <input type="text" name="id" class="form-control" id="inputZip">
+                            <input type="text" name="project_name" class="form-control" id="inputZip">
 
 
                         </div>
                         <div class="form-group row-md-3">
-                            <label for="inputZip">النشاط</label>
-                            <input type="text" name="id" class="form-control" id="inputZip">
+                            <label for="inputZip">تاريخ الانشاء</label>
+                            <input type="date" name="qoutation_date" class="form-control" id="inputZip">
+
+
+                        </div>
+                        <div class="form-group row-md-3">
+                            <label for="inputZip">تاريخ الانتهاء</label>
+                            <input type="date" name="expire_date" class="form-control" id="inputZip">
 
 
                         </div>
                         <span class="form-group row-md-3">
                             <label for="inputZip">الحالة</label>
-                            <select id="inputState" name="stutes" class="form-control">
+                            <select id="inputState" name="statues" class="form-control">
                                 <option selected>-- الحالة --</option>
                                 <option selected> موافق </option>
                                 <option selected> مسودة </option>
@@ -151,15 +163,13 @@
 
                             <div class="table-responsive">
                                 <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                    <input type="checkbox" class="custom-control-input" name="lines[]" value="{{$item->id}}" id="customSwitch1">
                                     <label class="custom-control-label" for="customSwitch1">
                                         {{ $item->name }}
                                     </label>
                                 </div>
 
-                                <table
-                                    class=" table table-bordered   overflow-x-scroll"
-                                    style="text-align: center">
+                                <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
                                     <thead class=" overflow-x-scroll bg-blue-50">
                                         <tr class=" overflow-x-scroll">
                                             <th width="10">
@@ -206,7 +216,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="line_data" id="{{ $item->id }}">
+                                    <tbody class="line_data" id="{{ $item->name }}">
 
                                         <tr>
                                             <td width="10">
@@ -215,67 +225,69 @@
 
                                             <td style="text-align: center">
                                                 <select class="form-control" id=""
-                                                    name="main_line[{{$item->id}}]">
+                                                    name="item[{{ $item->id }}][]">
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->name }} <span id="{{ $product->id}}">{{ $product->price}}</span> </option>
+                                                        <option value="{{ $product->id }}">{{ $product->name }} <span
+                                                                id="{{ $product->id }}">{{ $product->price }}</span>
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </td>
                                             <td style="text-align: center">
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="units[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 سعر الوحدة
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="factor_price[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 الكمية
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="qty[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 المجموع
-                                                <input type="text" name="units" id=""></td>
+                                                <input type="text" name="simetot[{{$item->id}}][]" id="">
+                                            </td>
                                             <td style="text-align: center">
                                                 المواد المساعدة
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="unit_price[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 د/المواد
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="d_item[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
 
                                                 -غير ذلك المواد
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="other_item[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 المجموع المواد
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="tot_item[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 الايادي العاملة
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="worker[{{$item->id}}][]" id="">
                                             </td>
 
 
                                             <td style="text-align: center">
                                                 غير ذلك- الايادي
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="worker_other[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 المجموع العمالة
 
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="worker_tot[{{$item->id}}][]" id="">
                                             </td>
                                             <td style="text-align: center">
                                                 مجموع التكلفة الكلية
-                                                <input type="text" name="units" id="">
+                                                <input type="text" name="hole_tot[{{$item->id}}][]" id="">
 
                                             </td>
                                             <td style="text-align: center">
-                                                مجموع التكلفة الكلية
-                                                <input type="text" name="units" id="">
+                                               &emsp;
 
                                             </td>
                                             &nbsp;
@@ -290,7 +302,7 @@
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
-                                    id="{{ $item->id }}">
+                                    id="{{ $item->name }}">
                             </div>
                         </div>
                 @endforeach
@@ -359,6 +371,13 @@
             </div>
 
             </form>
+
+
+
+
+
+
+            {{-- modal for insert items --}}
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -676,227 +695,56 @@
 @section('scripts')
     @parent
     <script>
-        $(function() {
-            let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-            @can('course_delete')
-                let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-                let deleteButton = {
-                    text: deleteButtonTrans,
-                    url: "#1",
-                    className: 'btn-danger',
-                    action: function(e, dt, node, config) {
-                        var ids = $.map(dt.rows({
-                            selected: true
-                        }).nodes(), function(entry) {
-                            return $(entry).data('entry-id')
-                        });
 
-                        if (ids.length === 0) {
-                            alert('{{ trans('global.datatables.zero_selected') }}')
-
-                            return
-                        }
-
-                        if (confirm('{{ trans('global.areYouSure') }}')) {
-                            $.ajax({
-                                    headers: {
-                                        'x-csrf-token': _token
-                                    },
-                                    method: 'POST',
-                                    url: config.url,
-                                    data: {
-                                        ids: ids,
-                                        _method: 'DELETE'
-                                    }
-                                })
-                                .done(function() {
-                                    location.reload()
-                                })
-                        }
-                    }
-                }
-                dtButtons.push(deleteButton)
-            @endcan
-
-            $.extend(true, $.fn.dataTable.defaults, {
-                order: [
-                    [1, 'desc']
-                ],
-                pageLength: 100,
-            });
-            $('.datatable-Course:not(.ajaxTable)').DataTable({
-                buttons: dtButtons
-            })
-            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-                $($.fn.dataTable.tables(true)).DataTable()
-                    .columns.adjust();
-            });
-        })
         $(document).ready(function() {
 
+            console.log("true");
             // /
-
-            $('.new_item').click(function() {
-                $('#exampleModal').modal('show');
-            })
-
-            $('.customer').change(function() {
-                console.log(this.value);
-                var custom = this.value;
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://127.0.0.1:8000/customer/data/' + custom,
-                    //   data : ({id : $(this).value}),
-                    dataType: 'JSON',
-                    success: function(response) {
-                        console.log(response);
-                        $('.customer_data').html(
-                            `<td> name</td>` + data.name + `</td><td>رقم الهاتف</td><td>` +
-                            data.phone_number + `</td><td></td><td>` + data.id + `</td>`
-
-
-
-                        )
-                    }
-
-                });
-
-
-
-
-
-            })
-
-            $(".new_line").click(function(e) {
+            $(".btn-line").click(function(e) {
                 e.preventDefault();
-                $(".details").append(`
-                <tr>
-                                            <td width="10">
-                                                #
-                                            </td>
-
-                                            <td style="text-align: center">
-                                                <select class="form-control" id=""
-                                                    name="main_line[{{$item->id}}]">
-                                                    <option selected value="">-- إختر --</option>
-                                                    @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->name }} <span id="{{ $product->id}}">{{ $product->price}}</span> </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                سعر الوحدة
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                الكمية
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                المجموع
-                                                <input type="text" name="units" id=""></td>
-                                            <td style="text-align: center">
-                                                المواد المساعدة
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                د/المواد
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                -غير ذلك المواد
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                المجموع المواد
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                الايادي العاملة
-                                                <input type="text" name="units" id="">
-                                            </td>
-
-
-                                            <td style="text-align: center">
-                                                غير ذلك- الايادي
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                المجموع العمالة
-
-                                                <input type="text" name="units" id="">
-                                            </td>
-                                            <td style="text-align: center">
-                                                مجموع التكلفة الكلية
-                                                <input type="text" name="units" id="">
-
-                                            </td>
-                                            <td style="text-align: center">
-                                                مجموع التكلفة الكلية
-                                                <input type="text" name="units" id=""></td>&nbsp;
-</td>
-                                        </tr>
-
-</div> `).ready(function() {
-
-
-
-
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url: "{{ url('item/data') }}",
-
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(result) {
-
-                            //    result.forEach(element => {
-
-                            //     });
-                            console.log(result);
-                        }
-                    });
-
-
-                    $(".remove_line").click(function(e) {
-                        e.preventDefault();
-                        console.log("true");
-                        console.log($(this).parent().parent().remove())
-
-                    })
-
-                })
-
-                e.preventDefault();
-                $(".remove_line").click(function(e) {
-                    e.preventDefault();
-                    console.log("true");
-                    console.log($(this).parent().parent().remove())
-
-                })
-
+                // console.log("true");
+               $(".line_data#"+this.id).append(`<tr><td width="10">#</td><td style="text-align: center"><select class="form-control p-3" style="margin-left:2rem;margin-right:2rem" id="" name="main_line[{{ $item->id }}]"><option selected value="">-- إختر --</option>@foreach ($items as $product)<option value="{{ $product->id }}">{{ $product->name }} <span id="{{ $product->id }}">{{ $product->price }}</span> </option>@endforeach</select></td><td style="text-align: center"><input type="text" name="units" id=""></td><td style="text-align: center">سعر الوحدة<input type="text" name="units" id=""></td><td style="text-align: center">الكمية<input type="text" name="units" id=""></td><td style="text-align: center">المجموع<input type="text" name="units" id=""></td><td style="text-align: center">المواد المساعدة<input type="text" name="units" id=""></td><td style="text-align: center">د/المواد<input type="text" name="units" id=""></td><td style="text-align: center">-غير ذلك المواد<input type="text" name="units" id=""></td><td style="text-align: center">المجموع المواد<input type="text" name="units" id=""></td><td style="text-align: center">الايادي العاملة<input type="text" name="units" id=""></td><td style="text-align: center">غير ذلك- الايادي<input type="text" name="units" id=""></td><td style="text-align: center">المجموع العمالة<input type="text" name="units" id=""></td><td style="text-align: center">مجموع التكلفة الكلية<input type="text" name="units" id=""></td><td style="text-align: center">مجموع التكلفة الكلية<input type="text" name="units" id=""></td>&nbsp;</td></tr>`);
             });
-            $(".remove_line").click(function(e) {
-                e.preventDefault();
-
-                console.log($(this).parent().parent().remove())
-
-            })
 
 
+            // $('.new_item').click(function() {
+            //     $('#exampleModal').modal('show');
+            // })
+
+            // $('.customer').change(function() {
+            //     console.log(this.value);
+            //     var custom = this.value;
+            //     $.ajaxSetup({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         }
+            //     });
+            //     $.ajax({
+            //         type: 'GET',
+            //         url: 'http://127.0.0.1:8000/customer/data/' + custom,
+            //         //   data : ({id : $(this).value}),
+            //         dataType: 'JSON',
+            //         success: function(response) {
+            //             console.log(response);
+            //             $('.customer_data').html(
+            //                 `<td> name</td>` + data.name + `</td><td>رقم الهاتف</td><td>` +
+            //                 data.phone_number + `</td><td></td><td>` + data.id + `</td>`
+
+
+
+            //             )
+            //         }
 
         });
+
+
+
+
+
+        // })
+
+
+        // });
     </script>
 @endsection
 

@@ -74,34 +74,51 @@ class QoutationController extends Controller
     public function store(Request $request)
     {
      $qout_line=[];
+    //  dd($request);
        $qoute=qoutation::create([
 
-        "customer_name" => $request->customer_name,
-        // "qouation_number" => "Q.1",
-        "qoutation_date" =>$request->quotation_date,
-        "line" => $request->line_id,
-        "rate" =>$request->factor
+
+
+        "factor" =>$request->factor,
+       "qoutation_date"=>$request->qoutation_date,
+       "expire_date"=>$request->expire_date,
+        "project_name"=>$request->project_name,
+        "statues"=>$request->statues,
+        "description"=>$request->description,
+        "refrence"=>'Q',
+        'customer'=>$request->customer,
+
+
        ]);
 
+       foreach ($request->lines as $key => $line) {
+       $qoute_batch= $qoute->qoute_batch()->create([
+            "line"=>$line,
+            "factor"=>$request->factor,
+           ]);
 
-       for ($i=0; $i <sizeof($request->item) ; $i++) {
-        $qout_line[$i]=   $qoute->qoute_lines()->create([
-            'item'=>$request->item[$i],
-            'qty'=>$request->qty[$i],
-
-             "material"=>$request->material[$i],
-           "material_acc"=>$request->material_acc[$i],
-           "material_other"=>$request->material_other[$i],
-           "labour"=>$request->labour[$i],
-            "labour_acc"=>$request->labour[$i],
-            "labour_other"=>$request->labour_other[$i],
-
-
+           for ($i=0; $i <sizeof($request->item[$line]) ; $i++) {
+            $qout_line[$i]=$qoute_batch->qoute_lines()->create([
+                'item'=>$request->item[ $line][$i],
+                'qty'=>$request->qty[$line][$i],
+                "qoute_batch"=>$line,
+                 "material"=>$request->material[$line][$i],
+               "material_acc"=>$request->material_acc[$line][$i],
+               "material_other"=>$request->material_other[$i],
+               "labour"=>$request->labour[$i],
+                "labour_acc"=>$request->labour[$i],
+                "labour_other"=>$request->labour_other[$i],
 
 
-            ]);
 
+
+                ]);
+            }
        }
+
+
+
+
        if (sizeof($qout_line)) {
       return redirect()->route('lines',$request->line_id)->with(['message'=>'تم حفظ التسعيرة']);
        } else {

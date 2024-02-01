@@ -9,8 +9,8 @@ class qoutation_line extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function qoute()
+    public function qoute_line()
     {
-        return $this->belongsTo(qoutation::class, 'qoute', 'id');
+        return $this->hasMany(qoutation_line::class, 'id', 'qoute_batch');
     }
 }
