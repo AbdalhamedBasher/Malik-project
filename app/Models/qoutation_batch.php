@@ -11,6 +11,6 @@ class qoutation_batch extends Model
     protected $guarded = [];
     public function qoute_lines()
     {
-        return $this->belongsTo(qoutation::class, 'qoute_batch', 'id');
+        return $this->belongsTo(qoutation_line::class, 'qoute_batch', 'id');
     }
 }

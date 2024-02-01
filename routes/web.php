@@ -86,9 +86,9 @@ Route::POST('size/update', [SizeController::class,"update"])->name('size.update'
 
 // quotation
 
-Route::get('qoute', [QoutationController::class,"index"]);
+Route::get('qoute', [QoutationController::class,"index"])->name('qoute');
 Route::get('qoute/create', [QoutationController::class,"create"])->name('qoute.create');
-Route::post('qoute/create', [QoutationController::class,"store"])->name('qoute');
+Route::post('qoute/store', [QoutationController::class,"store"])->name('qoute.store');
 Route::post('qoute/delete', [QoutationController::class,"destroy"])->name('qoute.delete');
 Route::put('qoute/update', [QoutationController::class,"update"])->name('quotation.update');
 // Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');

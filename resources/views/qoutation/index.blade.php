@@ -143,11 +143,14 @@
                         </tr>
                     </thead>
                     <tbody>
-
-
                         @php
                             $i = 1;
                         @endphp
+     {{-- @foreach ($qouations as  $qoute)
+         <tr></tr>
+     @endforeach --}}
+
+
 
 
 

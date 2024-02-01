@@ -8,6 +8,7 @@ use App\Models\customer;
 use App\Models\items;
 use App\Models\qoutation;
 use App\Models\line;
+use App\Models\qoutation_line;
 use App\Models\size;
 use App\Models\type;
 use Illuminate\Http\Request;
@@ -95,20 +96,20 @@ class QoutationController extends Controller
        $qoute_batch= $qoute->qoute_batch()->create([
             "line"=>$line,
             "factor"=>$request->factor,
+            "qoute"=>$qoute->id
            ]);
 
            for ($i=0; $i <sizeof($request->item[$line]) ; $i++) {
             $qout_line[$i]=$qoute_batch->qoute_lines()->create([
-                'item'=>$request->item[ $line][$i],
-                'qty'=>$request->qty[$line][$i],
-                "qoute_batch"=>$line,
-                 "material"=>$request->material[$line][$i],
-               "material_acc"=>$request->material_acc[$line][$i],
-               "material_other"=>$request->material_other[$i],
-               "labour"=>$request->labour[$i],
-                "labour_acc"=>$request->labour[$i],
-                "labour_other"=>$request->labour_other[$i],
 
+                "qty" => $request->qty[$line][$i],
+                "item" => $request->item[$line][$i],
+                "qoute_batch" =>  $qoute_batch->id,
+                "material" =>$request->material[$line][$i],
+                "material_acc" => $request->material_acc[$line][$i],
+                "material_other" =>$request->material_acc[$line][$i],
+                "labour" =>$request->labour[$line][$i],
+                "labour_other" =>$request->labour_other[$line][$i],
 
 
 
@@ -120,7 +121,7 @@ class QoutationController extends Controller
 
 
        if (sizeof($qout_line)) {
-      return redirect()->route('lines',$request->line_id)->with(['message'=>'تم حفظ التسعيرة']);
+      return redirect()->route('qoute')->with(['message'=>'تم حفظ التسعيرة']);
        } else {
       return redirect()->back()->with(["error"=>'هناك خطا']);
        }
