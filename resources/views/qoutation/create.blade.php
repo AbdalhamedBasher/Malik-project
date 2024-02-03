@@ -163,6 +163,7 @@
 
                             <div class="table-responsive">
                                 <div class="">
+
                                     <input type="checkbox" class="lines" name="lines[]" value="{{ $item->id }}"
                                         id="">
                                     <label class="" for="">
@@ -323,12 +324,19 @@
 
                                     </tbody>
                                 </table>
+                                <input type="text" name="hole_tot[{{ $item->id }}][]"
+                                id="{{ $item->id }}" vallue="0" class="totals border border-1" readonly>
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
                                     id="{{ $item->name }}">
                             </div>
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <input type="text" name="total[]" id="{{$item->id}}" class="total border border-1" readonly>
+                            </div>
+
                         </div>
                 @endforeach
                 <div class="form-group col-md-2 justify-center">
@@ -743,7 +751,7 @@
                     // sumations(this.value,0);
 
                 } else {
-
+                    all_line[this.value] = 0;
                     $(this).parent().parent().find('table').css('visibility', 'hidden').fadeIn(50000);
                 }
 
@@ -754,6 +762,7 @@
             $(".btn-line").click(function(e) {
                 e.preventDefault();
                 // console.log("true");
+
                 $(".line_data#" + this.id).append(
                     `
                     <tr>
@@ -1193,19 +1202,14 @@
                 parent.closest(".line_data").each(function() {
                     $(this).find(".all_tot").each(function() {
 
-
-
-                        if ($(this).attr("id") === id) {
-
-
-
                             all_line[id] += parseInt($(this).val())
-                        }
+                            $(this).closest(".card-body").find("input.total").val( all_line[id])
+console.log( $(this).closest(".card-body").find("input.total").val());
                     })
 
                 })
 
-
+                console.log( all_line);
 
             }
 
@@ -1216,7 +1220,7 @@
 
 
 
-
+console.log( all_line);
 
 
 
