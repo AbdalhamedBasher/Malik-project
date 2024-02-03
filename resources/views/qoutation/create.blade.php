@@ -221,7 +221,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody class="line_data" id="{{ $item->name }}">
+                                    <tbody class="line_data" id="{{ $item->id }}">
 
                                         <tr>
                                             <td width="10">
@@ -230,7 +230,7 @@
 
                                             <td style="text-align: center">
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]">
+                                                    name="item[{{ $item->id }}][]" required>
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
                                                         <option value="{{ $product->id }}">{{ $product->name }} <span
@@ -238,81 +238,94 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                <input type="text" name="" class="" readonly
+                                                    id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="units[{{ $item->id }}]" id=""
-                                                    class="border border-1">
+                                                    class=" border border-1 border border-1">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="factor_price[{{ $item->id }}][]"
-                                                    class="factor_price" readonly id="{{ $item->id }}">
+                                                    class=" border border-1 factor_price" readonly
+                                                    id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
 
-                                                <input type="text" name="qty[{{ $item->id }}][]" class="qty"
-                                                    id="{{ $item->id }}" vallue="0">
+                                                <input type="text" name="qty[{{ $item->id }}][]"
+                                                    class=" border border-1 qty" id="{{ $item->id }}"
+                                                    vallue="0" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="simetot[{{ $item->id }}][]" readonly
-                                                    id="{{ $item->id }}" vallue="0" class="simetot">
+                                                    id="{{ $item->id }}" vallue="0"
+                                                    class=" border border-1 simetot">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="material">
+                                                    id="{{ $item->id }}" vallue="0"
+                                                    class=" border border-1 material" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_acc[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}" class="material_acc">
+                                                    value="0" id="{{ $item->id }}"
+                                                    class=" border border-1 material_acc" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_other[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}" class="material_other">
+                                                    value="0" id="{{ $item->id }}"
+                                                    class=" border border-1 material_other" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" vallue="0" readonly
-                                                    class="tot_material">
+                                                    class=" border border-1 tot_material">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="" readonly class="all_material" vallue="0">
+                                                    id="{{ $item->id }}" readonly
+                                                    class=" border border-1 all_material" vallue="0">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="labour">
+                                                    id="{{ $item->id }}" vallue="0"
+                                                    class=" border border-1 labour" required>
                                             </td>
 
 
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour_other[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="labour_other">
+                                                    id="{{ $item->id }}" vallue="0"
+                                                    class=" border border-1 labour_other" required>
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class="tot_labour" vallue="0">
+                                                    id="" class=" border border-1 tot_labour" vallue="0" required>
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="all_labour" readonly>
+                                                    id="{{ $item->id }}" vallue="0"
+                                                    class=" border border-1 all_labour" readonly>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="all_tot" readonly>
+                                                    id="{{ $item->id }}" vallue="0"
+                                                    class=" border border-1 all_tot" readonly>
 
                                             </td>
                                             <td style="text-align: center">
@@ -325,20 +338,29 @@
 
                                     </tbody>
                                 </table>
-                                <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
-                                    vallue="0" class="totals border border-1" readonly>
+                                {{-- <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
+                                    vallue="0" class="totals border border-1" readonly> --}}
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
-                                    id="{{ $item->name }}">
+                                    id="{{ $item->id }}">
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
                                     class="total border border-1" readonly>
                             </div>
-
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <input type="text" name="total[]" id="{{ $item->id }}"
+                                    class="total_material border border-1" readonly>
+                            </div>
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <input type="text" name="total[]" id="{{ $item->id }}"
+                                    class="total_labour border border-1" readonly>
+                            </div>
                         </div>
                 @endforeach
                 <div class="form-group col-md-2 justify-center">
@@ -355,7 +377,87 @@
 
             <div class="card-body">
 
+                <div class="table-responsive">
 
+
+                    <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
+                        <thead class=" overflow-x-scroll bg-blue-50">
+                            <tr class=" overflow-x-scroll">
+                                <th width="10">
+                                    #
+                                </th>
+
+                                <th style="text-align: center">
+
+                                    النظام </th>
+
+                                <th style="text-align: center">
+                                    المجموع المواد/الكلي</th>
+
+
+                                <th style="text-align: center">
+                                    الايادي العاملة/الكلي</th>
+                                <th style="text-align: center">
+                                    مجموع التكلفة الكلية </th>
+                                <th style="text-align: center">
+                                    factor </th>
+                                <th style="text-align: center">
+                                    سعر البيع </th>
+                                &nbsp;
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="summary">
+                            <?php $i = 1; ?>
+                            @foreach ($line as $item)
+                                <tr>
+                                    <td width="10">
+                                        {{ $i++ }}
+                                    </td>
+
+                                    <td style="text-align: center">
+                                        {{ $item->name }}
+
+                                    <td style="text-align: center">
+
+                                        <input type="text" name="tot_material[{{ $item->id }}][]"
+                                            id="{{ $item->id }}" readonly class="all_material_summary"
+                                            vallue="0">
+                                    </td>
+
+                                    <td style="text-align: center">
+
+
+                                        <input type="text" name="worker_tot[{{ $item->id }}][]"
+                                            id="{{ $item->id }}" vallue="0" class="all_labour_summary" readonly>
+                                    </td>
+                                    <td style="text-align: center">
+
+                                        <input type="text" name="hole_tot[{{ $item->id }}][]"
+                                            id="{{ $item->id }}" vallue="0" class="all_tot_summary" readonly>
+
+                                    </td>
+                                    <td style="text-align: center">
+
+                                        <input type="text" name="hole_tot[{{ $item->id }}][]"
+                                            id="{{ $item->id }}" vallue="0" class="factor" readonly>
+
+                                    </td>
+                                    <td style="text-align: center">
+
+                                        <input type="text" name="hole_tot[{{ $item->id }}][]"
+                                            id="{{ $item->id }}" vallue="0" class="sale_factor_summary"
+                                            readonly>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    {{-- <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
+                        vallue="0" class="totals border border-1" readonly> --}}
+                </div>
 
 
 
@@ -373,14 +475,14 @@
                             class="col-sm-2 col-form-label text-md-center">{{ $item->name }}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control col-3 landing-cost" id="{{ $item->id }}"
-                                placeholder="" name=" landing-cost[{{$item->id}}]" readonly>
+                                placeholder="" name=" landing-cost[{{ $item->id }}]" readonly>
                         </div>
                     </div>
                 @endforeach
                 <div class="form-group row">
                     <label for="inputPassword" class="col-sm-2 col-form-label text-md-center">الربح</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control  col-3" id="inputtext" placeholder="">
+                        <input type="text" class="form-control  col-3 profit" id="inputtext" placeholder="" readonly>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -783,88 +885,90 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                                <input type="text" name=""
+                                                class="" readonly id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
 
-                                                <input type="text" name="units[{{ $item->id }}]" id="">
+                                                <input type="text" name="units[{{ $item->id }}]" id=""
+                                                    class=" border border-1 border border-1">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="factor_price[{{ $item->id }}][]"
-                                                    class="factor_price" readonly id="{{ $item->id }}">
+                                                    class=" border border-1 factor_price" readonly id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
 
-                                                <input type="text" name="qty[{{ $item->id }}][]" class="qty"
+                                                <input type="text" name="qty[{{ $item->id }}][]" class=" border border-1 qty"
                                                     id="{{ $item->id }}" vallue="0">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="simetot[{{ $item->id }}][]" readonly
-                                                    id="{{ $item->id }}" vallue="0" class="simetot">
+                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 simetot">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="material">
+                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 material">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_acc[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}" class="material_acc">
+                                                    value="0" id="{{ $item->id }}" class=" border border-1 material_acc">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_other[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}" class="material_other">
+                                                    value="0" id="{{ $item->id }}" class=" border border-1 material_other">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" readonly class="tot_material">
+                                                    id="{{ $item->id }}" vallue="0" readonly
+                                                    class=" border border-1 tot_material">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="" readonly class="all_material" vallue="0">
+                                                    id="{{ $item->id }}" readonly class=" border border-1 all_material" vallue="0">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="labour">
+                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 labour">
                                             </td>
 
 
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour_other[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="labour_other">
+                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 labour_other">
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class="tot_labour" vallue="0">
+                                                    id="" class=" border border-1 tot_labour" vallue="0">
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="all_labour" readonly>
+                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 all_labour" readonly>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class="all_tot" readonly>
+                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 all_tot" readonly>
 
                                             </td>
                                             <td style="text-align: center">
                                                 &emsp;
 
                                             </td>
-                                        </tr>
-`
-                ).ready(function() {
+                                        </tr>`).ready(function() {
 
                     $(".products").change(function() {
                         console.log($('.lines').val());
@@ -901,8 +1005,8 @@
                             parseInt($(this).parent().parent().find(".all_labour")
                                 .val()) + parseInt($(this).parent().parent().find(
                                 ".all_material").val()))
-
-
+                        sumations_profit();
+                        sumations($(this));
                     })
 
 
@@ -934,7 +1038,8 @@
                                 .parent().find(".all_labour").val()) + parseInt($(this)
                                 .parent().parent().find(
                                     ".all_material").val()))
-
+                        sumation_all_material($(this))
+                        sumations($(this));
                     })
 
                     // material Acssories
@@ -958,7 +1063,8 @@
                                 .parent().find(".all_labour").val()) + parseInt($(this)
                                 .parent().parent().find(
                                     ".all_material").val()))
-
+                        sumation_all_material($(this))
+                        sumations($(this));
                     })
 
 
@@ -983,7 +1089,8 @@
                                 .parent().find(".all_labour").val()) + parseInt($(this)
                                 .parent().parent().find(
                                     ".all_material").val()))
-
+                        sumation_all_material($(this))
+                        sumations($(this));
                     })
 
 
@@ -1010,8 +1117,9 @@
                                     ".all_material").val()))
                         console.log(tot_labour);
                         // all_labour
+                        sumation_all_labour($(this));
 
-
+                        sumations($(this));
                     })
 
 
@@ -1033,7 +1141,13 @@
                                 .parent().parent().find(
                                     ".all_material").val()))
                         // all_labour
-                        sumations($(this))
+
+                        // sumation_all_labour
+                        sumation_all_labour($(this));
+                        sumation_all($(this))
+
+             sumations($(this));
+
                     })
 
 
@@ -1060,14 +1174,14 @@
                 var product = 0;
                 var qty = $(this).parent().parent().find(".qty").val();
                 product = $(this).parent().parent().find("select").val()
-                tot = $(this).val() * $(".factor").val();
-                console.log(tot);
+                tot = $(this).val() * $(".factor").val() * qty;
                 $(this).parent().parent().find(".factor_price").val('');
                 $(this).parent().parent().find(".factor_price").val(tot);
                 var tot_product = qty * $(this).val();
                 $(this).parent().parent().find(".simetot").val(tot_product);
                 net = $(this).parent().parent().find(".simetot").val();
                 $(this).parent().parent().find(".net").val()
+
             })
 
 
@@ -1086,6 +1200,18 @@
                     parseInt($(this).parent().parent().find(".all_labour")
                         .val()) + parseInt($(this).parent().parent().find(
                         ".all_material").val()))
+
+                sumations_profit();
+
+    sumations($(this));
+
+                //  here fire the profit
+
+
+
+
+
+
 
             })
 
@@ -1111,7 +1237,8 @@
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
-
+                sumation_all_material($(this))
+    sumations($(this));
             })
 
             // material Acssories
@@ -1129,7 +1256,9 @@
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
-
+                sumation_all_material($(this))
+                sumation_all($(this))
+    sumations($(this));
             })
 
 
@@ -1148,8 +1277,9 @@
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
-
-
+                sumation_all_material($(this))
+                sumation_all($(this))
+                sumations($(this));
             })
 
 
@@ -1173,7 +1303,9 @@
                 console.log(tot_labour);
 
                 // all_labour
-
+                sumation_all_labour($(this));
+                sumation_all($(this))
+                sumations($(this))
             })
 
 
@@ -1193,6 +1325,9 @@
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
                 // all_labour
+                //
+                sumation_all_labour($(this));
+                sumation_all($(this));
                 sumations($(this))
             })
 
@@ -1207,8 +1342,34 @@
 
                         all_line[id] += parseInt($(this).val())
                         $(this).closest(".card-body").find("input.total").val(all_line[id])
+
+                    })
+                    $("input.profit").val(sum)
+                })
+
+
+
+            }
+
+
+
+
+
+            // suation for profit
+            function sumations_profit() {
+
+                var sum = 0;
+                $("input.profit").val('')
+
+                console.log($(".line_data"));
+                $(".line_data").each(function() {
+                    $(this).find(".simetot").each(function() {
+
+                        sum += parseInt($(this).val())
+                        // $(this).closest(".card-body").find("input.total").val(all_line[id])
                         // console.log( parent.closest(".card-body").parent().parent().html());
-                        $(".breif").find("input.landing-cost#"+id).val( all_line[id])
+                        // $(".breif").find("input.profit").val(sum)
+                        $("input.profit").val(sum)
                     })
 
                 })
@@ -1216,9 +1377,46 @@
 
             }
 
+            function sumation_all_material(parent) {
+                // all_line[id]-0;
+                var sum = 0;
+
+                var id = parent.attr("id")
+                all_line[id] = 0;
+                parent.closest(".line_data").each(function() {
+                    $(this).find(".all_material").each(function() {
+
+                        all_line[id] += parseInt($(this).val())
+                        $(this).closest(".card-body").find("input.total_material").val(all_line[id])
+
+                    })
+                    $("input.profit").val(sum)
+                })
 
 
-// console.log($(".breif").);
+
+            }
+
+
+            function sumation_all_labour(parent) {
+                // all_line[id]-0;
+                var sum = 0;
+
+                var id = parent.attr("id")
+                all_line[id] = 0;
+                parent.closest(".line_data").each(function() {
+                    $(this).find(".all_labour").each(function() {
+
+                        all_line[id] += parseInt($(this).val())
+                        $(this).closest(".card-body").find("input.total_labour").val(all_line[id])
+
+                    })
+                    $("input.profit").val(sum)
+                })
+
+
+
+            }
 
 
 
@@ -1227,7 +1425,7 @@
 
 
 
-
+            $(this).find('input:text').val('');
 
 
 
