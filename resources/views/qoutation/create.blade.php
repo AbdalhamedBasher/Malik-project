@@ -241,7 +241,8 @@
                                             </td>
                                             <td style="text-align: center">
 
-                                                <input type="text" name="units[{{ $item->id }}]" id="">
+                                                <input type="text" name="units[{{ $item->id }}]" id=""
+                                                    class="border border-1">
                                             </td>
                                             <td style="text-align: center">
 
@@ -324,8 +325,8 @@
 
                                     </tbody>
                                 </table>
-                                <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                id="{{ $item->id }}" vallue="0" class="totals border border-1" readonly>
+                                <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
+                                    vallue="0" class="totals border border-1" readonly>
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
@@ -334,7 +335,8 @@
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
-                                <input type="text" name="total[]" id="{{$item->id}}" class="total border border-1" readonly>
+                                <input type="text" name="total[]" id="{{ $item->id }}"
+                                    class="total border border-1" readonly>
                             </div>
 
                         </div>
@@ -364,44 +366,45 @@
 
             </div>
 
-            <div class="card-body">
+            <div class="card-body breif">
                 @foreach ($line as $item)
+                    <div class="form-group row">
+                        <label for="staticEmail"
+                            class="col-sm-2 col-form-label text-md-center">{{ $item->name }}</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control col-3 landing-cost" id="{{ $item->id }}"
+                                placeholder="" name=" landing-cost[{{$item->id}}]" readonly>
+                        </div>
+                    </div>
+                @endforeach
                 <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">{{$item->name}}</label>
+                    <label for="inputPassword" class="col-sm-2 col-form-label text-md-center">الربح</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="{{$item->id}}" placeholder="" readonly>
+                        <input type="text" class="form-control  col-3" id="inputtext" placeholder="">
                     </div>
                 </div>
-
-            @endforeach
-            <div class="form-group row">
-                <label for="inputPassword" class="col-sm-2 col-form-label text-md-center">الربح</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputtext" placeholder="" >
-                </div>
-            </div>
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">التكاليف غير المباشرة</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputtext" placeholder="" >
+                        <input type="text" class="form-control  col-3" id="inputtext" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputtext" class="col-sm-2 col-form-label text-md-center">تكاليف المقاولين بالباطن</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputtext" placeholder="" >
+                        <input type="text" class="form-control  col-3" id="inputtext" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">تكاليف إضافية</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputtext" placeholder="" >
+                        <input type="text" class="form-control col-3" id="inputtext" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputtext" class="col-sm-2 col-form-label text-md-center">التكاليف الكلية</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="inputtext" placeholder="" >
+                        <input type="text" class="form-control col-3" id="inputtext" placeholder="">
                     </div>
                 </div>
 
@@ -1202,25 +1205,25 @@
                 parent.closest(".line_data").each(function() {
                     $(this).find(".all_tot").each(function() {
 
-                            all_line[id] += parseInt($(this).val())
-                            $(this).closest(".card-body").find("input.total").val( all_line[id])
-console.log( $(this).closest(".card-body").find("input.total").val());
+                        all_line[id] += parseInt($(this).val())
+                        $(this).closest(".card-body").find("input.total").val(all_line[id])
+                        // console.log( parent.closest(".card-body").parent().parent().html());
+                        $(".breif").find("input.landing-cost#"+id).val( all_line[id])
                     })
 
                 })
 
-                console.log( all_line);
 
             }
 
 
 
+// console.log($(".breif").);
 
 
 
 
 
-console.log( all_line);
 
 
 
