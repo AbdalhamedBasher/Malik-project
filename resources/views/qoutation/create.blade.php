@@ -233,7 +233,7 @@
                                                     name="item[{{ $item->id }}][]" required>
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->name }} <span
+                                                        <option value="{{ $product->price }}">{{ $product->name }} <span
                                                                 id="{{ $product->id }}">{{ $product->price }}</span>
                                                         </option>
                                                     @endforeach
@@ -255,8 +255,8 @@
                                             <td style="text-align: center">
 
                                                 <input type="text" name="qty[{{ $item->id }}][]"
-                                                    class=" border border-1 qty" id="{{ $item->id }}"
-                                                    vallue="0" required>
+                                                    class=" border border-1 qty" id="{{ $item->id }}" vallue="0"
+                                                    required>
                                             </td>
                                             <td style="text-align: center">
 
@@ -312,7 +312,8 @@
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class=" border border-1 tot_labour" vallue="0" required>
+                                                    id="" class=" border border-1 tot_labour" vallue="0"
+                                                    required>
                                             </td>
                                             <td style="text-align: center">
 
@@ -360,6 +361,15 @@
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
                                     class="total_labour border border-1" readonly>
+                            </div>
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <input type="text" name="total[]" id="{{ $item->id }}"
+                                    class="total_profit border border-1" readonly>
+                            </div>
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <button class="btn btn-sm btn-bd-primary" onclick=" sumations($(this));">حساب</button>
                             </div>
                         </div>
                 @endforeach
@@ -440,7 +450,7 @@
                                     <td style="text-align: center">
 
                                         <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                            id="{{ $item->id }}" vallue="0" class="factor" readonly>
+                                            id="{{ $item->id }}" vallue="0" class="factor_summary" readonly>
 
                                     </td>
                                     <td style="text-align: center">
@@ -844,21 +854,9 @@
     <script>
         $(document).ready(function() {
             let all_line = {};
-            $(".lines").each(function() {
-                all_line[this.value] = 0;
-                console.log(all_line);
-            })
+            line_detect()
             $(".lines").change(function() {
-                if (this.checked) {
-
-                    $(this).parent().parent().find('table').css('visibility', 'visible').fadeIn(50000);
-
-                    // sumations(this.value,0);
-
-                } else {
-                    all_line[this.value] = 0;
-                    $(this).parent().parent().find('table').css('visibility', 'hidden').fadeIn(50000);
-                }
+                line_detect();
 
             })
 
@@ -866,7 +864,7 @@
             var all_material = 0
             $(".btn-line").click(function(e) {
                 e.preventDefault();
-                // console.log("true");
+
 
                 $(".line_data#" + this.id).append(
                     `
@@ -876,7 +874,7 @@
                                             </td>
 
                                             <td style="text-align: center">
-                                                <select class="form-control products" id="{{ $item->id }}"
+                                                <select class="form-control products" id="{{ $item->price }}"
                                                     name="item[{{ $item->id }}][]">
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
@@ -905,7 +903,7 @@
                                             </td>
                                             <td style="text-align: center">
 
-                                                <input type="text" name="simetot[{{ $item->id }}][]" readonly
+                                                <input type="text" name="[{{ $item->id }}][]" readonly
                                                     id="{{ $item->id }}" vallue="0" class=" border border-1 simetot">
                                             </td>
                                             <td style="text-align: center">
@@ -970,22 +968,41 @@
                                             </td>
                                         </tr>`).ready(function() {
 
+
+
+
+
+
+
+
+
+                    // // material
+
+
+
+
+
+
+
+
+
+                    // labour other
+
                     $(".products").change(function() {
-                        console.log($('.lines').val());
+
                         var factor = $(".factor").val()
                         var tot = 0;
                         var product = 0;
                         var qty = $(this).parent().parent().find(".qty").val();
                         product = $(this).parent().parent().find("select").val()
-                        tot = $(this).val() * $(".factor").val();
-                        console.log(tot);
+                        tot = $(this).val() * $(".factor").val() * qty;
                         $(this).parent().parent().find(".factor_price").val('');
                         $(this).parent().parent().find(".factor_price").val(tot);
                         var tot_product = qty * $(this).val();
                         $(this).parent().parent().find(".simetot").val(tot_product);
                         net = $(this).parent().parent().find(".simetot").val();
                         $(this).parent().parent().find(".net").val()
-
+                        sum_product($(this))
                     })
 
 
@@ -993,20 +1010,30 @@
 
                     $(".qty").keyup(function(e) {
 
-
                         var product_factor = $(this).parent().parent().find(".factor_price")
                             .val()
                         var tot = product_factor * $(this).val();
 
                         $(this).parent().parent().find(".hole_tot").val('');
-                        // console.log($(this).parent().parent().find(".factor_price").val(tot));
+
                         $(this).parent().parent().find(".simetot").val(tot);
                         var all_tot = $(this).parent().parent().find(".all_tot").val(
                             parseInt($(this).parent().parent().find(".all_labour")
                                 .val()) + parseInt($(this).parent().parent().find(
                                 ".all_material").val()))
-                        sumations_profit();
+
+                        // sumations_profit($(this));
+
                         sumations($(this));
+
+                        //  here fire the profit
+
+
+
+                        sum_product($(this))
+
+
+
                     })
 
 
@@ -1030,7 +1057,8 @@
                         var qty = $(this).parent().parent().find(".qty").val();
                         var all_material = $(this).parent().parent().find(".all_material")
                             .val(tot_material * qty);
-                        // console.log(qty*tot_material);
+
+
 
                         // var tot_material = $(this).parent().parent().find(".tot_material").val(tot);
                         var all_tot = $(this).parent().parent().find(".all_tot").val(
@@ -1052,7 +1080,7 @@
                         var tot_material = parseInt($(this).val()) + parseInt(material) +
                             parseInt(material_other)
                         $(this).parent().parent().find(".simetot").val('');
-                        console.log(tot_material);
+
                         var qty = $(this).parent().parent().find(".qty").val();
                         var all_material = $(this).parent().parent().find(".all_material")
                             .val(tot_material * qty);
@@ -1064,6 +1092,7 @@
                                 .parent().parent().find(
                                     ".all_material").val()))
                         sumation_all_material($(this))
+
                         sumations($(this));
                     })
 
@@ -1078,19 +1107,21 @@
                         var tot_material = parseInt($(this).val()) + parseInt(
                             material_acc) + parseInt(material)
                         $(this).parent().parent().find(".simetot").val('');
-                        console.log(tot_material);
+
                         var qty = $(this).parent().parent().find(".qty").val();
                         var all_material = $(this).parent().parent().find(".all_material")
                             .val(tot_material * qty);
-                        console.log($(this).parent().parent().find(".tot_material").val(
-                            tot_material));
+                      $(this).parent().parent().find(".tot_material").val(
+                            tot_material);
                         var all_tot = $(this).parent().parent().find(".all_tot").val(
                             parseInt($(this).parent()
                                 .parent().find(".all_labour").val()) + parseInt($(this)
                                 .parent().parent().find(
                                     ".all_material").val()))
                         sumation_all_material($(this))
+
                         sumations($(this));
+                        line_detect()
                     })
 
 
@@ -1115,11 +1146,11 @@
                                 .parent().find(".all_labour").val()) + parseInt($(this)
                                 .parent().parent().find(
                                     ".all_material").val()))
-                        console.log(tot_labour);
+
                         // all_labour
                         sumation_all_labour($(this));
 
-                        sumations($(this));
+                        sumations($(this))
                     })
 
 
@@ -1141,13 +1172,11 @@
                                 .parent().parent().find(
                                     ".all_material").val()))
                         // all_labour
-
-                        // sumation_all_labour
+                        //
                         sumation_all_labour($(this));
-                        sumation_all($(this))
 
-             sumations($(this));
-
+                        sumations($(this))
+                        line_detect()
                     })
 
 
@@ -1159,6 +1188,7 @@
 
 
                 });
+                line_detect()
             });
 
 
@@ -1168,7 +1198,7 @@
             // let hole_tot = 0;
             // // product total
             $(".products").change(function() {
-                console.log($('.lines').val());
+
                 var factor = $(".factor").val()
                 var tot = 0;
                 var product = 0;
@@ -1181,7 +1211,7 @@
                 $(this).parent().parent().find(".simetot").val(tot_product);
                 net = $(this).parent().parent().find(".simetot").val();
                 $(this).parent().parent().find(".net").val()
-
+                sum_product($(this))
             })
 
 
@@ -1194,22 +1224,22 @@
                 var tot = product_factor * $(this).val();
 
                 $(this).parent().parent().find(".hole_tot").val('');
-                // console.log($(this).parent().parent().find(".factor_price").val(tot));
+
                 $(this).parent().parent().find(".simetot").val(tot);
                 var all_tot = $(this).parent().parent().find(".all_tot").val(
                     parseInt($(this).parent().parent().find(".all_labour")
                         .val()) + parseInt($(this).parent().parent().find(
                         ".all_material").val()))
 
-                sumations_profit();
+                // sumations_profit($(this));
 
-    sumations($(this));
+                sumations($(this));
 
                 //  here fire the profit
 
 
 
-
+                sum_product($(this))
 
 
 
@@ -1225,20 +1255,20 @@
                 var tot_material = parseInt($(this).val()) + parseInt($(this).parent().parent().find(
                     ".material_other").val()) + parseInt($(this).parent().parent().find(
                     ".material_other").val())
-                console.log(tot_material);
+
 
 
                 $(this).parent().parent().find(".tot_material").val(tot_material);
                 var qty = $(this).parent().parent().find(".qty").val();
                 var all_material = $(this).parent().parent().find(".all_material").val(tot_material * qty);
-                // console.log(qty*tot_material);
+
 
                 // var tot_material = $(this).parent().parent().find(".tot_material").val(tot);
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
                 sumation_all_material($(this))
-    sumations($(this));
+                sumations($(this));
             })
 
             // material Acssories
@@ -1249,16 +1279,16 @@
                 var material_other = $(this).parent().parent().find(".material_other").val()
                 var tot_material = parseInt($(this).val()) + parseInt(material) + parseInt(material_other)
                 $(this).parent().parent().find(".simetot").val('');
-                console.log(tot_material);
+
                 var qty = $(this).parent().parent().find(".qty").val();
                 var all_material = $(this).parent().parent().find(".all_material").val(tot_material * qty);
-                console.log($(this).parent().parent().find(".tot_material").val(tot_material));
+
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
                 sumation_all_material($(this))
-                sumation_all($(this))
-    sumations($(this));
+
+                sumations($(this));
             })
 
 
@@ -1270,16 +1300,17 @@
                 var material_acc = $(this).parent().parent().find(".material_acc").val()
                 var tot_material = parseInt($(this).val()) + parseInt(material_acc) + parseInt(material)
                 $(this).parent().parent().find(".simetot").val('');
-                console.log(tot_material);
+
                 var qty = $(this).parent().parent().find(".qty").val();
                 var all_material = $(this).parent().parent().find(".all_material").val(tot_material * qty);
-                console.log($(this).parent().parent().find(".tot_material").val(tot_material));
+
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
                 sumation_all_material($(this))
-                sumation_all($(this))
+
                 sumations($(this));
+                line_detect()
             })
 
 
@@ -1300,11 +1331,12 @@
                 var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
                     .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
                     ".all_material").val()))
-                console.log(tot_labour);
+
+
 
                 // all_labour
                 sumation_all_labour($(this));
-                sumation_all($(this))
+
                 sumations($(this))
             })
 
@@ -1326,9 +1358,11 @@
                     ".all_material").val()))
                 // all_labour
                 //
+                sumation_all($(this))
                 sumation_all_labour($(this));
-                sumation_all($(this));
+
                 sumations($(this))
+                line_detect()
             })
 
             function sumations(parent) {
@@ -1351,31 +1385,28 @@
 
             }
 
-
+            // factor_summary
 
 
 
             // suation for profit
-            function sumations_profit() {
+            // function sumations_profit(parent) {
 
-                var sum = 0;
-                $("input.profit").val('')
+            //     var sum = 0;
+            //     $("input.profit").val('')
 
-                console.log($(".line_data"));
-                $(".line_data").each(function() {
-                    $(this).find(".simetot").each(function() {
+            //     parent.closest(".line_data").each(function() {
+            //         $(this).find(".simetot").each(function() {
 
-                        sum += parseInt($(this).val())
-                        // $(this).closest(".card-body").find("input.total").val(all_line[id])
-                        // console.log( parent.closest(".card-body").parent().parent().html());
-                        // $(".breif").find("input.profit").val(sum)
-                        $("input.profit").val(sum)
-                    })
+            //             all_line[id] += parseInt($(this).val())
+            //             $(this).closest(".card-body").find("input.total_profit").val(all_line[id])
 
-                })
+            //         })
+            //         $("input.profit").val(sum)
+            //     })
 
 
-            }
+            // }
 
             function sumation_all_material(parent) {
                 // all_line[id]-0;
@@ -1388,7 +1419,7 @@
 
                         all_line[id] += parseInt($(this).val())
                         $(this).closest(".card-body").find("input.total_material").val(all_line[id])
-
+                        $("#" + id + ".all_material_summary").val(all_line[id])
                     })
                     $("input.profit").val(sum)
                 })
@@ -1409,9 +1440,179 @@
 
                         all_line[id] += parseInt($(this).val())
                         $(this).closest(".card-body").find("input.total_labour").val(all_line[id])
+                        $("#" + id + ".all_labour_summary").val(all_line[id])
+                    })
+
+                })
+
+                sumation_all(parent)
+
+            }
+
+
+
+
+
+            function line_detect() {
+                $(".lines").each(function() {
+                    all_line[this.value] = 0;
+
+                    if (this.checked) {
+
+                        $(this).parent().parent().find('table').css('visibility', 'visible').fadeIn(50000);
+
+                        // sumations(this.value,0);
+
+                    } else {
+                        all_line[this.value] = 0;
+                        $(this).parent().parent().find('table').css('visibility', 'hidden').fadeIn(50000);
+                    }
+                })
+            }
+
+
+            function sum_product(parent) {
+
+
+                var sum = 0;
+
+                var id = parent.attr("id")
+
+                all_line[id] = 0;
+                var qty = [];
+                var product = [];
+
+                parent.closest(".line_data").each(function() {
+
+                    $(this).find("select.products").each(function(index) {
+                        product[index] = $(this).val()
+                    })
+
+
+                    $(this).find(".qty").each(function(index) {
+                        qty[index] = $(this).val()
 
                     })
-                    $("input.profit").val(sum)
+                    $(this).find("#"+id+".simetot").each(function(index) {
+                        $(this).val(qty[index] * product[index] * $('.factor').val())
+
+                        sum_profit(id)
+
+                    })
+                })
+
+            }
+
+            function sum_profit(id) {
+
+
+                var sum = 0;
+
+
+
+
+                $(".line_data").each(function() {
+
+
+                    $(this).find("#" + id + ".simetot").each(function() {
+
+                        sum += parseInt($(this).val());
+                        $("#" + id + ".total_profit").val(sum)
+                    })
+
+                })
+
+            }
+            sumation_all($(".tot"))
+
+            $(this).find('input:text').val('');
+            $(this).find('select').val('');
+
+
+            function sumation_all(parent) {
+                // all_line[id]-0;
+                var sum = 0;
+
+                var id = parent.attr("id")
+                all_line[id] = 0;
+
+                parent.closest(".line_data").each(function() {
+                    $(this).find("#"+id+".all_tot").each(function() {
+
+                        all_line[id] += parseInt($(this).val())
+
+                        // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
+                        $("#" + id + ".total").val(all_line[id])
+                        $("#"+id+".all_tot_summary").val(all_line[id]);
+                        $("#"+id+"input.all_tot_summary").val( $("#" + id + ".total").val())
+                    })
+
+                })
+
+
+
+            }
+
+
+            function sumation_all(parent) {
+                // all_line[id]-0;
+                var sum = 0;
+
+                var id = parent.attr("id")
+                all_line[id] = 0;
+
+                parent.closest(".line_data").each(function() {
+                    $(this).find("#"+id+".all_tot").each(function() {
+
+                        all_line[id] += parseInt($(this).val())
+
+                        // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
+                        $("#" + id + ".total").val(all_line[id])
+                        $("#"+id+".all_tot_summary").val(all_line[id]);
+                        $("#"+id+"input.all_tot_summary").val( $("#" + id + ".total").val())
+                    })
+                    total_factor(parent);
+                })
+
+
+
+            }
+            function total_factor(parent) {
+                // all_line[id]-0;
+                var sum = 0;
+
+                var id = parent.attr("id")
+
+
+                $(".summary").each(function() {
+                    $(this).find("#"+id+".factor_summary").each(function() {
+
+
+                        $(this).val($(".factor").val());
+
+                    })
+
+                })
+                total_sale_factor( $(this).attr("id"))
+
+
+            }
+
+            function total_sale_factor(parent) {
+                // all_line[id]-0;
+                var sum = 0;
+
+
+console.log($(".total_profit"));
+
+
+                    $("#"+parent+".total_profit").each(function() {
+                        sum+=  $(this).val()
+console.log();
+//                       $("input#"+id+".sale_factor_summary").val( sum);
+// console.log( $("input#"+id+".sale_factor_summary"));
+
+
                 })
 
 
@@ -1420,17 +1621,7 @@
 
 
 
-
-
-
-
-
-            $(this).find('input:text').val('');
-
-
-
-
-
+             // sale_factor_summary
 
             //             $(".material").keyup(function(e){
             //   var product= $(this).parent().parent().find("select").val()
