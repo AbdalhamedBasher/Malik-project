@@ -230,15 +230,15 @@
 
                                             <td style="text-align: center">
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]" required>
+                                                    name="item[{{ $item->id }}][]" required >
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
-                                                        <option value="{{ $product->price }}">{{ $product->name }} <span
+                                                        <option value="{{ $product->id }}" data-price="{{$product->price}}">{{ $product->name }} <span
                                                                 id="{{ $product->id }}">{{ $product->price }}</span>
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                <input type="text" name="" class="" readonly
+                                                <input type="text" name="" class="product-price" readonly
                                                     id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
@@ -342,32 +342,32 @@
                                 {{-- <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
                                     vallue="0" class="totals border border-1" readonly> --}}
                             </div>
-                            <div class="form-group col-md-2 justify-center">
+                            <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
                                     id="{{ $item->id }}">
                             </div>
-                            <div class="form-group col-md-2 justify-center">
+                            <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total border border-1" readonly>
+                                    class="total border border-1 d-none" readonly>
                             </div>
-                            <div class="form-group col-md-2 justify-center">
+                            <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total_material border border-1" readonly>
+                                    class="total_material border d-none border-1" readonly>
                             </div>
-                            <div class="form-group col-md-2 justify-center">
+                            <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total_labour border border-1" readonly>
+                                    class="total_labour border d-none border-1" readonly>
                             </div>
-                            <div class="form-group col-md-2 justify-center">
+                            <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total_profit border border-1" readonly>
+                                    class="total_profit d-none border d-none border-1" readonly>
                             </div>
-                            <div class="form-group col-md-2 justify-center">
+                            <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <button class="btn btn-sm btn-bd-primary" onclick=" sumations($(this));">حساب</button>
                             </div>
@@ -874,17 +874,18 @@
                                             </td>
 
                                             <td style="text-align: center">
-                                                <select class="form-control products" id="{{ $item->price }}"
-                                                    name="item[{{ $item->id }}][]">
+                                                <select class="form-control products" id="{{ $item->id }}"
+                                                    name="item[{{ $item->id }}][]" required>
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
                                                         <option value="{{ $product->id }}">{{ $product->name }} <span
                                                                 id="{{ $product->id }}">{{ $product->price }}</span>
                                                         </option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="text" name=""
+
+                                                <input type="hidden" name=""
                                                 class="" readonly id="{{ $item->id }}">
+                                                @endforeach
+                                                </select>
                                             </td>
                                             <td style="text-align: center">
 
@@ -1360,7 +1361,7 @@
                 //
                 sumation_all($(this))
                 sumation_all_labour($(this));
-
+                total_sale_factor( $(this))
                 sumations($(this))
                 line_detect()
             })
@@ -1484,8 +1485,9 @@
 
                 parent.closest(".line_data").each(function() {
 
-                    $(this).find("select.products").each(function(index) {
-                        product[index] = $(this).val()
+                    $(this).find("select.products option:selected").each(function(index) {
+                        product[index] =$(this).data("price")
+
                     })
 
 
@@ -1593,7 +1595,7 @@
                     })
 
                 })
-                total_sale_factor( $(this).attr("id"))
+
 
 
             }
@@ -1601,18 +1603,13 @@
             function total_sale_factor(parent) {
                 // all_line[id]-0;
                 var sum = 0;
+console.log( parent.attr('id'));
 
 
-console.log($(".total_profit"));
+                    $("input#"+ parent.attr('id')+".total_profit").each(function() {
 
-
-                    $("#"+parent+".total_profit").each(function() {
-                        sum+=  $(this).val()
-console.log();
-//                       $("input#"+id+".sale_factor_summary").val( sum);
-// console.log( $("input#"+id+".sale_factor_summary"));
-
-
+                        sum+=parseInt($(this).val());
+$("input#"+ parent.attr('id')+".sale_factor_summary").val(sum)
                 })
 
 

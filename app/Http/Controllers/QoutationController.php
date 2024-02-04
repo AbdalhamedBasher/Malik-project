@@ -22,7 +22,7 @@ class QoutationController extends Controller
 
     public function __construct()
     {
-      $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -32,39 +32,36 @@ class QoutationController extends Controller
      */
     public function index()
     {
-      $qoute=qoutation::get();
-    $qoute_id=qoutation::get()->count()==0?qoutation::get()->count()+1:qoutation::get()->max();
+        $qoute = qoutation::get();
+        $qoute_id = qoutation::get()->count() == 0 ? qoutation::get()->count() + 1 : qoutation::get()->max();
 
-      $line_name=line::get();
-      $items=items::get();
-      $catogery=catogery::get();
-      $type=type::get();
-      $size=size::get();
-      $brand=brand::get();
-      return view('qoutation.index')->with(['line'=>$line_name,'qoute_id'=>$qoute_id,'items'=>$items,'catogery'=>$catogery,'type'=>$type,'size'=>$size,'brand'=>$brand]);
-
+        $line_name = line::get();
+        $items = items::get();
+        $catogery = catogery::get();
+        $type = type::get();
+        $size = size::get();
+        $brand = brand::get();
+        return view('qoutation.index')->with(['line' => $line_name, 'qoute_id' => $qoute_id, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand]);
     }
 
 
-  /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $qoute=qoutation::get();
-        $qoute_id=qoutation::get()->count()==0?qoutation::get()->count()+1:qoutation::get()->max();
-        $customer=customer::get();
-          $line=line::get();
-          $items=items::get();
-          $catogery=catogery::get();
-          $type=type::get();
-          $size=size::get();
-          $brand=brand::get();
-          return view('qoutation.create')->with(['line'=>$line,'qoute_id'=>$qoute_id,'customer'=>$customer,'items'=>$items,'catogery'=>$catogery,'type'=>$type,'size'=>$size,'brand'=>$brand]);
-
-
+        $qoute = qoutation::get();
+        $qoute_id = qoutation::get()->count() == 0 ? qoutation::get()->count() + 1 : qoutation::get()->max();
+        $customer = customer::get();
+        $line = line::get();
+        $items = items::get();
+        $catogery = catogery::get();
+        $type = type::get();
+        $size = size::get();
+        $brand = brand::get();
+        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand]);
     }
     /**
      * Store a newly created resource in storage.
@@ -74,59 +71,60 @@ class QoutationController extends Controller
      */
     public function store(Request $request)
     {
-     $qout_line=[];
-    //  dd($request);
-       $qoute=qoutation::create([
+        $qout_line = [];
+        //  dd($request);
+        $qoute = qoutation::create([
 
 
 
-        "factor" =>$request->factor,
-       "qoutation_date"=>$request->qoutation_date,
-       "expire_date"=>$request->expire_date,
-        "project_name"=>$request->project_name,
-        "statues"=>$request->statues,
-        "description"=>$request->description,
-        "refrence"=>'Q',
-        'customer'=>$request->customer,
+            "factor" => $request->factor,
+            "qoutation_date" => $request->qoutation_date,
+            "expire_date" => $request->expire_date,
+            "project_name" => $request->project_name,
+            "statues" => $request->statues,
+            "description" => $request->description,
+            "refrence" => 'Q',
+            'customer' => $request->customer,
 
 
-       ]);
+        ]);
 
-       foreach ($request->lines as $key => $line) {
-       $qoute_batch= $qoute->qoute_batch()->create([
-            "line"=>$line,
-            "factor"=>$request->factor,
-            "qoute"=>$qoute->id
-           ]);
+        foreach ($request->lines as $key => $line) {
+            $qoute_batch = $qoute->qoute_batch()->create([
+                "line" => $line,
+                "factor" => $request->factor,
+                "qoute" => $qoute->id
+            ]);
+// dd($request->item[$line]);
+            foreach ($request->item[$line] as $key => $value) {
+                # code...
 
-           for ($i=0; $i <sizeof($request->item[$line]) ; $i++) {
-            $qout_line[$i]=$qoute_batch->qoute_lines()->create([
+                $qout_line[$key] = $qoute_batch->qoute_lines()->create([
 
-                "qty" => $request->qty[$line][$i],
-                "item" => $request->item[$line][$i],
-                "qoute_batch" =>  $qoute_batch->id,
-                "material" =>$request->material[$line][$i],
-                "material_acc" => $request->material_acc[$line][$i],
-                "material_other" =>$request->material_acc[$line][$i],
-                "labour" =>$request->labour[$line][$i],
-                "labour_other" =>$request->labour_other[$line][$i],
+                    "qty" => $request->qty[$line][$key],
+                    // "item" =>$value,
+                    // "qoute_batch" =>  $qoute_batch->id,
+                    // "material" => $request->material[$line][$key],
+                    // "material_acc" => $request->material_acc[$line][$key],
+                    // "material_other" => $request->material_acc[$line][$key],
+                    // "labour" => $request->labour[$line][$key],
+                    // "labour_other" => $request->labour_other[$line][$key],
 
 
 
                 ]);
+
             }
-       }
+        }
 
 
 
 
-       if (sizeof($qout_line)) {
-      return redirect()->route('qoute')->with(['message'=>'تم حفظ التسعيرة']);
-       } else {
-      return redirect()->back()->with(["error"=>'هناك خطا']);
-       }
-
-
+        if (sizeof($qout_line)) {
+            return redirect()->route('qoute')->with(['message' => 'تم حفظ التسعيرة']);
+        } else {
+            return redirect()->back()->with(["error" => 'هناك خطا']);
+        }
     }
 
     /**
