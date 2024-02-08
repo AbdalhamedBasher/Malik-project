@@ -230,10 +230,11 @@
 
                                             <td style="text-align: center">
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]" required >
+                                                    name="item[{{ $item->id }}][]" required>
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}" data-price="{{$product->price}}">{{ $product->name }} <span
+                                                        <option value="{{ $product->id }}"
+                                                            data-price="{{ $product->price }}">{{ $product->name }} <span
                                                                 id="{{ $product->id }}">{{ $product->price }}</span>
                                                         </option>
                                                     @endforeach
@@ -244,88 +245,88 @@
                                             <td style="text-align: center">
 
                                                 <input type="text" name="units[{{ $item->id }}]" id=""
-                                                    class=" border border-1 border border-1">
+                                                    class="border border-1 border border-1">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="factor_price[{{ $item->id }}][]"
-                                                    class=" border border-1 factor_price" readonly
+                                                    class="border border-1 factor_price" readonly
                                                     id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="qty[{{ $item->id }}][]"
-                                                    class=" border border-1 qty" id="{{ $item->id }}" vallue="0"
+                                                    class="border border-1 qty" id="{{ $item->id }}" value="0"
                                                     required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="simetot[{{ $item->id }}][]" readonly
-                                                    id="{{ $item->id }}" vallue="0"
-                                                    class=" border border-1 simetot">
+                                                    id="{{ $item->id }}" value="0"
+                                                    class="border border-1 simetot">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0"
-                                                    class=" border border-1 material" required>
+                                                    id="{{ $item->id }}" value="0"
+                                                    class="border border-1 material" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_acc[{{ $item->id }}][]"
                                                     value="0" id="{{ $item->id }}"
-                                                    class=" border border-1 material_acc" required>
+                                                    class="border border-1 material_acc" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_other[{{ $item->id }}][]"
                                                     value="0" id="{{ $item->id }}"
-                                                    class=" border border-1 material_other" required>
+                                                    class="border border-1 material_other" required>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" readonly
-                                                    class=" border border-1 tot_material">
+                                                    id="{{ $item->id }}" value="0" readonly
+                                                    class="border border-1 tot_material">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" readonly
-                                                    class=" border border-1 all_material" vallue="0">
+                                                    class=" border border-1 all_material" value="0">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0"
-                                                    class=" border border-1 labour" required>
+                                                    id="{{ $item->id }}" value="0"
+                                                    class="border border-1 labour" required>
                                             </td>
 
 
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour_other[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0"
+                                                    id="{{ $item->id }}" value="0"
                                                     class=" border border-1 labour_other" required>
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class=" border border-1 tot_labour" vallue="0"
-                                                    required>
+                                                    id="" class=" border border-1 tot_labour" value="0"
+                                                    readonly required>
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0"
+                                                    id="{{ $item->id }}" value="0"
                                                     class=" border border-1 all_labour" readonly>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0"
+                                                    id="{{ $item->id }}" value="0"
                                                     class=" border border-1 all_tot" readonly>
 
                                             </td>
@@ -340,9 +341,9 @@
                                     </tbody>
                                 </table>
                                 {{-- <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
-                                    vallue="0" class="totals border border-1" readonly> --}}
+                                    value="0" class="totals border border-1" readonly> --}}
                             </div>
-                            <div class="form-group col-md-2 justify-center d-none">
+                            <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
                                     id="{{ $item->id }}">
@@ -432,31 +433,31 @@
 
                                         <input type="text" name="tot_material[{{ $item->id }}][]"
                                             id="{{ $item->id }}" readonly class="all_material_summary"
-                                            vallue="0">
+                                            value="0">
                                     </td>
 
                                     <td style="text-align: center">
 
 
                                         <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                            id="{{ $item->id }}" vallue="0" class="all_labour_summary" readonly>
+                                            id="{{ $item->id }}" value="0" class="all_labour_summary" readonly>
                                     </td>
                                     <td style="text-align: center">
 
                                         <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                            id="{{ $item->id }}" vallue="0" class="all_tot_summary" readonly>
-
-                                    </td>
-                                    <td style="text-align: center">
-
-                                        <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                            id="{{ $item->id }}" vallue="0" class="factor_summary" readonly>
+                                            id="{{ $item->id }}" value="0" class="all_tot_summary" readonly>
 
                                     </td>
                                     <td style="text-align: center">
 
                                         <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                            id="{{ $item->id }}" vallue="0" class="sale_factor_summary"
+                                            id="{{ $item->id }}" value="0" class="factor_summary" readonly>
+
+                                    </td>
+                                    <td style="text-align: center">
+
+                                        <input type="text" name="hole_tot[{{ $item->id }}][]"
+                                            id="{{ $item->id }}" value="0" class="sale_factor_summary"
                                             readonly>
 
                                     </td>
@@ -464,9 +465,50 @@
                             @endforeach
 
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td width="10">
+                                    &emsp;
+                                </td>
+
+                                <td style="text-align: center">
+                                    المجموع
+
+                                <td style="text-align: center">
+
+                                    <input type="text" name="" id="" readonly
+                                        class="all_material_summary1" value="0">
+                                </td>
+
+                                <td style="text-align: center">
+
+
+                                    <input type="text" name="" id="" value="0"
+                                        class="all_labour_summary1" readonly>
+                                </td>
+                                <td style="text-align: center">
+
+                                    <input type="text" name="" id="" value="0"
+                                        class="all_tot_summary1" readonly>
+
+                                </td>
+                                <td style="text-align: center">
+
+                                    <input type="text" name="" id="{{ $item->id }}" value="0"
+                                        class="factor_summary1" readonly>
+
+                                </td>
+                                <td style="text-align: center">
+
+                                    <input type="text" name="hole_tot[{{ $item->id }}][]"
+                                        id="{{ $item->id }}" value="0" class="sale_factor_summary1" readonly>
+
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                     {{-- <input type="text" name="hole_tot[{{ $item->id }}][]" id="{{ $item->id }}"
-                        vallue="0" class="totals border border-1" readonly> --}}
+                        value="0" class="totals border border-1" readonly> --}}
                 </div>
 
 
@@ -479,42 +521,45 @@
             </div>
 
             <div class="card-body breif">
-                @foreach ($line as $item)
-                    <div class="form-group row">
-                        <label for="staticEmail"
-                            class="col-sm-2 col-form-label text-md-center">{{ $item->name }}</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control col-3 landing-cost" id="{{ $item->id }}"
-                                placeholder="" name=" landing-cost[{{ $item->id }}]" readonly>
-                        </div>
-                    </div>
-                @endforeach
-                <div class="form-group row">
-                    <label for="inputPassword" class="col-sm-2 col-form-label text-md-center">الربح</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control  col-3 profit" id="inputtext" placeholder="" readonly>
-                    </div>
-                </div>
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">التكاليف غير المباشرة</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control  col-3" id="inputtext" placeholder="">
+                        <input type="text" class="form-control  col-3 indrect-cost" id="inputtext" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="inputtext" class="col-sm-2 col-form-label text-md-center">تكاليف المقاولين بالباطن</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control  col-3" id="inputtext" placeholder="">
+                        <input type="text" class="form-control  col-3 consult" id="inputtext" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">تكاليف إضافية</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control col-3" id="inputtext" placeholder="">
+                        <input type="text" class="form-control col-3 addition-cost" id="inputtext" placeholder="">
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">المخاطر </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control col-3 resk" id="inputtext" placeholder="">
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="inputtext" class="col-sm-2 col-form-label text-md-center">التكاليف الكلية</label>
+                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">التكلفة الكلية </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control col-3 total-cost" id="inputtext" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputtext" class="col-sm-2 col-form-label text-md-center">سعر البيع </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control col-3 sale_profit" id="inputtext" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="inputtext" class="col-sm-2 col-form-label text-md-center"> الربح</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control col-3" id="inputtext" placeholder="">
                     </div>
@@ -854,6 +899,7 @@
     <script>
         $(document).ready(function() {
             let all_line = {};
+            let sum_material = 0;
             line_detect()
             $(".lines").change(function() {
                 line_detect();
@@ -861,7 +907,6 @@
             })
 
 
-            var all_material = 0
             $(".btn-line").click(function(e) {
                 e.preventDefault();
 
@@ -878,13 +923,11 @@
                                                     name="item[{{ $item->id }}][]" required>
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}">{{ $product->name }} <span
+                                                        <option value="{{ $product->id }}"
+                                                            data-price="{{ $product->price }}">{{ $product->name }} <span
                                                                 id="{{ $product->id }}">{{ $product->price }}</span>
                                                         </option>
-
-                                                <input type="hidden" name=""
-                                                class="" readonly id="{{ $item->id }}">
-                                                @endforeach
+                                                    @endforeach
                                                 </select>
                                             </td>
                                             <td style="text-align: center">
@@ -900,17 +943,17 @@
                                             <td style="text-align: center">
 
                                                 <input type="text" name="qty[{{ $item->id }}][]" class=" border border-1 qty"
-                                                    id="{{ $item->id }}" vallue="0">
+                                                    id="{{ $item->id }}" value="0">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="[{{ $item->id }}][]" readonly
-                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 simetot">
+                                                    id="{{ $item->id }}" value="0" class=" border border-1 simetot">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 material">
+                                                    id="{{ $item->id }}" value="0" class=" border border-1 material">
                                             </td>
                                             <td style="text-align: center">
 
@@ -925,42 +968,42 @@
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" readonly
+                                                    id="{{ $item->id }}" value="0" readonly
                                                     class=" border border-1 tot_material">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" readonly class=" border border-1 all_material" vallue="0">
+                                                    id="{{ $item->id }}" readonly class=" border border-1 all_material" value="0">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 labour">
+                                                    id="{{ $item->id }}" value="0" class=" border border-1 labour">
                                             </td>
 
 
                                             <td style="text-align: center">
 
                                                 <input type="text" name="labour_other[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 labour_other">
+                                                    id="{{ $item->id }}" value="0" class=" border border-1 labour_other">
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class=" border border-1 tot_labour" vallue="0">
+                                                    id="" class=" border border-1 tot_labour" value="0" readonly>
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 all_labour" readonly>
+                                                    id="{{ $item->id }}" value="0" class=" border border-1 all_labour" readonly>
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="hole_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" vallue="0" class=" border border-1 all_tot" readonly>
+                                                    id="{{ $item->id }}" value="0" class=" border border-1 all_tot" readonly>
 
                                             </td>
                                             <td style="text-align: center">
@@ -987,22 +1030,11 @@
 
 
 
-                    // labour other
-
+                    // let hole_tot = 0;
+                    // // product total
                     $(".products").change(function() {
 
-                        var factor = $(".factor").val()
-                        var tot = 0;
-                        var product = 0;
-                        var qty = $(this).parent().parent().find(".qty").val();
-                        product = $(this).parent().parent().find("select").val()
-                        tot = $(this).val() * $(".factor").val() * qty;
-                        $(this).parent().parent().find(".factor_price").val('');
-                        $(this).parent().parent().find(".factor_price").val(tot);
-                        var tot_product = qty * $(this).val();
-                        $(this).parent().parent().find(".simetot").val(tot_product);
-                        net = $(this).parent().parent().find(".simetot").val();
-                        $(this).parent().parent().find(".net").val()
+
                         sum_product($(this))
                     })
 
@@ -1011,17 +1043,16 @@
 
                     $(".qty").keyup(function(e) {
 
-                        var product_factor = $(this).parent().parent().find(".factor_price")
-                            .val()
-                        var tot = product_factor * $(this).val();
 
+                        var all_labour = parseInt($(this).parent().parent().find(
+                            ".all_labour")) || 0;
                         $(this).parent().parent().find(".hole_tot").val('');
 
-                        $(this).parent().parent().find(".simetot").val(tot);
+                        // $(this).parent().parent().find(".simetot").val(tot);
                         var all_tot = $(this).parent().parent().find(".all_tot").val(
                             parseInt($(this).parent().parent().find(".all_labour")
-                                .val()) + parseInt($(this).parent().parent().find(
-                                ".all_material").val()))
+                                .val() || 0) + parseInt($(this).parent().parent().find(
+                                ".all_material").val() || 0))
 
                         // sumations_profit($(this));
 
@@ -1029,72 +1060,35 @@
 
                         //  here fire the profit
 
-
+                        sumation_all_tot();
 
                         sum_product($(this))
-
+                        total_sale_factor($(this))
 
 
                     })
 
 
-                    // // material
+                    // // material m
 
                     $(".material").keyup(function(e) {
-
-                        var material_acc = $(this).parent().parent().find(".material_acc")
-                            .val()
-                        var material_other = $(this).parent().parent().find(
-                            ".material_other").val()
-                        var tot_material = parseInt($(this).val()) + parseInt($(this)
-                            .parent().parent().find(
-                                ".material_other").val()) + parseInt($(this).parent()
-                            .parent().find(
-                                ".material_other").val())
-
-
-
-                        $(this).parent().parent().find(".tot_material").val(tot_material);
-                        var qty = $(this).parent().parent().find(".qty").val();
-                        var all_material = $(this).parent().parent().find(".all_material")
-                            .val(tot_material * qty);
-
-
-
-                        // var tot_material = $(this).parent().parent().find(".tot_material").val(tot);
-                        var all_tot = $(this).parent().parent().find(".all_tot").val(
-                            parseInt($(this).parent()
-                                .parent().find(".all_labour").val()) + parseInt($(this)
-                                .parent().parent().find(
-                                    ".all_material").val()))
+                        materials_sumation($(this))
                         sumation_all_material($(this))
+
                         sumations($(this));
+                        sumation_all_tot();
                     })
 
                     // material Acssories
 
                     $(".material_acc").keyup(function(e) {
 
-                        var material = $(this).parent().parent().find(".material").val()
-                        var material_other = $(this).parent().parent().find(
-                            ".material_other").val()
-                        var tot_material = parseInt($(this).val()) + parseInt(material) +
-                            parseInt(material_other)
-                        $(this).parent().parent().find(".simetot").val('');
+                        materials_sumation($(this))
 
-                        var qty = $(this).parent().parent().find(".qty").val();
-                        var all_material = $(this).parent().parent().find(".all_material")
-                            .val(tot_material * qty);
-                        console.log($(this).parent().parent().find(".tot_material").val(
-                            tot_material));
-                        var all_tot = $(this).parent().parent().find(".all_tot").val(
-                            parseInt($(this).parent()
-                                .parent().find(".all_labour").val()) + parseInt($(this)
-                                .parent().parent().find(
-                                    ".all_material").val()))
                         sumation_all_material($(this))
 
                         sumations($(this));
+                        sumation_all_tot();
                     })
 
 
@@ -1102,27 +1096,12 @@
                     // material_other
                     $(".material_other").keyup(function(e) {
 
-                        var material = $(this).parent().parent().find(".material").val()
-                        var material_acc = $(this).parent().parent().find(".material_acc")
-                            .val()
-                        var tot_material = parseInt($(this).val()) + parseInt(
-                            material_acc) + parseInt(material)
-                        $(this).parent().parent().find(".simetot").val('');
-
-                        var qty = $(this).parent().parent().find(".qty").val();
-                        var all_material = $(this).parent().parent().find(".all_material")
-                            .val(tot_material * qty);
-                      $(this).parent().parent().find(".tot_material").val(
-                            tot_material);
-                        var all_tot = $(this).parent().parent().find(".all_tot").val(
-                            parseInt($(this).parent()
-                                .parent().find(".all_labour").val()) + parseInt($(this)
-                                .parent().parent().find(
-                                    ".all_material").val()))
+                        materials_sumation($(this))
                         sumation_all_material($(this))
-
+                        // sumation_all_materials();
                         sumations($(this));
                         line_detect()
+                        sumation_all_tot();
                     })
 
 
@@ -1133,55 +1112,29 @@
                     $(".labour").keyup(function(e) {
 
                         // var material= $(this).parent().parent().find(".material").val()
-                        var labour_other = $(this).parent().parent().find(".labour_other")
-                            .val()
-                        var tot_labour = parseInt($(this).val()) + parseInt(labour_other)
-                        // hole_tot
-                        $(this).parent().parent().find(".tot_labour").val(tot_labour)
-                        var qty = $(this).parent().parent().find(".qty").val();
-
-                        var all_labour = $(this).parent().parent().find(".all_labour").val(
-                            tot_labour * qty);
-                        var all_tot = $(this).parent().parent().find(".all_tot").val(
-                            parseInt($(this).parent()
-                                .parent().find(".all_labour").val()) + parseInt($(this)
-                                .parent().parent().find(
-                                    ".all_material").val()))
+                        labour_sumation($(this))
 
                         // all_labour
                         sumation_all_labour($(this));
-
+                        // sumation_all_labour1($(this));
                         sumations($(this))
+                        sumation_all_tot();
                     })
 
 
                     // labour other
 
                     $(".labour_other").keyup(function(e) {
-
-                        var labour = $(this).parent().parent().find(".labour").val()
-                        var tot_labour = parseInt($(this).val()) + parseInt(labour)
-                        // hole_tot
-                        $(this).parent().parent().find(".tot_labour").val(tot_labour)
-                        var qty = $(this).parent().parent().find(".qty").val();
-
-                        $(this).parent().parent().find(".all_labour").val(tot_labour * qty);
-
-                        var all_tot = $(this).parent().parent().find(".all_tot").val(
-                            parseInt($(this).parent()
-                                .parent().find(".all_labour").val()) + parseInt($(this)
-                                .parent().parent().find(
-                                    ".all_material").val()))
-                        // all_labour
+                        labour_sumation($(this))
                         //
+                        sumation_all($(this))
                         sumation_all_labour($(this));
-
+                        total_sale_factor($(this))
                         sumations($(this))
                         line_detect()
+                        sumation_all_tot();
+                        // sumation_all_labour1($(this));
                     })
-
-
-
 
 
 
@@ -1200,12 +1153,12 @@
             // // product total
             $(".products").change(function() {
 
-                var factor = $(".factor").val()
+                var factor = $(".factor").val() || 0
                 var tot = 0;
                 var product = 0;
-                var qty = $(this).parent().parent().find(".qty").val();
-                product = $(this).parent().parent().find("select").val()
-                tot = $(this).val() * $(".factor").val() * qty;
+                var qty = $(this).parent().parent().find(".qty").val() || 0;
+                product = $(this).parent().parent().find("select").val() || 0
+                tot = product * $(".factor").val() * qty;
                 $(this).parent().parent().find(".factor_price").val('');
                 $(this).parent().parent().find(".factor_price").val(tot);
                 var tot_product = qty * $(this).val();
@@ -1213,6 +1166,7 @@
                 net = $(this).parent().parent().find(".simetot").val();
                 $(this).parent().parent().find(".net").val()
                 sum_product($(this))
+                sumation_all_tot();
             })
 
 
@@ -1238,58 +1192,35 @@
 
                 //  here fire the profit
 
-
+                sumation_all_tot();
 
                 sum_product($(this))
 
-
+                total_sale_factor($(this))
 
             })
 
 
-            // // material
+            // // material daim main
 
             $(".material").keyup(function(e) {
-
-                var material_acc = $(this).parent().parent().find(".material_acc").val()
-                var material_other = $(this).parent().parent().find(".material_other").val()
-                var tot_material = parseInt($(this).val()) + parseInt($(this).parent().parent().find(
-                    ".material_other").val()) + parseInt($(this).parent().parent().find(
-                    ".material_other").val())
-
-
-
-                $(this).parent().parent().find(".tot_material").val(tot_material);
-                var qty = $(this).parent().parent().find(".qty").val();
-                var all_material = $(this).parent().parent().find(".all_material").val(tot_material * qty);
-
-
-                // var tot_material = $(this).parent().parent().find(".tot_material").val(tot);
-                var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
-                    .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
-                    ".all_material").val()))
+                materials_sumation($(this))
                 sumation_all_material($(this))
+                // sumation_all_materials()
                 sumations($(this));
+                sumation_all_tot();
             })
 
             // material Acssories
 
             $(".material_acc").keyup(function(e) {
 
-                var material = $(this).parent().parent().find(".material").val()
-                var material_other = $(this).parent().parent().find(".material_other").val()
-                var tot_material = parseInt($(this).val()) + parseInt(material) + parseInt(material_other)
-                $(this).parent().parent().find(".simetot").val('');
+                materials_sumation($(this))
 
-                var qty = $(this).parent().parent().find(".qty").val();
-                var all_material = $(this).parent().parent().find(".all_material").val(tot_material * qty);
-
-                var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
-                    .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
-                    ".all_material").val()))
                 sumation_all_material($(this))
-
+                // sumation_all_materials()
                 sumations($(this));
+                sumation_all_tot();
             })
 
 
@@ -1297,21 +1228,13 @@
             // material_other
             $(".material_other").keyup(function(e) {
 
-                var material = $(this).parent().parent().find(".material").val()
-                var material_acc = $(this).parent().parent().find(".material_acc").val()
-                var tot_material = parseInt($(this).val()) + parseInt(material_acc) + parseInt(material)
-                $(this).parent().parent().find(".simetot").val('');
-
-                var qty = $(this).parent().parent().find(".qty").val();
-                var all_material = $(this).parent().parent().find(".all_material").val(tot_material * qty);
-
-                var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
-                    .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
-                    ".all_material").val()))
+                materials_sumation($(this))
                 sumation_all_material($(this))
-
+                // sumation_all_materials()
                 sumations($(this));
                 line_detect()
+                // sumation_all_materials()
+                sumation_all_tot();
             })
 
 
@@ -1321,24 +1244,15 @@
 
             $(".labour").keyup(function(e) {
 
-                // var material= $(this).parent().parent().find(".material").val()
-                var labour_other = $(this).parent().parent().find(".labour_other").val()
-                var tot_labour = parseInt($(this).val()) + parseInt(labour_other)
-                // hole_tot
-                $(this).parent().parent().find(".tot_labour").val(tot_labour)
-                var qty = $(this).parent().parent().find(".qty").val();
-
-                var all_labour = $(this).parent().parent().find(".all_labour").val(tot_labour * qty);
-                var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
-                    .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
-                    ".all_material").val()))
-
+                labour_sumation($(this))
 
 
                 // all_labour
                 sumation_all_labour($(this));
+                // sumation_all_labour1($(this));
+                // sumations($(this))
+                sumation_all_tot();
 
-                sumations($(this))
             })
 
 
@@ -1346,24 +1260,15 @@
 
             $(".labour_other").keyup(function(e) {
 
-                var labour = $(this).parent().parent().find(".labour").val()
-                var tot_labour = parseInt($(this).val()) + parseInt(labour)
-                // hole_tot
-                $(this).parent().parent().find(".tot_labour").val(tot_labour)
-                var qty = $(this).parent().parent().find(".qty").val();
-
-                $(this).parent().parent().find(".all_labour").val(tot_labour * qty);
-
-                var all_tot = $(this).parent().parent().find(".all_tot").val(parseInt($(this).parent()
-                    .parent().find(".all_labour").val()) + parseInt($(this).parent().parent().find(
-                    ".all_material").val()))
-                // all_labour
-                //
+                labour_sumation($(this))
                 sumation_all($(this))
                 sumation_all_labour($(this));
-                total_sale_factor( $(this))
-                sumations($(this))
+                total_sale_factor($(this))
+                // sumations($(this))
                 line_detect()
+                // sumation_all_labour1($(this));
+                sumation_all_tot();
+                all_tot($(this))
             })
 
             function sumations(parent) {
@@ -1372,11 +1277,12 @@
 
                 var id = parent.attr("id")
                 all_line[id] = 0;
+                console.log("sumation " + id);
                 parent.closest(".line_data").each(function() {
                     $(this).find(".all_tot").each(function() {
 
                         all_line[id] += parseInt($(this).val())
-                        $(this).closest(".card-body").find("input.total").val(all_line[id])
+                        $(this).closest(".card-body").find("input.total").val(isNaN(all_line[id]))
 
                     })
                     $("input.profit").val(sum)
@@ -1385,61 +1291,42 @@
 
 
             }
-
-            // factor_summary
-
-
-
-            // suation for profit
-            // function sumations_profit(parent) {
-
-            //     var sum = 0;
-            //     $("input.profit").val('')
-
-            //     parent.closest(".line_data").each(function() {
-            //         $(this).find(".simetot").each(function() {
-
-            //             all_line[id] += parseInt($(this).val())
-            //             $(this).closest(".card-body").find("input.total_profit").val(all_line[id])
-
-            //         })
-            //         $("input.profit").val(sum)
-            //     })
-
-
-            // }
+            var summ = 0;
 
             function sumation_all_material(parent) {
                 // all_line[id]-0;
-                var sum = 0;
+
 
                 var id = parent.attr("id")
-                all_line[id] = 0;
+
                 parent.closest(".line_data").each(function() {
                     $(this).find(".all_material").each(function() {
 
-                        all_line[id] += parseInt($(this).val())
+                        all_line[id] += parseInt($(this).val() || 0)
                         $(this).closest(".card-body").find("input.total_material").val(all_line[id])
-                        $("#" + id + ".all_material_summary").val(all_line[id])
+                        $("#" + id + ".all_material_summary").val(isNaN(all_line[id]))
+
                     })
+
+
                     $("input.profit").val(sum)
                 })
 
-
-
+                var sum = 0;
+                sumation_all_materials();
             }
 
 
             function sumation_all_labour(parent) {
                 // all_line[id]-0;
-                var sum = 0;
+
 
                 var id = parent.attr("id")
                 all_line[id] = 0;
                 parent.closest(".line_data").each(function() {
                     $(this).find(".all_labour").each(function() {
 
-                        all_line[id] += parseInt($(this).val())
+                        all_line[id] += parseInt($(this).val() || 0)
                         $(this).closest(".card-body").find("input.total_labour").val(all_line[id])
                         $("#" + id + ".all_labour_summary").val(all_line[id])
                     })
@@ -1447,7 +1334,7 @@
                 })
 
                 sumation_all(parent)
-
+                sumation_all_labours()
             }
 
 
@@ -1460,13 +1347,15 @@
 
                     if (this.checked) {
 
-                        $(this).parent().parent().find('table').css('visibility', 'visible').fadeIn(50000);
-
+                        // $(this).parent().parent().find('table').css('visibility', 'visible').fadeIn(50000);
+                        $(this).parent().parent().find('table input').prop('disabled', false);
                         // sumations(this.value,0);
-
+                        $(this).parent().parent().find('table select').prop('disabled', false);
                     } else {
                         all_line[this.value] = 0;
-                        $(this).parent().parent().find('table').css('visibility', 'hidden').fadeIn(50000);
+                        $(this).parent().parent().find('table input').prop('disabled', true);
+                        $(this).parent().parent().find('table select').prop('disabled', true);
+                        // $(this).parent().parent().find('table').css('visibility', 'hidden').fadeIn(50000);
                     }
                 })
             }
@@ -1486,17 +1375,25 @@
                 parent.closest(".line_data").each(function() {
 
                     $(this).find("select.products option:selected").each(function(index) {
-                        product[index] =$(this).data("price")
+                        product[index] = $(this).data("price") || 0
 
                     })
 
 
-                    $(this).find(".qty").each(function(index) {
-                        qty[index] = $(this).val()
+
+
+
+                    $(this).children().find(".qty").each(function(index) {
+                        qty[index] = $(this).val() || 0
+
 
                     })
-                    $(this).find("#"+id+".simetot").each(function(index) {
-                        $(this).val(qty[index] * product[index] * $('.factor').val())
+                    var factor = $('.factor').val() || 0;
+                    $(this).find("#" + id + ".factor_price").each(function(index) {
+                        $(this).val(product[index] * factor)
+                    })
+                    $(this).find("#" + id + ".simetot").each(function(index) {
+                        $(this).val(qty[index] * product[index] * factor)
 
                         sum_profit(id)
 
@@ -1518,7 +1415,7 @@
 
                     $(this).find("#" + id + ".simetot").each(function() {
 
-                        sum += parseInt($(this).val());
+                        sum += parseInt($(this).val() || 0);
                         $("#" + id + ".total_profit").val(sum)
                     })
 
@@ -1539,14 +1436,14 @@
                 all_line[id] = 0;
 
                 parent.closest(".line_data").each(function() {
-                    $(this).find("#"+id+".all_tot").each(function() {
+                    $(this).find("#" + id + ".all_tot").each(function() {
 
-                        all_line[id] += parseInt($(this).val())
+                        all_line[id] += parseInt(($(this).val()) || 0)
 
                         // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
                         $("#" + id + ".total").val(all_line[id])
-                        $("#"+id+".all_tot_summary").val(all_line[id]);
-                        $("#"+id+"input.all_tot_summary").val( $("#" + id + ".total").val())
+                        $("#" + id + ".all_tot_summary").val(all_line[id]);
+                        $("#" + id + "input.all_tot_summary").val($("#" + id + ".total").val())
                     })
 
                 })
@@ -1564,21 +1461,23 @@
                 all_line[id] = 0;
 
                 parent.closest(".line_data").each(function() {
-                    $(this).find("#"+id+".all_tot").each(function() {
+                    $(this).find("#" + id + ".all_tot").each(function() {
 
-                        all_line[id] += parseInt($(this).val())
+                        all_line[id] += parseInt($(this).val() || 0)
 
                         // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
-                        $("#" + id + ".total").val(all_line[id])
-                        $("#"+id+".all_tot_summary").val(all_line[id]);
-                        $("#"+id+"input.all_tot_summary").val( $("#" + id + ".total").val())
+                        $("#" + id + ".total").val(all_line[id] || 0)
+                        $("#" + id + ".all_tot_summary").val(all_line[id] || 0);
+                        $("#" + id + "input.all_tot_summary").val($("#" + id + ".total").val() || 0)
                     })
                     total_factor(parent);
+                    summary_product_factor();
                 })
 
 
 
             }
+
             function total_factor(parent) {
                 // all_line[id]-0;
                 var sum = 0;
@@ -1587,11 +1486,11 @@
 
 
                 $(".summary").each(function() {
-                    $(this).find("#"+id+".factor_summary").each(function() {
+                    $(this).find("#" + id + ".factor_summary").each(function() {
 
 
                         $(this).val($(".factor").val());
-
+                        $(".factor_summary1").val($(".factor").val())
                     })
 
                 })
@@ -1603,14 +1502,71 @@
             function total_sale_factor(parent) {
                 // all_line[id]-0;
                 var sum = 0;
-console.log( parent.attr('id'));
 
 
-                    $("input#"+ parent.attr('id')+".total_profit").each(function() {
 
-                        sum+=parseInt($(this).val());
-$("input#"+ parent.attr('id')+".sale_factor_summary").val(sum)
+                $("input#" + parent.attr('id') + ".total_profit").each(function() {
+
+                    sum += isNaN(parseInt($(this).val()));
+                    console.log(sum);
+                    $("input#" + parent.attr('id') + ".sale_factor_summary").val(sum || 0)
                 })
+                summary_product_factor()
+
+
+            }
+
+            function summary() {
+                var sum = 0;
+                $(".summary").each(function() {
+                    sum += isNaN(parseInt($(".all_material_summary").val()))
+                    $(".all_material_summary").val(sum)
+                })
+            }
+
+            function isNaN(value) {
+                return value || 0;
+            }
+
+
+
+
+
+
+            let sum = 0;
+
+
+
+
+            function sumation_all_materials() {
+                var sum = 0;
+
+
+                $(".all_material_summary").each(function() {
+                    let $el = $(this);
+                    sum += parseInt(($el.val() || 0));
+
+
+                });
+                // $('#gross_amount').text(gross.toFixed(2));
+                $(".all_material_summary1").val(sum)
+
+
+
+            }
+
+            function sumation_all_labours() {
+                var sum = 0;
+
+
+                $(".all_labour_summary").each(function() {
+                    let $el = $(this);
+                    sum += parseInt(($el.val() || 0));
+
+
+                });
+                // $('#gross_amount').text(gross.toFixed(2));
+                $(".all_labour_summary1").val(sum)
 
 
 
@@ -1618,7 +1574,119 @@ $("input#"+ parent.attr('id')+".sale_factor_summary").val(sum)
 
 
 
-             // sale_factor_summary
+
+
+
+
+            function materials_sumation(parent) {
+
+                if (parent.attr("class") == "border border-1 material_other") {
+
+                    var material = parent.parent().parent().find(".material").val() || 0
+                    var material_acc = parent.parent().parent().find(".material_acc").val() || 0
+                    var material_other = parent.val() || 0
+                } else if (parent.attr("class") == "border border-1 material_acc") {
+                    var material_other = parent.parent().parent().find(".material_other").val() || 0
+                    var material = parent.parent().parent().find(".material").val() || 0
+                    var material_acc = parent.val() || 0
+                    console.log(material + " " + material_acc);
+                    console.log(parent.attr("class"));
+                } else {
+                    var material_other = parent.parent().parent().find(".material_other").val() || 0
+                    var material_acc = parent.parent().parent().find(".material_acc").val() || 0
+                    var material = parent.val() || 0
+                }
+
+                tot_material = parseInt(material) + parseInt(material_other) + parseInt(material_acc)
+
+
+                parent.parent().parent().find(".tot_material").val(tot_material);
+                var qty = parent.parent().parent().find(".qty").val() || 0;
+                var all_material = parent.parent().parent().find(".all_material").val(tot_material * qty);
+                all_tot($(this))
+
+
+            }
+
+            function all_tot(parent) {
+                var all_tot = 0;
+                var tot_material = 0;
+                var tot_labour = 0;
+                tot_material = isNaN(parseInt(parent.parent().parent().find(".tot_material").val()));
+                tot_labour = isNaN(parseInt(parent.parent().parent().find(".tot_labour").val()));
+
+                all_tot = isNaN(tot_material) + isNaN(tot_labour)
+                parent.parent().parent().find(".all_tot").val(all_tot || 0)
+            }
+
+
+
+
+
+
+            function labour_sumation(parent) {
+                var labour_other = 0;
+                var labour = 0;
+                if (parent.className == "labour_other") {
+                    var labour_other = parent.parent().parent().find(".labour").val() || 0
+                    var labour = parent.val() || 0
+                } else {
+                    var labour_other = parseInt(parent.parent().parent().find(".labour_other").val()) || 0
+                    var labour = parseInt(parent.val()) || 0
+                }
+                var tot_labour = 0;
+                tot_labour = parseInt(labour) + parseInt(labour_other)
+
+                console.log(tot_labour);
+                parent.parent().parent().find(".tot_labour").val(tot_labour);
+                var qty = parent.parent().parent().find(".qty").val() || 0;
+                var all_labour = parent.parent().parent().find(".all_labour").val(tot_labour * qty);
+
+
+                all_tot($(this))
+            }
+
+            function summary_product_factor() {
+                var sum = 0;
+                $(".summary").each(function() {
+                    sum += isNaN(parseInt($(".sale_factor_summary").val()))
+                    $(".sale_factor_summary1").val(sum)
+                })
+            }
+
+            function sumation_all_tot() {
+
+                var sum = 0;
+                $(".summary").each(function() {
+                    $(this).find(".all_tot_summary").each(function() {
+                        sum += isNaN(parseInt($(this).val()))
+                        console.log();
+                    })
+
+                    $(".all_tot_summary1").val(sum)
+                })
+
+
+
+
+
+            }
+
+        $(".indrect-cost").keyup(function (e) {
+        e.preventDefault();
+        $(".total-cost").val($(".all_tot_summary1").val()*parseInt($(this).val()||0))
+        })
+        $(".consult-cost").keyup(function (e) {
+        e.preventDefault();
+var consult=$(".all_tot_summary1").val()*parseInt($(this).val()||0);
+var indirect =parseInt($(".total-cost").val())*parseInt( $(".indrect-cost").val()||0)
+        $(".total-cost").val( consult * indirect)
+        })
+
+
+            // all_material_summary
+
+            // sale_factor_summary
 
             //             $(".material").keyup(function(e){
             //   var product= $(this).parent().parent().find("select").val()
@@ -1637,7 +1705,7 @@ $("input#"+ parent.attr('id')+".sale_factor_summary").val(sum)
             // })
 
             // $('.customer').change(function() {
-            //     console.log(this.value);
+            //
             //     var custom = this.value;
             //     $.ajaxSetup({
             //         headers: {
@@ -1650,7 +1718,7 @@ $("input#"+ parent.attr('id')+".sale_factor_summary").val(sum)
             //         //   data : ({id : $(this).value}),
             //         dataType: 'JSON',
             //         success: function(response) {
-            //             console.log(response);
+            //
             //             $('.customer_data').html(
             //                 `<td> name</td>` + data.name + `</td><td>رقم الهاتف</td><td>` +
             //                 data.phone_number + `</td><td></td><td>` + data.id + `</td>`

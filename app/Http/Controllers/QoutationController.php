@@ -96,19 +96,24 @@ class QoutationController extends Controller
                 "qoute" => $qoute->id
             ]);
 // dd($request->item[$line]);
+
+
+
+
+if(sizeof($request->item[$line] )>0){
             foreach ($request->item[$line] as $key => $value) {
                 # code...
 
                 $qout_line[$key] = $qoute_batch->qoute_lines()->create([
 
                     "qty" => $request->qty[$line][$key],
-                    // "item" =>$value,
-                    // "qoute_batch" =>  $qoute_batch->id,
-                    // "material" => $request->material[$line][$key],
-                    // "material_acc" => $request->material_acc[$line][$key],
-                    // "material_other" => $request->material_acc[$line][$key],
-                    // "labour" => $request->labour[$line][$key],
-                    // "labour_other" => $request->labour_other[$line][$key],
+                    "item" =>$value,
+                    "qoute_batch" =>  $qoute_batch->id,
+                    "material" => $request->material[$line][$key],
+                    "material_acc" => $request->material_acc[$line][$key],
+                    "material_other" => $request->material_acc[$line][$key],
+                    "labour" => $request->labour[$line][$key],
+                    "labour_other" => $request->labour_other[$line][$key],
 
 
 
@@ -117,7 +122,7 @@ class QoutationController extends Controller
             }
         }
 
-
+    }
 
 
         if (sizeof($qout_line)) {
