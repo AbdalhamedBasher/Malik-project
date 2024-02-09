@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string("statues");
             $table->text("description");
             $table->string("refrence");
-
             $table->unsignedDouble("factor");
             $table->unsignedBigInteger('customer')->onDelete('cascade')->nullable();
             $table->foreign('customer')->references('id')->on('customers')->onDelete('cascade');

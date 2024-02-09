@@ -12,6 +12,7 @@ use App\Models\qoutation_line;
 use App\Models\size;
 use App\Models\type;
 use Illuminate\Http\Request;
+use App\Models\units;
 
 use function PHPSTORM_META\type;
 
@@ -61,7 +62,8 @@ class QoutationController extends Controller
         $type = type::get();
         $size = size::get();
         $brand = brand::get();
-        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand]);
+        $units = units::get();
+        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand ,'units'=>$units]);
     }
     /**
      * Store a newly created resource in storage.
@@ -108,6 +110,7 @@ if(sizeof($request->item[$line] )>0){
 
                     "qty" => $request->qty[$line][$key],
                     "item" =>$value,
+                    "unit" => $request->unit[$line][$key],
                     "qoute_batch" =>  $qoute_batch->id,
                     "material" => $request->material[$line][$key],
                     "material_acc" => $request->material_acc[$line][$key],

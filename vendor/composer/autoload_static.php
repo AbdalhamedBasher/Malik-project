@@ -602,6 +602,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'App\\Models\\qoutation_line' => __DIR__ . '/../..' . '/app/Models/qoutation_line.php',
         'App\\Models\\size' => __DIR__ . '/../..' . '/app/Models/size.php',
         'App\\Models\\type' => __DIR__ . '/../..' . '/app/Models/type.php',
+        'App\\Models\\units' => __DIR__ . '/../..' . '/app/Models/units.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',

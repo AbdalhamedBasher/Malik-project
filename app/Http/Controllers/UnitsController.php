@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\brand;
+use App\Models\units;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class UnitsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function __construct()
     {
       $this->middleware('auth');
@@ -20,9 +15,9 @@ class BrandController extends Controller
     public function index($master=null)
     {
 
-      $brands=brand::get();
+      $units=units::get();
 
-        return view("brand.index",["brands"=>$brands,'breadcrumb'=>'ماركة']);
+        return view("units.index",["units"=>$units,'breadcrumb'=>'وحدة']);
 
     }
 
@@ -34,10 +29,10 @@ class BrandController extends Controller
     public function create()
     {
 
-        $breadcrumb="إضافة ماركة";
-        $brand_catogery=brand::get();
-        $brand=brand::get();
-        return view("brand.index",['brand_catogery'=>$brand_catogery , 'breadcrumb'=>$breadcrumb ]);
+        $breadcrumb="إضافة وحدة";
+        $units_catogery=units::get();
+        $units=units::get();
+        return view("units.index",['units_catogery'=>$units_catogery , 'breadcrumb'=>$breadcrumb ]);
     }
 
     /**
@@ -48,14 +43,14 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-     $brand=brand::create([
+     $units=units::create([
         "name"=>$request->name,
-        "company"=>$request->company,
+
 
 
      ]);
-if( $brand) {
-    return  redirect()->back()->with(['message'=>"تم إضافة ماركة بنجاح"]);
+if( $units) {
+    return  redirect()->back()->with(['message'=>"تم إضافة وحدة بنجاح"]);
 }
 else{
     return  redirect()->back()->withErrors($validator)->withInput();
@@ -68,20 +63,20 @@ else{
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\brand  $brand
+     * @param  \App\Models\units  $units
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
 $id=$request->id;
-        $brand=brand::find($id)->update([
+        $units=units::find($id)->update([
             "name"=>$request->name,
-            "company"=>$request->company,
+
 
          ]);
 
-    if( $brand) {
-        return  redirect()->back()->with(['message'=>"تم تعديل ماركة بنجاح"]);
+    if( $units) {
+        return  redirect()->back()->with(['message'=>"تم تعديل وحدة بنجاح"]);
     }
     else{
         return  redirect()->back()->with(['message'=>"error"]);
@@ -91,16 +86,16 @@ $id=$request->id;
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\brand  $brand
+     * @param  \App\Models\units  $units
      * @return \Illuminate\Http\Response
      */
     public function destroy( Request $request)
     {
 
-        $brand=brand::find($request->id);
-        if( $brand) {
-            $brand->delete();
-            return  redirect()->back()->with(['message'=>"تم حذف ماركة بنجاح"]);
+        $units=units::find($request->id);
+        if( $units) {
+            $units->delete();
+            return  redirect()->back()->with(['message'=>"تم حذف وحدة بنجاح"]);
         }
         else{
             return  redirect()->back()->withErrors($validator)->withInput();

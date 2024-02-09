@@ -11,6 +11,7 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\QoutationController;
+use App\Http\Controllers\UnitsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -80,8 +81,14 @@ Route::put('type/update', [TypeController::class,"update"])->name('type.update')
 Route::get('size', [SizeController::class,"index"]);
 Route::post('size', [SizeController::class,"store"])->name('size');
 Route::post('size/delete', [SizeController::class,"destroy"])->name('size.delete');
-Route::POST('size/update', [SizeController::class,"update"])->name('size.update');
+Route::put('size/update', [SizeController::class,"update"])->name('size.update');
 
+// units
+
+Route::get('units', [UnitsController::class,"index"]);
+Route::post('units', [unitsController::class,"store"])->name('units');
+Route::post('units/delete', [unitsController::class,"destroy"])->name('units.delete');
+Route::put('units/update', [unitsController::class,"update"])->name('units.update');
 
 
 // quotation

@@ -49,6 +49,7 @@ return array(
     'App\\Models\\qoutation_line' => $baseDir . '/app/Models/qoutation_line.php',
     'App\\Models\\size' => $baseDir . '/app/Models/size.php',
     'App\\Models\\type' => $baseDir . '/app/Models/type.php',
+    'App\\Models\\units' => $baseDir . '/app/Models/units.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('item')->references('id')->on('items')->onDelete('cascade');
             $table->unsignedBigInteger('qoute_batch')->onDelete('cascade')->nullable();
              $table->foreign('qoute_batch')->references('id')->on('qoutation_batches')->onDelete('cascade');
+             $table->unsignedBigInteger('unit')->onDelete('cascade')->nullable();
+             $table->foreign('unit')->references('id')->on('units')->onDelete('cascade');
             $table->unsignedDouble("material");
             $table->unsignedDouble("material_acc");
             $table->unsignedDouble("material_other");
