@@ -1152,7 +1152,7 @@
                         var factor = $(".factor").val() || 0
                         var tot = 0;
                         var product = 0;
-                        sum_product($(this))
+                        // sum_product($(this))
                         sumation_all_tot();
                     })
 
@@ -1472,7 +1472,7 @@ $(".discount").append(`
                         $(this).closest(".card-body").find("input.total").val(isNaN(all_line[id]))
 
                     })
-                    $("input.profit").val(sum)
+
                 })
 
 
@@ -1801,7 +1801,7 @@ $("input:text").val(0)
                     })
 
                     $(".sale_factor_summary1").val(sum)
-                    $(".total-cost").val(sum)
+
                 })
 
 
