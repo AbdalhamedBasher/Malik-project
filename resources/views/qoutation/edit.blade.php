@@ -4,10 +4,7 @@
     {{-- @extends('layouts.main') --}}
 
 
-    <?php
-    $discount = ['المبيعات', 'التكاليف المباشرة', 'التكاليف غير المباشرة', 'مجموع التكلفة', 'الربح', 'صافي الربح'];
 
-    ?>
 
 
 @section('content')
@@ -173,7 +170,7 @@
                                         {{ $item->name }}
                                     </label>
                                 </div>
-                                {{ $item->id }}
+
                                 <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
                                     <thead class=" overflow-x-scroll bg-blue-50">
                                         <tr class=" overflow-x-scroll">
@@ -352,13 +349,13 @@
 
                                     </tbody>
                                 </table>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
-                                        id="{{ $item->id }}">
-                                </div>
-                            </div>
 
+                            </div>
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
+                                    id="{{ $item->id }}">
+                            </div>
                             <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
@@ -379,7 +376,10 @@
                                 <input type="text" name="total[]" id="{{ $item->id }}"
                                     class="total_profit d-none border d-none border-1" readonly>
                             </div>
-
+                            <div class="form-group col-md-2 justify-center d-none">
+                                <label for="inputZip"> &emsp14; </label>
+                                <button class="btn btn-sm btn-bd-primary" onclick=" sumations($(this));">حساب</button>
+                            </div>
                         </div>
                 @endforeach
 
@@ -585,99 +585,7 @@
             </div>
             </form>
 
-            <div class="card mt-1">
-                <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
-                </div>
-
-                <div class="card-body">
-
-                    <div class="table-responsive">
-                        <div class="form-group  form-row">
-                            <label for="staticEmail"
-                                class="col-sm-2 col-form-label text-md-center text-2xl">التخفيض</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control  col-3 indrect" name="indrect" id="inputtext"
-                                    placeholder="">
-                                <button class="btn btn-sm btn-bd-primary  discount-btn">تخفيض</button>
-                            </div>
-
-                        </div>
-
-                        {{-- <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
-                            <thead class=" overflow-x-scroll bg-blue-50">
-                                <tr class=" overflow-x-scroll">
-                                    <th style="text-align: center" class=" w-50">
-
-                                        # </th>
-
-                                    <th style="text-align: center" class=" w-50">
-
-                                        الوصف </th>
-
-                                    <th style="text-align: center">
-                                        1 تخفيض</th>
-
-
-
-
-                                </tr>
-                            </thead>
-                            <tbody class="discount">
-                                <?php $i = 1; ?>
-                                @foreach ($discount as $key => $item)
-                                    <td style="text-align: center">
-                                        {{ $key + 1 }}
-                                    </td>
-                                <tc>
-                                    <td style="text-align: center">
-                                        {{ $item }} <input type="text" readonly class="sale_profit col-2"
-                                            id="{{ $key }}" value="{{ $item }}">
-                                    </td>
-                                    <td style="text-align: center">
-                                        {{ 22 }}
-                                        <input type="text" readonly class="discount{{ $key }}"
-                                            value="0">
-                                    </td>
-                                </tc>
-                                    {{-- <td style="text-align: center">
-
-
-                                            <input type="text" value="0"
-                                                class="indrct-discount" readonly>
-                                        </td> --}}
-                                    {{-- <td style="text-align: center">
-
-                                            <input type="text" value="0"
-                                                class="total-cost-discount" readonly>
-
-                                        </td>
-                                        <td style="text-align: center">
-
-                                            <input type="text" value="0"
-                                                class="factor_summary" readonly>
-
-                                        </td>
-                                        <td style="text-align: center">
-
-                                            <input type="text" value="0"
-                                                class="net-discount" readonly>
-
-                                        </td> --}}
-
-
-
-                            </tbody>
-
-                        {{-- </table> --}}
-                        {{-- <input type="text"  id="{{ $item->id }}"
-                            value="0" class="totals border border-1" readonly> --}}
-                    </div>
-
-
-
-                </div>
-            </div>
 
 
 
@@ -1014,7 +922,7 @@
                 e.preventDefault();
 
 
-                $(this).parent().parent().find("tbody.line_data").append(
+                $(".line_data#" + this.id).append(
                     `
                     <tr>
                                             <td width="10">
@@ -1269,17 +1177,7 @@
                 });
                 line_detect()
             });
-           $(".discount-btn").click(function (e) {
-            e.preventDefault()
-$(".discount").append(`
 
-
-
-
-
-
-`)
-           })
 
 
 
@@ -1307,6 +1205,15 @@ $(".discount").append(`
 
 
                     }
+
+
+
+
+
+
+
+
+
                 })
             })
 
@@ -1334,13 +1241,13 @@ $(".discount").append(`
                     .val()
                 var tot = product_factor * $(this).val();
 
+                $(this).parent().parent().find(".hole_tot").val('');
 
-
-                // $(this).parent().parent().find(".simetot").val(tot);
-                // var all_tot = $(this).parent().parent().find(".all_tot").val(
-                //     parseInt($(this).parent().parent().find(".all_labour")
-                //         .val()) + parseInt($(this).parent().parent().find(
-                //         ".all_material").val()))
+                $(this).parent().parent().find(".simetot").val(tot);
+                var all_tot = $(this).parent().parent().find(".all_tot").val(
+                    parseInt($(this).parent().parent().find(".all_labour")
+                        .val()) + parseInt($(this).parent().parent().find(
+                        ".all_material").val()))
 
                 // sumations_profit($(this));
 
@@ -1403,7 +1310,7 @@ $(".discount").append(`
 
                 labour_sumation($(this))
 
-                sumation_all_labour($(this));
+
                 // all_labour
                 sumation_all_labour($(this));
                 // sumation_all_labour1($(this));
@@ -1433,23 +1340,7 @@ $(".discount").append(`
                 console.log("log");
             })
 
-            $(".risk").keyup(function(e) {
-                e.preventDefault();
-                console.log("h2");
-                calcualte()
-            })
 
-
-            $(".indrect").keyup(function() {
-                e.preventDefault();
-                console.log("h2");
-                calcualte()
-            })
-            $(".consult").keyup(function() {
-                e.preventDefault();
-                console.log("h2");
-                calcualte()
-            })
 
             // calculation functions
             // *******************************************************
@@ -1530,7 +1421,7 @@ $(".discount").append(`
 
             function line_detect() {
                 $(".lines").each(function() {
-
+                    all_line[this.value] = 0;
 
                     if (this.checked) {
 
@@ -1539,7 +1430,7 @@ $(".discount").append(`
 
                         $(this).parent().parent().find('table select').prop('disabled', false);
                     } else {
-
+                        all_line[this.value] = 0;
                         $(this).parent().parent().find('table input').prop('disabled', true);
                         $(this).parent().parent().find('table select').prop('disabled', true);
 
@@ -1672,7 +1563,7 @@ $(".discount").append(`
 
 
 
-$("input:text").val(0)
+
 
 
             let sum = 0;
@@ -1827,26 +1718,40 @@ $("input:text").val(0)
             }
 
 
+            $(".risk").keyup(function(e) {
+                e.preventDefault();
+                console.log("h2");
+                calcualte()
+            })
 
+
+            $(".indrect").keyup(function() {
+                e.preventDefault();
+                console.log("h2");
+                calcualte()
+            })
+            $(".consult").keyup(function() {
+                e.preventDefault();
+                console.log("h2");
+                calcualte()
+            })
 
             function calcualte() {
                 var cost = parseInt($(".all_tot_summary1").val() || 0)
-                $(".cost-discount").val(cost)
+
                 var consult = parseInt($(".consult").val() || 0) / 100;
                 console.log($(".indrect").val() + " wwww2");
                 var indirect = parseInt($(".indrect").val() || 0) / 100
-                $(".indrect-discount").val(indirect)
+
                 var addition_cost = parseInt($(".addition").val() || 0) / 100
                 var resk = parseInt($(".risk").val() || 0) / 100
 
                 var result = cost + ((consult * cost) + (indirect * cost) + (addition_cost * cost) + (resk * cost))
-                $(".total-cost-discount").val(result)
                 var profit = parseInt($(".sale_factor_summary1").val() || 0)
-                $(".profit-discount").val(profit)
                 $(".sale_profit").val(profit)
                 $(".total-cost").val(result.toFixed(2))
                 var net = profit - result
-                $("net-discount").val(net)
+                console.log(net);
                 $(".net-profit").val(net.toFixed(2))
 
             }

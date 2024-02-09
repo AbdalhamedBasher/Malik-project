@@ -98,6 +98,7 @@ Route::get('qoute/create', [QoutationController::class,"create"])->name('qoute.c
 Route::post('qoute/store', [QoutationController::class,"store"])->name('qoute.store');
 Route::post('qoute/delete', [QoutationController::class,"destroy"])->name('qoute.delete');
 Route::put('qoute/update', [QoutationController::class,"update"])->name('quotation.update');
+Route::put('qoute/edit', [QoutationController::class,"edit"])->name('quotation.edit');
 // Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');
 
 

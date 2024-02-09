@@ -21,7 +21,10 @@ return new class extends Migration
             $table->string("statues");
             $table->text("description");
             $table->string("refrence");
-            $table->unsignedDouble("factor");
+            $table->unsignedDouble("indrect");
+            $table->unsignedDouble("addition");
+            $table->unsignedDouble("consult");
+            $table->unsignedDouble("risk");
             $table->unsignedBigInteger('customer')->onDelete('cascade')->nullable();
             $table->foreign('customer')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();

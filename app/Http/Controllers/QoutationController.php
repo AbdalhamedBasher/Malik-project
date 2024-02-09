@@ -63,7 +63,7 @@ class QoutationController extends Controller
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
-        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand ,'units'=>$units]);
+        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units]);
     }
     /**
      * Store a newly created resource in storage.
@@ -87,6 +87,10 @@ class QoutationController extends Controller
             "description" => $request->description,
             "refrence" => 'Q',
             'customer' => $request->customer,
+            "indrect" => $request->indrect,
+            "addition"=>$request->addition,
+            "consult" => $request->consult,
+            "risk" => $request->risk,
 
 
         ]);
@@ -95,37 +99,37 @@ class QoutationController extends Controller
             $qoute_batch = $qoute->qoute_batch()->create([
                 "line" => $line,
                 "factor" => $request->factor,
-                "qoute" => $qoute->id
+                "qoute" => $qoute->id,
+
             ]);
-// dd($request->item[$line]);
 
 
 
 
-if(sizeof($request->item[$line] )>0){
-            foreach ($request->item[$line] as $key => $value) {
-                # code...
-
-                $qout_line[$key] = $qoute_batch->qoute_lines()->create([
-
-                    "qty" => $request->qty[$line][$key],
-                    "item" =>$value,
-                    "unit" => $request->unit[$line][$key],
-                    "qoute_batch" =>  $qoute_batch->id,
-                    "material" => $request->material[$line][$key],
-                    "material_acc" => $request->material_acc[$line][$key],
-                    "material_other" => $request->material_acc[$line][$key],
-                    "labour" => $request->labour[$line][$key],
-                    "labour_other" => $request->labour_other[$line][$key],
 
 
+            if (sizeof($request->item[$line]) > 0) {
+                foreach ($request->item[$line] as $key => $value) {
 
-                ]);
 
+                    $qout_line[$key] = $qoute_batch->qoute_lines()->create([
+
+                        "qty" => $request->qty[$line][$key],
+                        "item" => $value,
+                        "unit" => $request->unit[$line][$key],
+                        "qoute_batch" =>  $qoute_batch->id,
+                        "material" => $request->material[$line][$key],
+                        "material_acc" => $request->material_acc[$line][$key],
+                        "material_other" => $request->material_acc[$line][$key],
+                        "labour" => $request->labour[$line][$key],
+                        "labour_other" => $request->labour_other[$line][$key],
+
+
+
+                    ]);
+                }
             }
         }
-
-    }
 
 
         if (sizeof($qout_line)) {
@@ -152,9 +156,20 @@ if(sizeof($request->item[$line] )>0){
      * @param  \App\Models\qoutation  $qoutation
      * @return \Illuminate\Http\Response
      */
-    public function edit(qoutation $qoutation)
+    public function edit($id)
     {
-        //
+        $qoute_id = qoutation::get()->count() == 0 ? qoutation::get()->count() + 1 : qoutation::get()->max();
+        $customer = customer::get();
+        $qoute=qoutation::find($id);
+        $line = line::get();
+        $items = items::get();
+        $catogery = catogery::get();
+        $type = type::get();
+        $size = size::get();
+        $brand = brand::get();
+        $units = units::get();
+        return view('qoutation.edit')->with(['qoute'=>$qoute ,'line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units]);
+
     }
 
     /**
