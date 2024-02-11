@@ -11,6 +11,7 @@
 
   <link rel="stylesheet" href="{{asset('css/bootstrap5_2.css')}}">
     {{-- selec2 cdn --}}
+
     <link href="{{ asset('css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('font-awesome-4.7.0/css/font-awesome.css') }}" rel="stylesheet" />
@@ -27,6 +28,7 @@
     <link href=" {{ asset('css/bootstrap-datetimepicker.min1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/doc.css') }}" rel="stylesheet">
     <link href="{{ asset('css/vs.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
     <!-- Styles -->
 
@@ -103,6 +105,15 @@ font-family: 'OptimusPrinceps';
                 transform: rotate(360deg);
             }
         }
+
+        .error {
+  color: red;
+  margin-left: 5px;
+}
+
+label.error {
+  display: inline;
+}
     </style>
 
 </head>

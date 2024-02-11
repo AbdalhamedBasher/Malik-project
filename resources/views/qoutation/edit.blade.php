@@ -248,8 +248,8 @@
                                                 <select class="form-control products" id="{{ $item->id }}"
                                                     name="unit[{{ $item->id }}][]" required>
                                                     <option selected value="">-- إختر --</option>
-                                                    @foreach ($units as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}
+                                                    @foreach ($units as $unit)
+                                                        <option value="{{ $unit->id }}">{{ $unit->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>

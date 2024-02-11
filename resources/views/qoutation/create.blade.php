@@ -4,10 +4,7 @@
     {{-- @extends('layouts.main') --}}
 
 
-    <?php
-    $discount = ['المبيعات', 'التكاليف المباشرة', 'التكاليف غير المباشرة', 'مجموع التكلفة', 'الربح', 'صافي الربح'];
 
-    ?>
 
 
 @section('content')
@@ -22,7 +19,7 @@
         </div>
         {{-- quotaion master --}}
         <div class="card-body">
-            <form method="POST" action="{{ route('qoute.store') }}">
+            <form method="POST" action="{{ route('qoute.store') }}" id="qoute">
                 @csrf
                 <div class="row">
                     <div class="col">
@@ -48,7 +45,9 @@
                             </select>
 
                         </div>
-
+                        @error('customer')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 
 
                         <div class="form-group row-md-3">
@@ -173,7 +172,7 @@
                                         {{ $item->name }}
                                     </label>
                                 </div>
-                                {{ $item->id }}
+
                                 <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
                                     <thead class=" overflow-x-scroll bg-blue-50">
                                         <tr class=" overflow-x-scroll">
@@ -234,7 +233,7 @@
 
                                             <td style="text-align: center">
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]" required>
+                                                    name="item[{{ $item->id }}][]">
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
                                                         <option value="{{ $product->id }}"
@@ -249,10 +248,10 @@
                                             <td style="text-align: center">
 
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="unit[{{ $item->id }}][]" required>
+                                                    name="unit[{{ $item->id }}][]">
                                                     <option selected value="">-- إختر --</option>
-                                                    @foreach ($units as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}
+                                                    @foreach ($units as $unit)
+                                                        <option value="{{ $unit->id }}">{{ $unit->name }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -266,8 +265,7 @@
                                             <td style="text-align: center">
 
                                                 <input type="text" name="qty[{{ $item->id }}][]"
-                                                    class="border border-1 qty" id="{{ $item->id }}" value="0"
-                                                    required>
+                                                    class="border border-1 qty" id="{{ $item->id }}" value="0">
                                             </td>
                                             <td style="text-align: center">
 
@@ -279,19 +277,19 @@
 
                                                 <input type="text" name="material[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" value="0"
-                                                    class="border border-1 material" required>
+                                                    class="border border-1 material">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_acc[{{ $item->id }}][]"
                                                     value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_acc" required>
+                                                    class="border border-1 material_acc">
                                             </td>
                                             <td style="text-align: center">
 
                                                 <input type="text" name="material_other[{{ $item->id }}][]"
                                                     value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_other" required>
+                                                    class="border border-1 material_other">
                                             </td>
                                             <td style="text-align: center">
 
@@ -309,7 +307,7 @@
 
                                                 <input type="text" name="labour[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" value="0"
-                                                    class="border border-1 labour" required>
+                                                    class="border border-1 labour">
                                             </td>
 
 
@@ -317,14 +315,14 @@
 
                                                 <input type="text" name="labour_other[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 labour_other" required>
+                                                    class=" border border-1 labour_other">
                                             </td>
                                             <td style="text-align: center">
 
 
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
                                                     id="" class=" border border-1 tot_labour" value="0"
-                                                    readonly required>
+                                                    readonly>
                                             </td>
                                             <td style="text-align: center">
 
@@ -342,7 +340,7 @@
                                             <td style="text-align: center">
                                                 <div class="form-group col-md-2 justify-center">
 
-                                                    <button class="btn btn-sm btn-bd-primary remove-record">حساب</button>
+                                                    <button class="btn btn-sm  btn-outline-danger remove-record">X</button>
                                                 </div>
 
                                             </td>
@@ -352,13 +350,13 @@
 
                                     </tbody>
                                 </table>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
-                                        id="{{ $item->id }}">
-                                </div>
-                            </div>
 
+                            </div>
+                            <div class="form-group col-md-2 justify-center">
+                                <label for="inputZip"> &emsp14; </label>
+                                <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
+                                    id="{{ $item->id }}">
+                            </div>
                             <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
                                 <input type="text" name="total[]" id="{{ $item->id }}"
@@ -379,7 +377,10 @@
                                 <input type="text" name="total[]" id="{{ $item->id }}"
                                     class="total_profit d-none border d-none border-1" readonly>
                             </div>
+                            <div class="form-group col-md-2 justify-center d-none">
+                                <label for="inputZip"> &emsp14; </label>
 
+                            </div>
                         </div>
                 @endforeach
 
@@ -585,99 +586,7 @@
             </div>
             </form>
 
-            <div class="card mt-1">
-                <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
-                </div>
-
-                <div class="card-body">
-
-                    <div class="table-responsive">
-                        <div class="form-group  form-row">
-                            <label for="staticEmail"
-                                class="col-sm-2 col-form-label text-md-center text-2xl">التخفيض</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control  col-3 indrect" name="indrect" id="inputtext"
-                                    placeholder="">
-                                <button class="btn btn-sm btn-bd-primary  discount-btn">تخفيض</button>
-                            </div>
-
-                        </div>
-
-                        {{-- <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
-                            <thead class=" overflow-x-scroll bg-blue-50">
-                                <tr class=" overflow-x-scroll">
-                                    <th style="text-align: center" class=" w-50">
-
-                                        # </th>
-
-                                    <th style="text-align: center" class=" w-50">
-
-                                        الوصف </th>
-
-                                    <th style="text-align: center">
-                                        1 تخفيض</th>
-
-
-
-
-                                </tr>
-                            </thead>
-                            <tbody class="discount">
-                                <?php $i = 1; ?>
-                                @foreach ($discount as $key => $item)
-                                    <td style="text-align: center">
-                                        {{ $key + 1 }}
-                                    </td>
-                                <tc>
-                                    <td style="text-align: center">
-                                        {{ $item }} <input type="text" readonly class="sale_profit col-2"
-                                            id="{{ $key }}" value="{{ $item }}">
-                                    </td>
-                                    <td style="text-align: center">
-                                        {{ 22 }}
-                                        <input type="text" readonly class="discount{{ $key }}"
-                                            value="0">
-                                    </td>
-                                </tc>
-                                    {{-- <td style="text-align: center">
-
-
-                                            <input type="text" value="0"
-                                                class="indrct-discount" readonly>
-                                        </td> --}}
-                                    {{-- <td style="text-align: center">
-
-                                            <input type="text" value="0"
-                                                class="total-cost-discount" readonly>
-
-                                        </td>
-                                        <td style="text-align: center">
-
-                                            <input type="text" value="0"
-                                                class="factor_summary" readonly>
-
-                                        </td>
-                                        <td style="text-align: center">
-
-                                            <input type="text" value="0"
-                                                class="net-discount" readonly>
-
-                                        </td> --}}
-
-
-
-                            </tbody>
-
-                        {{-- </table> --}}
-                        {{-- <input type="text"  id="{{ $item->id }}"
-                            value="0" class="totals border border-1" readonly> --}}
-                    </div>
-
-
-
-                </div>
-            </div>
 
 
 
@@ -702,7 +611,7 @@
                                         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                                             <label for="name">اﻹسم*</label>
                                             <input type="text" id="name" name="name" class="form-control"
-                                                value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                                value="{{ old('name', isset($user) ? $user->name : '') }}">
                                             @if ($errors->has('name'))
                                                 <em class="invalid-feedback">
                                                     {{ $errors->first('name') }}
@@ -715,7 +624,7 @@
                                         <div class=" {{ $errors->has('id') ? 'has-error' : '' }}">
                                             <label for="qoutation_date">المرجع*</label>
                                             <input type="text" id="id" name="refrence" class="form-control"
-                                                value="{{ old('refrence') }}" required>
+                                                value="{{ old('refrence') }}">
                                             @if ($errors->has('refrence'))
                                                 <em class="invalid-feedback">
                                                     {{ $errors->first('refrence') }}
@@ -733,7 +642,7 @@
                                         <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}">
                                             <label for="qoutation_date">العميل*</label>
                                             <input type="text" id="customer" name="customer" class="form-control"
-                                                value="{{ old('customer') }}" required>
+                                                value="{{ old('customer') }}">
                                             @if ($errors->has('customer'))
                                                 <em class="invalid-feedback">
                                                     {{ $errors->first('customer') }}
@@ -799,7 +708,7 @@
                                             <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
                                                 <div class="form-row">
                                                     <input type="text" id="price" name="size_number"
-                                                        class="form-control col-8" value="{{ old('price') }}" required>
+                                                        class="form-control col-8" value="{{ old('price') }}">
                                                     @if ($errors->has('price'))
                                                         <em class="invalid-feedback">
                                                             {{ $errors->first('price') }}
@@ -882,11 +791,11 @@
                             @method('PUT')
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
                                 <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
 
                                 <label for="name">اﻹسم*</label>
                                 <input type="text" id="name" name="name" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
                                 @if ($errors->has('name'))
                                     <em class="invalid-feedback">
                                         {{ $errors->first('name') }}
@@ -898,11 +807,11 @@
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
                                 <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
 
                                 <label for="name">الشركة الصنعة*</label>
                                 <input type="text" id="company" name="company" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
                                 @if ($errors->has('name'))
                                     <em class="invalid-feedback">
                                         {{ $errors->first('name') }}
@@ -977,7 +886,7 @@
                             <form action="{{ url('brand/delete') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
                                 <input class="btn btn-danger b-a-1" style="" type="submit" value="مسح">
                             </form>
                         </div>
@@ -999,6 +908,7 @@
 @endsection
 @section('scripts')
     @parent
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function() {
             let all_line = {};
@@ -1014,7 +924,7 @@
                 e.preventDefault();
 
 
-                $(this).parent().parent().find("tbody.line_data").append(
+                $(".line_data#" + this.id).append(
                     `
                     <tr>
                                             <td width="10">
@@ -1022,7 +932,7 @@
                                             </td>
                                             <td style="text-align: center">
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]" required>
+                                                    name="item[{{ $item->id }}][]" >
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
                                                         <option value="{{ $product->id }}"
@@ -1038,7 +948,7 @@
 
 
                                                 <select class="form-control products" id="{{ $item->id }}"
-                                                    name="unit[{{ $item->id }}][]" required>
+                                                    name="unit[{{ $item->id }}][]" >
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($units as $item)
                                                         <option value="{{ $item->id }}">{{ $item->name }}
@@ -1056,7 +966,7 @@
 
                                                 <input type="text" name="qty[{{ $item->id }}][]"
                                                     class="border border-1 qty" id="{{ $item->id }}" value="0"
-                                                    required>
+                                                    >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="simetot[{{ $item->id }}][]" readonly
@@ -1066,17 +976,17 @@
                                             <td style="text-align: center">
                                                 <input type="text" name="material[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" value="0"
-                                                    class="border border-1 material" required>
+                                                    class="border border-1 material" >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="material_acc[{{ $item->id }}][]"
                                                     value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_acc" required>
+                                                    class="border border-1 material_acc" >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="material_other[{{ $item->id }}][]"
                                                     value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_other" required>
+                                                    class="border border-1 material_other" >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="tot_material[{{ $item->id }}][]"
@@ -1091,17 +1001,17 @@
                                             <td style="text-align: center">
                                                 <input type="text" name="labour[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" value="0"
-                                                    class="border border-1 labour" required>
+                                                    class="border border-1 labour" >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="labour_other[{{ $item->id }}][]"
                                                     id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 labour_other" required>
+                                                    class=" border border-1 labour_other" >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
                                                     id="" class=" border border-1 tot_labour" value="0"
-                                                    readonly required>
+                                                    readonly >
                                             </td>
                                             <td style="text-align: center">
                                                 <input type="text" name="worker_tot[{{ $item->id }}][]"
@@ -1138,6 +1048,7 @@
 
                     $(".remove-record").click(function(e) {
                         e.preventDefault()
+                        $
                         $(this).closest("tr").remove()
                     })
 
@@ -1152,7 +1063,7 @@
                         var factor = $(".factor").val() || 0
                         var tot = 0;
                         var product = 0;
-                        // sum_product($(this))
+                        sum_product($(this))
                         sumation_all_tot();
                     })
 
@@ -1269,17 +1180,7 @@
                 });
                 line_detect()
             });
-           $(".discount-btn").click(function (e) {
-            e.preventDefault()
-$(".discount").append(`
 
-
-
-
-
-
-`)
-           })
 
 
 
@@ -1289,6 +1190,7 @@ $(".discount").append(`
 
             $("select#inputState.customer").change(function(e) {
                 var custom = this.value;
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1307,9 +1209,20 @@ $(".discount").append(`
 
 
                     }
+
+
+
+
+
+
+
+
+
                 })
             })
-
+$(".factor").keyup(function () {
+     $(this).valid()
+})
 
             $(".remove-record").click(function(e) {
                 e.preventDefault()
@@ -1320,7 +1233,7 @@ $(".discount").append(`
                 var factor = $(".factor").val() || 0
                 var tot = 0;
                 var product = 0;
-
+                $(this).valid()
                 sum_product($(this))
                 sumation_all_tot();
             })
@@ -1334,13 +1247,13 @@ $(".discount").append(`
                     .val()
                 var tot = product_factor * $(this).val();
 
+                $(this).parent().parent().find(".hole_tot").val('');
 
-
-                // $(this).parent().parent().find(".simetot").val(tot);
-                // var all_tot = $(this).parent().parent().find(".all_tot").val(
-                //     parseInt($(this).parent().parent().find(".all_labour")
-                //         .val()) + parseInt($(this).parent().parent().find(
-                //         ".all_material").val()))
+                $(this).parent().parent().find(".simetot").val(tot);
+                var all_tot = $(this).parent().parent().find(".all_tot").val(
+                    parseInt($(this).parent().parent().find(".all_labour")
+                        .val()) + parseInt($(this).parent().parent().find(
+                        ".all_material").val()))
 
                 // sumations_profit($(this));
 
@@ -1403,7 +1316,7 @@ $(".discount").append(`
 
                 labour_sumation($(this))
 
-                sumation_all_labour($(this));
+
                 // all_labour
                 sumation_all_labour($(this));
                 // sumation_all_labour1($(this));
@@ -1428,28 +1341,9 @@ $(".discount").append(`
                 all_tot($(this))
             })
 
-            $(".remove-record").click(function(e) {
-                e.preventDefault()
-                console.log("log");
-            })
-
-            $(".risk").keyup(function(e) {
-                e.preventDefault();
-                console.log("h2");
-                calcualte()
-            })
 
 
-            $(".indrect").keyup(function() {
-                e.preventDefault();
-                console.log("h2");
-                calcualte()
-            })
-            $(".consult").keyup(function() {
-                e.preventDefault();
-                console.log("h2");
-                calcualte()
-            })
+
 
             // calculation functions
             // *******************************************************
@@ -1472,7 +1366,7 @@ $(".discount").append(`
                         $(this).closest(".card-body").find("input.total").val(isNaN(all_line[id]))
 
                     })
-
+                    $("input.profit").val(sum)
                 })
 
 
@@ -1520,7 +1414,6 @@ $(".discount").append(`
 
                 })
 
-                sumation_all(parent)
                 sumation_all_labours()
             }
 
@@ -1530,7 +1423,7 @@ $(".discount").append(`
 
             function line_detect() {
                 $(".lines").each(function() {
-
+                    all_line[this.value] = 0;
 
                     if (this.checked) {
 
@@ -1539,7 +1432,7 @@ $(".discount").append(`
 
                         $(this).parent().parent().find('table select').prop('disabled', false);
                     } else {
-
+                        all_line[this.value] = 0;
                         $(this).parent().parent().find('table input').prop('disabled', true);
                         $(this).parent().parent().find('table select').prop('disabled', true);
 
@@ -1609,7 +1502,7 @@ $(".discount").append(`
                 })
 
             }
-            sumation_all($(".tot"))
+
 
             $(this).find('input:text').val('');
             $(this).find('select').val('');
@@ -1632,7 +1525,7 @@ $(".discount").append(`
 
                         // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
                         $("#" + id + ".total").val($(this).val() || 0)
-                        console.log($(this).val() || 0);
+
                         $("#" + id + ".all_tot_summary").val(all_line[id] || 0);
 
                     })
@@ -1672,7 +1565,7 @@ $(".discount").append(`
 
 
 
-$("input:text").val(0)
+
 
 
             let sum = 0;
@@ -1731,8 +1624,7 @@ $("input:text").val(0)
                     var material_other = parent.parent().parent().find(".material_other").val() || 0
                     var material = parent.parent().parent().find(".material").val() || 0
                     var material_acc = parent.val() || 0
-                    console.log(material + " " + material_acc);
-                    console.log(parent.attr("class"));
+
                 } else {
                     var material_other = parent.parent().parent().find(".material_other").val() || 0
                     var material_acc = parent.parent().parent().find(".material_acc").val() || 0
@@ -1756,7 +1648,7 @@ $("input:text").val(0)
                 var all_labour = 0;
                 all_material = (parseInt(parent.parent().parent().find(".all_material").val()));
                 all_labour = (parseInt(parent.parent().parent().find(".all_labour").val()));
-                console.log(all_material + " " + all_labour);
+
                 all_tot = (all_material) + (all_labour)
                 parent.parent().parent().find(".all_tot").val(all_tot || 0)
 
@@ -1780,7 +1672,7 @@ $("input:text").val(0)
                 var tot_labour = 0;
                 tot_labour = parseInt(labour) + parseInt(labour_other)
 
-                console.log(tot_labour);
+
                 parent.parent().parent().find(".tot_labour").val(tot_labour);
                 var qty = parent.parent().parent().find(".qty").val() || 0;
                 var all_labour = parent.parent().parent().find(".all_labour").val(tot_labour * qty);
@@ -1801,7 +1693,7 @@ $("input:text").val(0)
                     })
 
                     $(".sale_factor_summary1").val(sum)
-
+                    $(".total-cost").val(sum)
                 })
 
 
@@ -1827,88 +1719,64 @@ $("input:text").val(0)
             }
 
 
+            $(".risk").keyup(function(e) {
+                e.preventDefault();
 
+                calcualte()
+            })
+
+
+            $(".indrect").keyup(function() {
+                e.preventDefault();
+
+                calcualte()
+            })
+            $(".consult").keyup(function() {
+                e.preventDefault();
+
+                calcualte()
+            })
 
             function calcualte() {
                 var cost = parseInt($(".all_tot_summary1").val() || 0)
-                $(".cost-discount").val(cost)
+
                 var consult = parseInt($(".consult").val() || 0) / 100;
-                console.log($(".indrect").val() + " wwww2");
+
                 var indirect = parseInt($(".indrect").val() || 0) / 100
-                $(".indrect-discount").val(indirect)
+
                 var addition_cost = parseInt($(".addition").val() || 0) / 100
                 var resk = parseInt($(".risk").val() || 0) / 100
 
                 var result = cost + ((consult * cost) + (indirect * cost) + (addition_cost * cost) + (resk * cost))
-                $(".total-cost-discount").val(result)
                 var profit = parseInt($(".sale_factor_summary1").val() || 0)
-                $(".profit-discount").val(profit)
                 $(".sale_profit").val(profit)
                 $(".total-cost").val(result.toFixed(2))
                 var net = profit - result
-                $("net-discount").val(net)
+
                 $(".net-profit").val(net.toFixed(2))
 
             }
 
-            // addition-cost
 
+            $("form").validate({
+  rules: {
+    // simple rule, converted to {required:true}
+    customer: "required",
+    // compound rule
+    factor: {
+      required: true,
+      digits: true,
+      range: [0.0, 100.0]
+    }
+  }, messages:{
+    customer: "الرجاء ادخال المستخدم",
+    factor :{required:"الرجاء ادخال المعامل ",
 
+digits:"الرجاء ادخال رقم على الاقل"
+}
 
-            // all_material_summary
-
-            // sale_factor_summary
-
-            //             $(".material").keyup(function(e){
-            //   var product= $(this).parent().parent().find("select").val()
-            //   $(this).parent().parent().find(".tot_material").val( product * $(this).val());
-            //             })
-            //             $(".material").keyup(function(e){
-            //   var product= $(this).parent().parent().find("select").val()
-            //   $(this).parent().parent().find(".tot_material").val( product * $(this).val());
-            //             })
-            //             $(".material").keyup(function(e){
-            //   var product= $(this).parent().parent().find("select").val()
-            //   $(this).parent().parent().find(".tot_material").val( product * $(this).val());
-            //             })
-            // $('.new_item').click(function() {
-            //     $('#exampleModal').modal('show');
-            // })
-
-            // $('.customer').change(function() {
-
-            //     var custom = this.value;
-            //     $.ajaxSetup({
-            //         headers: {
-            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         }
-            //     });
-            //     $.ajax({
-            //         type: 'GET',
-            //         url: 'http://127.0.0.1:8000/customer/data/' + custom,
-            //         //   data : ({id : $(this).value}),
-            //         dataType: 'JSON',
-            //         success: function(response) {
-
-            //             $('.customer_data').html(
-            //                 `<td> name</td>` + data.name + `</td><td>رقم الهاتف</td><td>` +
-            //                 data.phone_number + `</td><td></td><td>` + data.id + `</td>`
-
-
-
-            //             )
-            //         }
-
-
-
-
-
-
-
-
-
-            // })
-
+  }
+});
 
         });
     </script>

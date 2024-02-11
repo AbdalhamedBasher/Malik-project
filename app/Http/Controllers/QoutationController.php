@@ -75,6 +75,25 @@ class QoutationController extends Controller
     {
         $qout_line = [];
         //  dd($request);
+
+
+
+        $request->validate([
+
+
+            "factor" =>"numeric|required",
+            "qoutation_date" => "date|required",
+            "expire_date" =>"date|required",
+            "project_name" => "string|required",
+            'customer' => "required",
+            "indrect" => "required|decimal:0,100",
+            "addition"=>"required|decimal:0,100",
+            "consult" =>"required|decimal:0,100",
+            "risk" =>"required|decimal:0,100",
+
+
+
+        ]);
         $qoute = qoutation::create([
 
 
@@ -133,10 +152,10 @@ class QoutationController extends Controller
 
 
         if (sizeof($qout_line)) {
-            return redirect()->route('qoute')->with(['message' => 'تم حفظ التسعيرة']);
+            // return redirect()->route('qoute')->with(['message' => 'تم حفظ التسعيرة']);
+            return response()->json(['status'=>200, 'msg'=>'New Student has been successfully registered']);
         } else {
-            return redirect()->back()->with(["error" => 'هناك خطا']);
-        }
+            return response()->json(['status'=>400, 'msg'=>'000000000']);        }
     }
 
     /**
