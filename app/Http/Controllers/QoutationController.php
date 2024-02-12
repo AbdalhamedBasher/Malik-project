@@ -76,7 +76,7 @@ class QoutationController extends Controller
         $qout_line = [];
         //  dd($request);
 
-
+      $last = (qoutation::max("id")==null)?1:qoutation::max("id")+1;
 
         $request->validate([
 
@@ -104,7 +104,7 @@ class QoutationController extends Controller
             "project_name" => $request->project_name,
             "statues" => $request->statues,
             "description" => $request->description,
-            "refrence" => 'Q',
+            "refrence" => 'Q'.$last,
             'customer' => $request->customer,
             "indrect" => $request->indrect,
             "addition"=>$request->addition,
@@ -113,6 +113,8 @@ class QoutationController extends Controller
 
 
         ]);
+if (isset($request->lines) ) {
+
 
         foreach ($request->lines as $key => $line) {
             $qoute_batch = $qoute->qoute_batch()->create([
@@ -127,9 +129,8 @@ class QoutationController extends Controller
 
 
 
-            if (sizeof($request->item[$line]) > 0) {
+            if (isset($request->item[$line])) {
                 foreach ($request->item[$line] as $key => $value) {
-
 
                     $qout_line[$key] = $qoute_batch->qoute_lines()->create([
 
@@ -150,12 +151,14 @@ class QoutationController extends Controller
             }
         }
 
+}
 
-        if (sizeof($qout_line)) {
-            // return redirect()->route('qoute')->with(['message' => 'تم حفظ التسعيرة']);
-            return response()->json(['status'=>200, 'msg'=>'New Student has been successfully registered']);
-        } else {
-            return response()->json(['status'=>400, 'msg'=>'000000000']);        }
+        if (($qoute)) {
+            return redirect()->route('qoute')->with(['message' => 'تم حفظ التسعيرة']);
+
+        }
+        // else {
+        //     return redirect()->back()->with(['message' => 'هناك خطا في التسعيرة']);        }
     }
 
     /**

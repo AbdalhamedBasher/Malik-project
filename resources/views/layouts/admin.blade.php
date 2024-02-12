@@ -77,10 +77,11 @@ font-family: 'OptimusPrinceps';
     </style>
 
 
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ asset('js/alpinejs.cdn.min.js') }}" defer></script>
-    <link href="{{ asset('themes/css/sweetalert2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/moment.js') }}" defer></script>
+
  <style>
         #loader {
             border: 8px solid #f3f3f3;

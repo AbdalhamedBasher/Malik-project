@@ -70,29 +70,29 @@
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">تاريخ الانشاء</label>
-                            <input type="date" name="qoutation_date" class="form-control" id="inputZip">
+                            <input type="date" name="qoutation_date" class="form-control qoutation_date" id="inputZip" value="{{date('m/d/y')}}">
 
 
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">تاريخ الانتهاء</label>
-                            <input type="date" name="expire_date" class="form-control" id="inputZip">
+                            <input type="date" name="expire_date" class="form-control expire_date" id="inputZip">
 
 
                         </div>
                         <span class="form-group row-md-3">
                             <label for="inputZip">الحالة</label>
-                            <select id="inputState" name="statues" class="form-control">
+                            {{-- <select id="inputState" name="statues" class="form-control">
                                 <option selected>-- الحالة --</option>
-                                <option selected> موافق </option>
-                                <option selected> مسودة </option>
-                                <option selected> تمت فوترة </option>
-                                <option selected> بانتظار الموافقة </option>
+                                <option > موافق </option>
+                                <option > مسودة </option>
+                                <option > تمت فوترة </option>
+                                <option > بانتظار الموافقة </option>
 
 
 
-                            </select>
-
+                            </select> --}}
+<input type="text" name="statues" class="statues">
 
                         </span>
                     </div>
@@ -573,10 +573,12 @@
                     </div>
                 </div>
 
-                <div class="form-group col-md-2 justify-center">
+                <div class="form-group col-md-2 justify-center d-flex">
                     <label for="inputZip"> &emsp14; </label>
-                    <input type="submit" value="حفظ" class="form-control mx-3 btn-outline-success border-2"
-                        id="inputZip">
+                    <button   class="form-control mx-3 btn-outline-success border-2 saving"
+                        id="inputZip">حفظ</button>
+                        <button class="form-control mx-3  btn-outline-primary border-2 draft"
+                        id="inputZip"> حفظ كمسودة</button>
                 </div>
 
 
@@ -1057,7 +1059,7 @@
 
                     // let hole_tot = 0;
                     // // product total
-
+                    $('select').select2();
                     $(".products").change(function() {
 
                         var factor = $(".factor").val() || 0
@@ -1188,9 +1190,33 @@
             // ********************************** Here is the main *****************************************
             // *********************************************************************************************
 
-            $("select#inputState.customer").change(function(e) {
-                var custom = this.value;
+$(".saving").click(function (e) {
 
+    $(".statues").val("موافق")
+    $(".qoute").submit()
+})
+
+
+$(".draft").click(function (e) {
+
+    $(".statues").val("مسودة")
+    $(".qoute").submit()
+})
+
+            $(".line_data").each(function () {
+                $(this).find("input").val(0)
+            })
+            $('select#inputState.customer').select2();
+            $('.products').select2();
+            $("select#inputState.customer").change(function(e) {
+                $(this).valid();
+                $(".cust-name").html()
+                $(".cust-phone").html("")
+                $(".cust-email").html("")
+                $(".cust-tax-number").html("");
+                $(".cust-name").html("")
+                var custom = this.value;
+                $(this).valid();
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1220,9 +1246,9 @@
 
                 })
             })
-$(".factor").keyup(function () {
-     $(this).valid()
-})
+            $(".factor").keyup(function() {
+                $(this).valid()
+            })
 
             $(".remove-record").click(function(e) {
                 e.preventDefault()
@@ -1342,9 +1368,19 @@ $(".factor").keyup(function () {
             })
 
 
+            $(".qoutation_date").val(new Date().toJSON().slice(0,10));
 
 
 
+// add a day or anyday you like
+
+todaysDate = new Date()
+var nextDate = new Date(+todaysDate + 7*24*60*60*1000);
+
+$(".expire_date").val(nextDate.toJSON().slice(0,10))
+$(".expire_date").change(function () {
+    console.log($(this).val());
+})
             // calculation functions
             // *******************************************************
             // ******************************************************
@@ -1759,24 +1795,29 @@ $(".factor").keyup(function () {
 
 
             $("form").validate({
-  rules: {
-    // simple rule, converted to {required:true}
-    customer: "required",
-    // compound rule
-    factor: {
-      required: true,
-      digits: true,
-      range: [0.0, 100.0]
-    }
-  }, messages:{
-    customer: "الرجاء ادخال المستخدم",
-    factor :{required:"الرجاء ادخال المعامل ",
+                rules: {
+                    // simple rule, converted to {required:true}
+                    customer: "required",
+                    // compound rule
+                    factor: {
+                        required: true,
+                        digits: true,
+                        range: [0.0, 100.0]
+                    },
+                    qoutation_date:{
 
-digits:"الرجاء ادخال رقم على الاقل"
-}
+                    }
+                },
+                messages: {
+                    customer: "الرجاء ادخال المستخدم",
+                    factor: {
+                        required: "الرجاء ادخال المعامل ",
 
-  }
-});
+                        digits: "الرجاء ادخال رقم على الاقل"
+                    }
+
+                }
+            });
 
         });
     </script>
