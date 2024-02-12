@@ -173,10 +173,10 @@
                                     </label>
                                 </div>
 
-                                <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
+                                <table class="overflow-x-scroll" style="text-align: center">
                                     <thead class=" overflow-x-scroll bg-blue-50">
-                                        <tr class=" overflow-x-scroll">
-                                            <th width="10">
+                                        <tr class=" border border-1 overflow-x-scroll">
+                                            <th width="10" class=" border border-1 ">
                                                 #
                                             </th>
 
@@ -232,17 +232,17 @@
                                             </td>
 
                                             <td style="text-align: center">
-                                                <select class="form-control products" id="{{ $item->id }}"
+                                                <select class="form-control products  w-full" id="{{ $item->id }}"
                                                     name="item[{{ $item->id }}][]">
                                                     <option selected value="">-- إختر --</option>
                                                     @foreach ($items as $product)
                                                         <option value="{{ $product->id }}"
-                                                            data-price="{{ $product->price }}">{{ $product->name }} <span
+                                                            data-price="{{ $product->price }}">{{ $product->name." ".$product->type_data->name }} <span
                                                                 id="{{ $product->id }}">{{ $product->price }}</span>
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                <input type="text" name="" class="product-price" readonly
+                                                <input type="hidden" name="" class="product-price" readonly
                                                     id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
@@ -337,25 +337,19 @@
                                                     class=" border border-1 all_tot" readonly>
 
                                             </td>
-                                            <td style="text-align: center">
-                                                <div class="form-group col-md-2 justify-center">
 
-                                                    <button class="btn btn-sm  btn-outline-danger remove-record">X</button>
-                                                </div>
-
-                                            </td>
                                         </tr>
 
 
 
                                     </tbody>
                                 </table>
-
+                                <input type="submit" value="إضافة" class=" btn btn-primary btn-line col-sm-2"
+                                id="{{ $item->id }}">
                             </div>
                             <div class="form-group col-md-2 justify-center">
                                 <label for="inputZip"> &emsp14; </label>
-                                <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
-                                    id="{{ $item->id }}">
+
                             </div>
                             <div class="form-group col-md-2 justify-center d-none">
                                 <label for="inputZip"> &emsp14; </label>
@@ -577,7 +571,7 @@
                     <label for="inputZip"> &emsp14; </label>
                     <button   class="form-control mx-3 btn-outline-success border-2 saving"
                         id="inputZip">حفظ</button>
-                        <button class="form-control mx-3  btn-outline-primary border-2 draft"
+                        <button class="form-control mx-3  btn-outline-primary border-2 draft min-w-full"
                         id="inputZip"> حفظ كمسودة</button>
                 </div>
 
@@ -943,7 +937,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                <input type="text" name="" class="product-price" readonly
+                                                <input type="hidden" name="" class="product-price" readonly
                                                     id="{{ $item->id }}">
                                             </td>
                                             <td style="text-align: center">
@@ -1027,10 +1021,8 @@
 
                                             </td>
                                             <td style="text-align: center">
-                                                <div class="form-group col-md-2 justify-center">
 
-                                                    <button class="btn btn-sm btn-bd-primary remove-record">حساب</button>
-                                                </div>
+                                                <button class="btn-outline-danger btn-close remove-record"></button>
 
                                             </td>
                                         </tr>`).ready(function() {

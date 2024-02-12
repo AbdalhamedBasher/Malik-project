@@ -2218,3 +2218,6 @@ section {
         background: #415841;
 
 }
+input {
+    width: auto;
+  }
