@@ -921,8 +921,7 @@
 
 
                 $(".line_data#" + this.id).append(
-                    `
-                    <tr>
+                    `<tr>
                                             <td width="10">
                                                 #
                                             </td>
@@ -1030,7 +1029,7 @@
 
 
 
-
+                                            async: false;
 
 
 
