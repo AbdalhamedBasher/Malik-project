@@ -771,6 +771,114 @@
             </div>
         </div>
     </div>
+{{-- discount Table  --}}
+
+    <div class="card mt-1">
+        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+
+                <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
+                    <thead class=" overflow-x-scroll bg-blue-50">
+                        <tr class=" overflow-x-scroll">
+                            <th width="10">
+                                #
+                            </th>
+
+                            <th style="text-align: center">
+
+                                الوصف </th>
+
+                            <th style="text-align: center">
+                                المجموع المواد/الكلي</th>
+
+
+                            <th style="text-align: center">
+                                الايادي العاملة/الكلي</th>
+                            <th style="text-align: center">
+                                مجموع التكلفة الكلية </th>
+                            <th style="text-align: center">
+                                factor </th>
+                            <th style="text-align: center">
+                                سعر البيع </th>
+                            &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="discount">
+                        @for ($i = 1; $i <=6; $i++)
+
+                            <tr>
+                                <td width="10">
+
+                                    {{ $i}}
+                                </td>
+                                @endfor
+
+                                <td width="10">
+
+                                المبيعات
+                                </td>
+
+                            </tr>
+
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td width="10">
+                                &emsp;
+                            </td>
+
+                            <td style="text-align: center">
+                                المجموع
+
+                            <td style="text-align: center">
+
+                                <input type="text" name="" id="" readonly
+                                    class="all_material_summary1" value="0">
+                            </td>
+
+                            <td style="text-align: center">
+
+
+                                <input type="text" name="" id="" value="0"
+                                    class="all_labour_summary1" readonly>
+                            </td>
+                            <td style="text-align: center">
+
+                                <input type="text" name="" id="" value="0"
+                                    class="all_tot_summary1" readonly>
+
+                            </td>
+                            <td style="text-align: center">
+
+                                <input type="text" name="" id="{{ $item->id }}" value="0"
+                                    class="factor_summary1" readonly>
+
+                            </td>
+                            <td style="text-align: center">
+
+                                <input type="text" id="{{ $item->id }}" value="0"
+                                    class="sale_factor_summary1" readonly>
+
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                {{-- <input type="text"  id="{{ $item->id }}"
+                    value="0" class="totals border border-1" readonly> --}}
+            </div>
+
+
+
+        </div>
+    </div>
     {{-- modal for terms --}}
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -915,6 +1023,10 @@
 
             })
 
+                $(".line_data").find("input").each(function(){
+                    $(this).val(0);
+                })
+
 
             $(".btn-line").click(function(e) {
                 e.preventDefault();
@@ -1029,7 +1141,7 @@
 
 
 
-                                            async: false;
+
 
 
 
@@ -1052,7 +1164,7 @@
                     // // product total
                     $('select').select2();
                     $(".products").change(function() {
-
+                        $(this).closest("tr").find(".material").val( $(this).find('option:selected').data('price'));
                         var factor = $(".factor").val() || 0
                         var tot = 0;
                         var product = 0;
@@ -1246,7 +1358,7 @@ $(".draft").click(function (e) {
                 $(this).closest("tr").remove()
             })
             $(".products").change(function() {
-
+                $(this).closest("tr").find(".material").val( $(this).find('option:selected').data('price'));
                 var factor = $(".factor").val() || 0
                 var tot = 0;
                 var product = 0;
@@ -1531,7 +1643,7 @@ $(".expire_date").change(function () {
             }
 
 
-            $(this).find('input:text').val('');
+
             $(this).find('select').val('');
 
 

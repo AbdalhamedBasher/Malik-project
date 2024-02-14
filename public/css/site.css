@@ -2221,3 +2221,9 @@ section {
 input {
     width: auto;
   }
+  td select{
+    width: 2rem!important;
+  }
+  input[readonly] {
+    cursor: not-allowed;
+}
