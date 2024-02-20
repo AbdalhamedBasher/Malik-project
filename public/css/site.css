@@ -2227,3 +2227,9 @@ input {
   input[readonly] {
     cursor: not-allowed;
 }
+.tab-content{
+    border: 0px!important;
+}
+.select2-container[dir="rtl"]{
+    width: 15rem!important;
+}

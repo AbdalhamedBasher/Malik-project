@@ -43,7 +43,7 @@ Route::get('lines/{master?}', [LineController::class,"index"]);
 Route::post('lines', [LineController::class,"store"])->name('lines');
 Route::post('lines/delete', [LineController::class,"destroy"])->name('lines.delete');
 Route::put('lines/update', [LineController::class,"update"])->name('lines.update');
-Route::put('lines/store', [LineController::class,"store"])->name('lines.store');
+
 
 
 
@@ -99,6 +99,7 @@ Route::post('qoute/store', [QoutationController::class,"store"])->name('qoute.st
 Route::post('qoute/delete', [QoutationController::class,"destroy"])->name('qoute.delete');
 Route::put('qoute/update', [QoutationController::class,"update"])->name('quotation.update');
 Route::put('qoute/edit', [QoutationController::class,"edit"])->name('quotation.edit');
+Route::put('qoute/pdf', [QoutationController::class,"pdf"])->name('quotation.pdf');
 // Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');
 
 

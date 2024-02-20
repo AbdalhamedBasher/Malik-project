@@ -10,15 +10,18 @@ class line extends Model
     use HasFactory;
     protected $guarded = [];
 
-        public function main_catog()
+        public function main_lines()
         {
-            return $this->belongsTo(line::class, 'main_line', 'id');
+            return $this->belongsTo(line::class, 'main_line');
         }
         public function child_lines()
         {
-            return $this->hasMany(line::class, 'id', 'mina_line');
+            return $this->hasMany(line::class, 'main_line');
         }
-
+        public function item_lines()
+        {
+            return $this->hasMany(items::class, 'line');
+        }
 }
 // 'validator ' => 'json',
 

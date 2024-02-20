@@ -83,6 +83,10 @@ font-family: 'OptimusPrinceps';
     <script src="{{ asset('js/moment.js') }}" defer></script>
 
  <style>
+
+
+
+
         #loader {
             border: 8px solid #f3f3f3;
             border-radius: 50%;
@@ -115,7 +119,13 @@ font-family: 'OptimusPrinceps';
 label.error {
   display: inline;
 }
-    </style>
+
+
+
+
+
+
+</style>
 
 </head>
 

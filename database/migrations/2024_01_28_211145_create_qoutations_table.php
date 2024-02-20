@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date("qoutation_date");
             $table->date("expire_date");
-            $table->string("project_name");
+
             $table->string("statues");
             $table->text("description");
             $table->string("refrence");
@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedDouble("risk");
             $table->unsignedBigInteger('customer')->onDelete('cascade')->nullable();
             $table->foreign('customer')->references('id')->on('customers')->onDelete('cascade');
+            // add here prject table connection
             $table->timestamps();
         });
     }

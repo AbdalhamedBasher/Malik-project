@@ -54,6 +54,7 @@ class LineController extends Controller
      $line=line::create([
         "name"=>$request->name,
         "terms"=>$request->terms,
+        "not_include"=>$request->not_include,
         "main_line"=>$request->line_catogery,
 
      ]);
@@ -97,9 +98,11 @@ else{
     public function update(Request $request)
     {
 $id=$request->id;
+
         $line=line::find($id)->update([
             "name"=>$request->name,
             "terms"=>$request->terms,
+            "not_include"=>$request->not_include,
             "main_line"=>$request->main_line,
 
          ]);

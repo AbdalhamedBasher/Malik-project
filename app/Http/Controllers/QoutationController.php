@@ -42,6 +42,7 @@ class QoutationController extends Controller
         $type = type::get();
         $size = size::get();
         $brand = brand::get();
+
         return view('qoutation.index')->with(['line' => $line_name, 'qoute_id' => $qoute_id, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand]);
     }
 
@@ -56,7 +57,8 @@ class QoutationController extends Controller
         $qoute = qoutation::get();
         $qoute_id = qoutation::get()->count() == 0 ? qoutation::get()->count() + 1 : qoutation::get()->max();
         $customer = customer::get();
-        $line = line::get();
+        $line=line::where(["main_line"=>null])->get();
+
         $items = items::get();
         $catogery = catogery::get();
         $type = type::get();
@@ -216,4 +218,10 @@ if (isset($request->lines) ) {
     {
         //
     }
+    public function pdf($id)
+    {
+        $item = qoutation::find($id);
+        return view("qoutation.pdf_qoute")->with(["items"=>$item]);
+    }
+
 }
