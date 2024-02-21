@@ -65,6 +65,9 @@ class QoutationController extends Controller
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
+
+
+
         return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units]);
     }
     /**
@@ -220,8 +223,9 @@ if (isset($request->lines) ) {
     }
     public function pdf($id)
     {
-        $item = qoutation::find($id);
-        return view("qoutation.pdf_qoute")->with(["items"=>$item]);
+  $qoute=qoutation::find($id)->with('qoute_batch.qoute_lines')->first();
+    $qoute_batch=$qoute->qoute_batch;
+    return view('pdf_qoute')->with(['qoute'=>$qoute]);
     }
 
 }
