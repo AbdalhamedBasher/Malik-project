@@ -115,5 +115,13 @@ Route::get('customer/data/{id}', [customerController::class,"data_customer"])->n
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//reports view
+Route::get('/reports',function(){
+      return view('reports.index');
+   })->name('reports');
+Route::get('/reports/price_offer',function(){
+      return view('reports.price_offer');
+   })->name('reports.price_offer');      
+
 
 
