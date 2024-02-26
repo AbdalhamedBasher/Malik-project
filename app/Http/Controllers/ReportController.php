@@ -12,7 +12,7 @@ class ReportController extends Controller
     {
         return view('reports.index');
     }
-    public function priceOffer(){
-        return view('price_offer');
+    public function qoutation_pdf(){
+        return view('reports.price_offer');
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\QoutationLine;
 class QoutationLineSeeder extends Seeder
 {
     /**
@@ -14,6 +14,6 @@ class QoutationLineSeeder extends Seeder
      */
     public function run()
     {
-        //
+        QoutationLine::factory()->count(10)->create();
     }
 }

@@ -1,18 +1,26 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Customer;
+use App\Models\qoutation_batch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class qoutation extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
 
     public function qoute_batch()
     {
-        return $this->hasMany(qoutation_batch::class, 'id', 'qoute');
+        return $this->hasMany(qoutation_batch::class, 'qoute');
     }
+    // customer relation
+    public function customers_data()
+    {
+        return $this->belongsTo(Customer::class, 'customer', 'id');
+    }
+
 
 }

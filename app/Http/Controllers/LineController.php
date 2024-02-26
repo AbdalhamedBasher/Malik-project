@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\line;
+use App\Models\units;
 use Illuminate\Http\Request;
 
 class LineController extends Controller
@@ -72,9 +73,21 @@ else{
      * @param  \App\Models\line  $line
      * @return \Illuminate\Http\Response
      */
-    public function show(line $line)
+    public function show($id)
     {
-        //
+        //get one kine element by id
+        $line=line::find($id);
+        // get all product in this line
+        // get line with relation to item_lines
+        $products=$line->item_lines;
+// all units
+        $units=units::get();
+
+
+
+// retrun the line and product as ajax response as json with error code 200 and error handler
+        return response()->json(['line'=>$line,'products'=>$products ,"units"=>$units],200);
+
     }
 
     /**

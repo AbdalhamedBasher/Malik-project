@@ -18,22 +18,22 @@ return new class extends Migration
             $table->text("name");
             $table->unsignedDouble('price');
             $table->unsignedBigInteger('size_number'); // here is the size for item
-            $table->unsignedBigInteger('line')->onDelete('cascade')->nullable();
-            $table->foreign('line')->references('id')->on('lines')->onDelete('cascade');
+            $table->unsignedBigInteger('line')->onDelete('restrict')->nullable();
+            $table->foreign('line')->references('id')->on('lines')->onDelete('restrict');
 
 
             // catogery
-            $table->unsignedBigInteger('catogery')->onDelete('cascade')->nullable();
-            $table->foreign('catogery')->references('id')->on('catogeries')->onDelete('cascade');
+            $table->unsignedBigInteger('catogery')->onDelete('restrict')->nullable();
+            $table->foreign('catogery')->references('id')->on('catogeries')->onDelete('restrict');
             // brand
-            $table->unsignedBigInteger('brand')->onDelete('cascade')->nullable();
-            $table->foreign('brand')->references('id')->on('brands')->onDelete('cascade');
+            $table->unsignedBigInteger('brand')->onDelete('restrict')->nullable();
+            $table->foreign('brand')->references('id')->on('brands')->onDelete('restrict');
             // // type
-            $table->unsignedBigInteger('type')->onDelete('cascade')->nullable();
-            $table->foreign('type')->references('id')->on('types')->onDelete('cascade');
+            $table->unsignedBigInteger('type')->onDelete('restrict')->nullable();
+            $table->foreign('type')->references('id')->on('types')->onDelete('restrict');
             // // size or measure for items
-            $table->unsignedBigInteger('size')->onDelete('cascade')->nullable();
-            $table->foreign('size')->references('id')->on('sizes')->onDelete('cascade');
+            $table->unsignedBigInteger('size')->onDelete('restrict')->nullable();
+            $table->foreign('size')->references('id')->on('sizes')->onDelete('restrict');
 
 
             $table->timestamps();

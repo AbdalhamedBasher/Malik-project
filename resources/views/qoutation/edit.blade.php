@@ -11,7 +11,7 @@
     <div class="flex unit[-center markdown">
 
     </div>
-
+    <?php $discount = ['سعر البيع', 'التكاليف', 'التكاليف غير المباشرة', 'التكاليف الكلية', 'الربح', 'صافي الربح']; ?>
 
     <div class="card mt-1">
         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
@@ -19,24 +19,23 @@
         </div>
         {{-- quotaion master --}}
         <div class="card-body">
-            <form method="POST" action="{{ route('qoute.store') }}">
+            <form method="POST" action="{{ route('qoute.store') }}" id="qoute">
                 @csrf
                 <div class="row">
                     <div class="col">
                         <div class="form-group row-md-3">
-                            <label for="inputZip">المرجع</label>
-                            <input type="text" name="id" class="form-control" value="Q" readonly
-                                id="inputZip">
+                            <label for="inputZip">المرجع/refrence</label>
+                            <input type="text" name="id" class="form-control" value="{{ $qoute->refrence }}"
+                                readonly id="inputZip">
 
 
                         </div>
                         <div class="form-group row-md-3">
-                            <label for="inputZip">العميل</label>
+                            <label for="inputZip">العميل/customer</label>
                             <select id="inputState" name="customer" class="customer form-control">
-                                <option selected>-- إختر --</option>
 
                                 @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">
+                                    <option value="{{ $item->id }}" {{ $item->id == $qoute->customer }}>
                                         {{ $item->name }}
                                     </option>
                                 @endforeach
@@ -45,51 +44,46 @@
                             </select>
 
                         </div>
-
+                        @error('customer')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
 
 
                         <div class="form-group row-md-3">
-                            <label for="inputZip">الوصف</label>
-                            <input type="text" name="description" class="form-control" id="inputZip">
+                            <label for="inputZip">الوصف/description</label>
+                            <input type="text" name="description" class="form-control" id="inputZip"
+                                value="{{ $qoute->description }}">
 
 
                         </div>
                         <div class="form-group row-md-3">
-                            <label for="inputZip">المعامل</label>
-                            <input type="text" name="factor" class="form-control factor" id="inputZip">
+                            <label for="inputZip">المعامل/factor</label>
+                            <input type="text" name="factor" class="form-control factor" id="inputZip"
+                                value="{{ $qoute->factor }}">
 
 
                         </div>
                         <div class="form-group row-md-3">
-                            <label for="inputZip">المشروع</label>
-                            <input type="text" name="project_name" class="form-control" id="inputZip">
+                            <label for="inputZip">المشروع/project</label>
+                            <input type="text" name="project_name" class="form-control" id="inputZip"
+                                value="{{ $qoute->project_name }}">
 
 
                         </div>
                         <div class="form-group row-md-3">
-                            <label for="inputZip">تاريخ الانشاء</label>
-                            <input type="date" name="qoutation_date" class="form-control" id="inputZip">
+                            <label for="inputZip">تاريخ الانشاء/issue date</label>
+                            <input type="date" name="qoutation_date" class="form-control qoutation_date" id="inputZip"
+                                value="{{ $qoute->qoutation_date }}">
 
 
                         </div>
                         <div class="form-group row-md-3">
-                            <label for="inputZip">تاريخ الانتهاء</label>
-                            <input type="date" name="expire_date" class="form-control" id="inputZip">
+                            <label for="inputZip">تاريخ الانتهاء/expire date</label>
+                            <input type="date" name="expire_date" class="form-control expire_date" id="inputZip"
+                                value="{{ $qoute->expire_date }}">
 
 
                         </div>
-                        <span class="form-group row-md-3">
-                            <label for="inputZip">الحالة</label>
-                            <select id="inputState" name="statues" class="form-control">
-                                <option selected>-- الحالة --</option>
-                                <option selected> موافق </option>
-                                <option selected> مسودة </option>
-                                <option selected> تمت فوترة </option>
-                                <option selected> بانتظار الموافقة </option>
-
-
-
-                            </select>
 
 
                         </span>
@@ -97,7 +91,7 @@
                     <div class="col">
                         <div class="card mt-1">
                             <div class="card-header  text-3xl" style="background-color: #201843a3 ; color:aliceblue">
-                                بيانات العميل
+                                بيانات العميل/Customer Data
                             </div>
                             {{-- quotaion master --}}
                             <div class="card-body   h-50 ">
@@ -106,29 +100,34 @@
 
                                     <tbody class="customer_data">
                                         <tr class=" border-bottom-0 ">
-                                            <td class=" border-bottom-0  border-top-0">الاسم</td>
-                                            <td class=" border-bottom-0  border-top-0 cust-name">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">الاسم/Name</td>
+                                            <td class=" border-bottom-0  border-top-0 cust-name">
+                                                {{ $qoute->customers_data->name }}</td>
 
 
 
                                         </tr>
                                         <tr class=" border-bottom-0 ">
-                                            <td class=" border-bottom-0  border-top-0">رقم الهاتف</td>
-                                            <td class=" border-bottom-0  border-top-0  cust-phone">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">رقم الهاتف/Phone Number</td>
+                                            <td class=" border-bottom-0  border-top-0  cust-phone">
+                                                {{ $qoute->customers_data->phone_number }}</td>
 
 
 
                                         </tr>
                                         <tr class=" border-bottom-0 ">
-                                            <td class=" border-bottom-0  border-top-0">الايميل</td>
-                                            <td class=" border-bottom-0  border-top-0 cust-email">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">الايميل/Email</td>
+                                            <td class=" border-bottom-0  border-top-0 cust-email">
+                                                {{ $qoute->customers_data->email }}</td>
 
 
 
                                         </tr>
                                         <tr class= "border-bottom-0 ">
-                                            <td class=" border-bottom-0  border-top-0">السجل التجاري</td>
-                                            <td class=" border-bottom-0  border-top-0 cust-tax-number">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0">السجل التجاري/commercial registration
+                                            </td>
+                                            <td class=" border-bottom-0  border-top-0 cust-tax-number">
+                                                {{ $qoute->customers_data->tax_number }}</td>
 
 
 
@@ -154,233 +153,240 @@
 
                     </div>
                 </div>
+                <input type="hidden" name="statues" class="statues">
                 @foreach ($line as $item)
                     <div class="card mt-1 card-detail border-0">
-
-
-
-                        <div class="card-body border-2">
-
-                            <div class="table-responsive">
-                                <div class="">
-
-                                    <input type="checkbox" class="lines" name="lines[]" value="{{ $item->id }}"
-                                        id="">
-                                    <label class="" for="">
-                                        {{ $item->name }}
-                                    </label>
-                                </div>
-
-                                <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
-                                    <thead class=" overflow-x-scroll bg-blue-50">
-                                        <tr class=" overflow-x-scroll">
-                                            <th width="10">
-                                                #
-                                            </th>
-
-                                            <th style="text-align: center">
-                                                اسم المادة
-                                            </th>
-                                            <th style="text-align: center">
-                                                الوحدات
-                                            </th>
-                                            <th style="text-align: center">
-                                                سعر الوحدة
-                                            </th>
-                                            <th style="text-align: center">
-                                                الكمية
-                                            </th>
-                                            <th style="text-align: center">
-                                                المجموع</th>
-                                            <th style="text-align: center">
-                                                المواد المساعدة
-                                            </th>
-                                            <th style="text-align: center">
-                                                د/المواد
-                                            </th>
-                                            <th style="text-align: center">
-                                                -غير ذلك المواد
-                                            </th>
-                                            <th style="text-align: center">
-                                                المجموع المواد</th>
-                                            <th style="text-align: center">
-                                                المجموع المواد/الكلي</th>
-
-                                            <th style="text-align: center">
-                                                الايادي العاملة</th>
-
-                                            <th style="text-align: center">
-                                                غير ذلك- الايادي </th>
-                                            <th style="text-align: center">
-                                                المجموع العمالة</th>
-                                            <th style="text-align: center">
-                                                الايادي العاملة/الكلي</th>
-                                            <th style="text-align: center">
-                                                مجموع التكلفة الكلية </th>
-                                            <th> &nbsp;</th>
-
-
-                                        </tr>
-                                    </thead>
-                                    <tbody class="line_data" id="{{ $item->id }}">
-
-                                        <tr>
-                                            <td width="10">
-                                                #
-                                            </td>
-
-                                            <td style="text-align: center">
-                                                <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]" required>
-                                                    <option selected value="">-- إختر --</option>
-                                                    @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}"
-                                                            data-price="{{ $product->price }}">{{ $product->name }} <span
-                                                                id="{{ $product->id }}">{{ $product->price }}</span>
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="text" name="" class="product-price" readonly
-                                                    id="{{ $item->id }}">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <select class="form-control products" id="{{ $item->id }}"
-                                                    name="unit[{{ $item->id }}][]" required>
-                                                    <option selected value="">-- إختر --</option>
-                                                    @foreach ($units as $unit)
-                                                        <option value="{{ $unit->id }}">{{ $unit->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="factor_price[{{ $item->id }}][]"
-                                                    class="border border-1 factor_price" readonly
-                                                    id="{{ $item->id }}">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="qty[{{ $item->id }}][]"
-                                                    class="border border-1 qty" id="{{ $item->id }}" value="0"
-                                                    required>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="simetot[{{ $item->id }}][]" readonly
-                                                    id="{{ $item->id }}" value="0"
-                                                    class="border border-1 simetot">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class="border border-1 material" required>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="material_acc[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_acc" required>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="material_other[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_other" required>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0" readonly
-                                                    class="border border-1 tot_material">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" readonly
-                                                    class=" border border-1 all_material" value="0">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="labour[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class="border border-1 labour" required>
-                                            </td>
-
-
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="labour_other[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 labour_other" required>
-                                            </td>
-                                            <td style="text-align: center">
-
-
-                                                <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class=" border border-1 tot_labour" value="0"
-                                                    readonly required>
-                                            </td>
-                                            <td style="text-align: center">
-
-
-                                                <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 all_labour" readonly>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 all_tot" readonly>
-
-                                            </td>
-                                            <td style="text-align: center">
-                                                <div class="form-group col-md-2 justify-center">
-
-                                                    <button class="btn btn-sm btn-bd-primary remove-record">حساب</button>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-
-
-
-                                    </tbody>
-                                </table>
-
-                            </div>
-                            <div class="form-group col-md-2 justify-center">
-                                <label for="inputZip"> &emsp14; </label>
-                                <input type="submit" value="إضافة" class="form-control btn-bd-primary btn-line"
-                                    id="{{ $item->id }}">
-                            </div>
-                            <div class="form-group col-md-2 justify-center d-none">
-                                <label for="inputZip"> &emsp14; </label>
-                                <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total border border-1 d-none" readonly>
-                            </div>
-                            <div class="form-group col-md-2 justify-center d-none">
-                                <label for="inputZip"> &emsp14; </label>
-                                <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total_material border d-none border-1" readonly>
-                            </div>
-                            <div class="form-group col-md-2 justify-center d-none">
-                                <label for="inputZip"> &emsp14; </label>
-                                <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total_labour border d-none border-1" readonly>
-                            </div>
-                            <div class="form-group col-md-2 justify-center d-none">
-                                <label for="inputZip"> &emsp14; </label>
-                                <input type="text" name="total[]" id="{{ $item->id }}"
-                                    class="total_profit d-none border d-none border-1" readonly>
-                            </div>
-                            <div class="form-group col-md-2 justify-center d-none">
-                                <label for="inputZip"> &emsp14; </label>
-                                <button class="btn btn-sm btn-bd-primary" onclick=" sumations($(this));">حساب</button>
-                            </div>
+                        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+                            {{ $item->name }}
                         </div>
+
+                        @foreach ($item->child_lines as $children)
+                            <div class="card-body border-2">
+
+                                <div class="table-responsive">
+                                    <div class="">
+
+                                        <input type="checkbox" class="lines" name="lines[]" value="{{ $children->id }}"
+                                            id="">
+                                        <label class="" for="">
+                                            {{ $children->name }}
+
+                                        </label>
+                                    </div>
+
+                                    <table class="overflow-x-scroll" style="text-align: center">
+                                        <thead class=" overflow-x-scroll bg-blue-50">
+                                            <tr class=" border border-1 overflow-x-scroll">
+                                                <th class=" border border-1 ">
+                                                    #
+                                                </th>
+
+
+                                                <th style="text-align: center">
+                                                    اسم المادة/Product Name
+                                                </th>
+                                                <th style="text-align: center">
+                                                    الوحدات/Unit
+                                                </th>
+                                                <th style="text-align: center">
+                                                    سعر الوحدة/Product*factor
+                                                </th>
+                                                <th style="text-align: center">
+                                                    الكمية/Qty
+                                                </th>
+                                                <th style="text-align: center">
+                                                    المجموع/Sale Price</th>
+                                                <th style="text-align: center">
+                                                    المواد المساعدة/Material Price
+                                                </th>
+                                                <th style="text-align: center">
+                                                    د-المواد/Decoration Product
+                                                </th>
+                                                <th style="text-align: center">
+                                                    -غير ذلك المواد/Other Material
+                                                </th>
+                                                <th style="text-align: center">
+                                                    المجموع المواد/Material Total</th>
+                                                <th style="text-align: center">
+                                                    المجموع المواد/الكلي /Material Per Qty</th>
+
+                                                <th style="text-align: center">
+                                                    الايادي العاملة/Labour</th>
+
+                                                <th style="text-align: center">
+                                                    غير ذلك- الايادي /Other Labour</th>
+                                                <th style="text-align: center">
+                                                    المجموع العمالة Labour Total</th>
+                                                <th style="text-align: center">
+                                                    الايادي العاملة/الكلي/Total Labour Per Qty</th>
+                                                <th style="text-align: center">
+                                                    مجموع التكلفة الكلية/All Total </th>
+                                                <th> &nbsp;</th>
+
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody class="line_data" id="{{ $children->id }}">
+
+                                            <tr>
+                                                <td class="counter">
+                                                    {{ $children->id }}
+                                                </td>
+
+                                                <td style="text-align: center">
+
+                                                    @if ($children->item_lines)
+                                                        <select class="form-control products  w-full"
+                                                            id="{{ $children->id }}" name="item[{{ $children->id }}][]">
+                                                            <option selected value=""> </option>
+
+                                                            @foreach ($children->item_lines as $product)
+                                                                <option value="{{ $product->id }}"
+                                                                    data-price="{{ $product->price }}">
+                                                                    {{ $product->name . ' ' . $product->type_data->name }}
+                                                                    <span
+                                                                        id="{{ $product->id }}">{{ $product->price }}</span>
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    @endif
+                                                    <input type="hidden" name="" class="product-price" readonly
+                                                        id="{{ $children->id }}">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <select class="form-control select2" id="{{ $children->id }}"
+                                                        name="unit[{{ $children->id }}][]">
+                                                        <option selected value=""> </option>
+                                                        @foreach ($units as $unit)
+                                                            <option value="{{ $unit->id }}">{{ $unit->name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="factor_price[{{ $children->id }}][]"
+                                                        class="border border-1 factor_price" readonly
+                                                        id="{{ $children->id }}">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="qty[{{ $children->id }}][]"
+                                                        class="border border-1 qty" id="{{ $children->id }}"
+                                                        value="0">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="product_factor[{{ $children->id }}][]"
+                                                        readonly id="{{ $children->id }}" value="0"
+                                                        class="border border-1 simetot">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="material[{{ $children->id }}][]"
+                                                        id="{{ $children->id }}" value="0"
+                                                        class="border border-1 material">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="material_acc[{{ $children->id }}][]"
+                                                        value="0" id="{{ $children->id }}"
+                                                        class="border border-1 material_acc">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="material_other[{{ $children->id }}][]"
+                                                        value="0" id="{{ $children->id }}"
+                                                        class="border border-1 material_other">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="tot_material[{{ $children->id }}][]"
+                                                        id="{{ $children->id }}" value="0" readonly
+                                                        class="border border-1 tot_material">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="total_material[{{ $children->id }}][]"
+                                                        id="{{ $children->id }}" readonly
+                                                        class=" border border-1 all_material px-4" value="0">
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="labour[{{ $children->id }}][]"
+                                                        id="{{ $children->id }}" value="0"
+                                                        class="border border-1 labour">
+                                                </td>
+
+
+                                                <td style="text-align: center">
+
+                                                    <input type="text" name="labour_other[{{ $children->id }}][]"
+                                                        id="{{ $children->id }}" value="0"
+                                                        class=" border border-1 labour_other">
+                                                </td>
+                                                <td style="text-align: center">
+
+
+                                                    <input type="text" name="worker_tot[{{ $children->id }}][]"
+                                                        id="" class=" border border-1 tot_labour" value="0"
+                                                        readonly>
+                                                </td>
+                                                <td style="text-align: center">
+
+
+                                                    <input type="text" name="total_labour[{{ $children->id }}][]"
+                                                        id="{{ $children->id }}" value="0"
+                                                        class=" border border-1 all_labour px-4" readonly>
+                                                </td>
+                                                <td style="text-align: center">
+
+                                                    <input type="text" id="{{ $children->id }}" value="0"
+                                                        class=" border border-1 all_tot" readonly>
+
+                                                </td>
+
+                                            </tr>
+
+
+
+                                        </tbody>
+                                    </table>
+                                    <input type="submit" value="إضافة Add" class=" btn btn-primary btn-line col-sm-2"
+                                        id="{{ $children->id }}">
+                                </div>
+                                <div class="form-group col-md-2 justify-center">
+                                    <label for="inputZip"> &emsp14; </label>
+
+                                </div>
+                                <div class="form-group col-md-2 justify-center">
+                                    <label for="inputZip"> &emsp14; </label>
+                                    <input type="text" name="total[]" id="{{ $children->id }}"
+                                        class="total border border-1" readonly>
+                                </div>
+                                <div class="form-group col-md-2 justify-center">
+                                    <label for="inputZip"> &emsp14; </label>
+                                    <input type="text" name="total[]" id="{{ $children->id }}"
+                                        class="total_material border border-1" readonly>
+                                </div>
+                                <div class="form-group col-md-2 justify-center">
+                                    <label for="inputZip"> &emsp14; </label>
+                                    <input type="text" name="total[]" id="{{ $children->id }}"
+                                        class="total_labour border border-1" readonly>
+                                </div>
+                                <div class="form-group col-md-2 justify-center">
+                                    <label for="inputZip">total_profit {{ $children->id }}</label>
+                                    <input type="text" name="total[]" id="{{ $children->id }}"
+                                        class="total_profit border border-1" readonly value="0">
+                                </div>
+                                <div class="form-group col-md-2 justify-center">
+                                    <label for="inputZip"> &emsp14; </label>
+
+                                </div>
+                            </div>
+                        @endforeach
                 @endforeach
 
 
@@ -389,360 +395,293 @@
             <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
             </div>
-
-            <div class="card-body">
-
-                <div class="table-responsive">
-
-
-                    <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
-                        <thead class=" overflow-x-scroll bg-blue-50">
-                            <tr class=" overflow-x-scroll">
-                                <th width="10">
-                                    #
-                                </th>
-
-                                <th style="text-align: center">
-
-                                    النظام </th>
-
-                                <th style="text-align: center">
-                                    المجموع المواد/الكلي</th>
+            @if (sizeof($line) > 0)
+                <div class="card-body">
+                    @foreach ($line as $item)
+                        <div class="table-responsive">
 
 
-                                <th style="text-align: center">
-                                    الايادي العاملة/الكلي</th>
-                                <th style="text-align: center">
-                                    مجموع التكلفة الكلية </th>
-                                <th style="text-align: center">
-                                    factor </th>
-                                <th style="text-align: center">
-                                    سعر البيع </th>
-                                &nbsp;
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="summary">
-                            <?php $i = 1; ?>
-                            @foreach ($line as $item)
-                                <tr>
-                                    <td width="10">
-                                        {{ $i++ }}
-                                    </td>
+                            <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
+                                <h2 class=" text-3xl">{{ $item->name }}</h2>
+                                <thead class=" overflow-x-scroll bg-blue-50">
+                                    <tr class=" overflow-x-scroll">
+                                        <th width="10">
+                                            #
+                                        </th>
 
-                                    <td style="text-align: center">
-                                        {{ $item->name }}
+                                        <th style="text-align: center">
 
-                                    <td style="text-align: center">
+                                            /Filed النظام </th>
 
-                                        <input type="text" id="{{ $item->id }}" readonly
-                                            class="all_material_summary" value="0">
-                                    </td>
-
-                                    <td style="text-align: center">
+                                        <th style="text-align: center">
+                                            Material Total المجموع المواد/الكلي</th>
 
 
-                                        <input type="text" id="{{ $item->id }}" value="0"
-                                            class="all_labour_summary" readonly>
-                                    </td>
-                                    <td style="text-align: center">
+                                        <th style="text-align: center">
+                                            Labour Total الايادي العاملة/الكلي</th>
+                                        <th style="text-align: center">
+                                            Total Cost مجموع التكلفة الكلية </th>
+                                        <th style="text-align: center">
+                                            factor </th>
+                                        <th style="text-align: center">
+                                            Sale Pirce سعر البيع </th>
+                                        &nbsp;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i = 1; ?>
+                                    @if (sizeof($item->child_lines) > 0)
+                                        @foreach ($item->child_lines as $children)
+                                            <tr class="summary">
+                                                <td width="10">
+                                                    {{ $i++ }}
+                                                </td>
 
-                                        <input type="text" id="{{ $item->id }}" value="0"
-                                            class="all_tot_summary" readonly>
+                                                <td style="text-align: center">
+                                                    {{ $children->name }}
 
-                                    </td>
-                                    <td style="text-align: center">
+                                                <td style="text-align: center">
 
-                                        <input type="text" id="{{ $item->id }}" value="0"
-                                            class="factor_summary" readonly>
+                                                    <input type="text" id="{{ $children->id }}" readonly
+                                                        class="all_material_summary" value="0">
+                                                </td>
 
-                                    </td>
-                                    <td style="text-align: center">
-
-                                        <input type="text" id="{{ $item->id }}" value="0"
-                                            class="sale_factor_summary" readonly>
-
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td width="10">
-                                    &emsp;
-                                </td>
-
-                                <td style="text-align: center">
-                                    المجموع
-
-                                <td style="text-align: center">
-
-                                    <input type="text" name="" id="" readonly
-                                        class="all_material_summary1" value="0">
-                                </td>
-
-                                <td style="text-align: center">
+                                                <td style="text-align: center">
 
 
-                                    <input type="text" name="" id="" value="0"
-                                        class="all_labour_summary1" readonly>
-                                </td>
-                                <td style="text-align: center">
+                                                    <input type="text" id="{{ $children->id }}" value="0"
+                                                        class="all_labour_summary" readonly>
+                                                </td>
+                                                <td style="text-align: center">
 
-                                    <input type="text" name="" id="" value="0"
-                                        class="all_tot_summary1" readonly>
+                                                    <input type="text" id="{{ $children->id }}" value="0"
+                                                        class="all_tot_summary" readonly>
 
-                                </td>
-                                <td style="text-align: center">
+                                                </td>
+                                                <td style="text-align: center">
 
-                                    <input type="text" name="" id="{{ $item->id }}" value="0"
-                                        class="factor_summary1" readonly>
+                                                    <input type="text" id="{{ $children->id }}" value="0"
+                                                        class="factor_summary" readonly>
 
-                                </td>
-                                <td style="text-align: center">
+                                                </td>
+                                                <td style="text-align: center">
 
-                                    <input type="text" id="{{ $item->id }}" value="0"
-                                        class="sale_factor_summary1" readonly>
+                                                    <input type="text" id="{{ $children->id }}" value="0"
+                                                        class="sale_factor_summary" readonly>
 
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    {{-- <input type="text"  id="{{ $item->id }}"
-                        value="0" class="totals border border-1" readonly> --}}
-                </div>
+                                                </td>
+                                            </tr>
 
 
+                                </tbody>
+                    @endforeach
+            @endif
+            @endforeach
+            <tfoot>
+                <tr>
+                    <td width="10">
+                        &emsp;
+                    </td>
 
-            </div>
-        </div>
-        <div class="card mt-1">
-            <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+                    <td style="text-align: center">
+                        Total المجموع
 
-            </div>
+                    <td style="text-align: center">
 
-            <div class="card-body breif">
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">التكاليف غير المباشرة</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control  col-3 indrect" name="indrect" id="inputtext"
-                            placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="inputtext" class="col-sm-2 col-form-label text-md-center">تكاليف المقاولين بالباطن</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control  col-3 consult" name="consult" id="inputtext"
-                            placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">تكاليف إضافية</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3 addition" name="addition" id="inputtext"
-                            placeholder="">
-                    </div>
+                        <input type="text" name="" id="" readonly class="all_material_summary1"
+                            value="{{ $sumation["total_material"]}}">
+                    </td>
 
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">المخاطر </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3 risk" name="risk" id="inputtext"
-                            placeholder="">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">التكلفة الكلية </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3 total-cost" id="inputtext" placeholder=""
+                    <td style="text-align: center">
+
+
+                        <input type="text" name="" id="" value="{{ $sumation["total_labour"]}}" class="all_labour_summary1"
                             readonly>
-                    </div>
+                    </td>
+                    <td style="text-align: center">
+
+                        <input type="text" name="" id="" value="{{$sumation["total"]}}" class="all_tot_summary1"
+                            readonly>
+@dd($sumation["total"])
+                    </td>
+                    <td style="text-align: center">
+
+                        <input type="text" name="" value="{{$qoute->factor}}" class="factor_summary1"   readonly>
+
+                    </td>
+                    <td style="text-align: center">
+
+                        <input type="text" value="{{ $sumation["product_factor"]}}" class="sale_factor_summary1" readonly>
+
+                    </td>
+                </tr>
+            </tfoot>
+            </table>
+
+            {{-- <input type="text"  id="{{ $item->id }}"
+                        value="0" class="totals border border-1" readonly> --}}
+        </div>
+        @endif
+
+    </div>
+    </div>
+    <div class="card mt-1">
+        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+        </div>
+
+        <div class="card-body breif">
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label text-md-center"> Indirect Cost التكاليف غير
+                    المباشرة</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control  col-3 indrect" name="indrect" id="inputtext"
+                        placeholder="">
                 </div>
-                <div class="form-group row">
-                    <label for="inputtext" class="col-sm-2 col-form-label text-md-center">سعر البيع </label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3 sale_profit" id="inputtext" placeholder="">
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputtext" class="col-sm-2 col-form-label text-md-center">Conslunt Builders تكاليف المقاولين
+                    بالباطن</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control  col-3 consult" name="consult" id="inputtext"
+                        placeholder="">
                 </div>
-                <div class="form-group row">
-                    <label for="inputtext" class="col-sm-2 col-form-label text-md-center"> الربح</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control col-3 net-profit" id="inputtext" placeholder="">
-                    </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label text-md-center">Additional Cost تكاليف إضافية
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control col-3 addition" name="addition" id="inputtext"
+                        placeholder="">
                 </div>
-
-                <div class="form-group col-md-2 justify-center">
-                    <label for="inputZip"> &emsp14; </label>
-                    <input type="submit" value="حفظ" class="form-control mx-3 btn-outline-success border-2"
-                        id="inputZip">
-                </div>
-
-
-
-
 
             </div>
-            </form>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label text-md-center"> Risk المخاطر </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control col-3 risk" name="risk" id="inputtext" placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="staticEmail" class="col-sm-2 col-form-label text-md-center"> Total Cost التكلفة الكلية
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control col-3 total-cost" id="inputtext" placeholder="" readonly>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputtext" class="col-sm-2 col-form-label text-md-center">Sale Price سعر البيع</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control col-3 sale_profit" id="inputtext" placeholder="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputtext" class="col-sm-2 col-form-label text-md-center">Profit الربح</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control col-3 net-profit" id="inputtext" placeholder="">
+                </div>
+            </div>
+            <div class="form-group col-md-8 d-flex">
+                <label for="inputZip"> &emsp14; </label>
+                <button class="form-control mx-3 btn-outline-success border-2 saving " id="inputZip">Save حفظ</button>
+                <button class="form-control mx-3  btn-outline-primary border-2 draft " id="inputZip"> كمسودة حفظ
+                    Save As Draft </button>
+                <button class="form-control mx-3  btn-outline-primary border-2 contract " id="inputZip">تعميد Make
+                    contract</button>
+
+            </div>
+
+
+            {{-- $(".statues").val("تعميد")
+                $(".qoute").submit()
+                }) --}}
+
+
+
+        </div>
+
+
+        </form>
 
 
 
 
 
 
-            {{-- modal for insert items --}}
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="card">
-                            <div class="card-header"
-                                style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
+        {{-- modal for insert items --}}
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="card">
+                        <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                            </div>
+                        </div>
 
-                            <div class="card-body">
-                                <form action="{{ route('item') }}" method="POST" class="form-inlineform-row"
-                                    enctype="multipart/form-data">
-                                    @csrf
+                        <div class="card-body">
+                            <form action="{{ route('item') }}" method="POST" class="form-inlineform-row"
+                                enctype="multipart/form-data">
+                                @csrf
 
-                                    <div class="form-group">
-                                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                            <label for="name">اﻹسم*</label>
-                                            <input type="text" id="name" name="name" class="form-control"
-                                                value="{{ old('name', isset($user) ? $user->name : '') }}" required>
-                                            @if ($errors->has('name'))
-                                                <em class="invalid-feedback">
-                                                    {{ $errors->first('name') }}
-                                                </em>
-                                            @endif
-                                            <p class="helper-block">
-                                                {{ trans('cruds.user.fields.name_helper') }}
-                                            </p>
-                                        </div>
-                                        <div class=" {{ $errors->has('id') ? 'has-error' : '' }}">
-                                            <label for="qoutation_date">المرجع*</label>
-                                            <input type="text" id="id" name="refrence" class="form-control"
-                                                value="{{ old('refrence') }}" required>
-                                            @if ($errors->has('refrence'))
-                                                <em class="invalid-feedback">
-                                                    {{ $errors->first('refrence') }}
-                                                </em>
-                                            @endif
-
-                                        </div>
-
-                                        {{--  customer --}}
-                                        <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}"
-                                            style="border-radius: 50%;border:1px">
-                                            <span style="border-radius: 3rem">
-                                            </span>
-                                        </div>
-                                        <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}">
-                                            <label for="qoutation_date">العميل*</label>
-                                            <input type="text" id="customer" name="customer" class="form-control"
-                                                value="{{ old('customer') }}" required>
-                                            @if ($errors->has('customer'))
-                                                <em class="invalid-feedback">
-                                                    {{ $errors->first('customer') }}
-                                                </em>
-                                            @endif
-
-                                        </div>
-
-
-                                        <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}"
-                                            style="border-radius: 50%;border:1px">
-                                            <span style="border-radius: 3rem">
-                                            </span>
-                                        </div>
-                                        <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                            <label for="line_catogery">التصنيف</label>
-
-
-                                            <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                                name="catogery">
-                                                <option selected value="">-- إختر --</option>
-                                                @foreach ($catogery as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-
-
-
-                                            @if ($errors->has('main_line'))
-                                                <em class="invalid-feedback">
-                                                    {{ $errors->first('main_line') }}
-                                                </em>
-                                            @endif
-
-
-                                        </div>
-
-
-                                        <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                            <label for="line_catogery">النوع</label>
-
-
-                                            <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                                name="type">
-                                                <option selected value="">-- إختر --</option>
-                                                @foreach ($type as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-
-
-
-                                            @if ($errors->has('main_line'))
-                                                <em class="invalid-feedback">
-                                                    {{ $errors->first('main_line') }}
-                                                </em>
-                                            @endif
-
-
-                                        </div>
-                                        <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                            <label for="line_catogery" class="m-1">المقاس</label>
-                                            <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
-                                                <div class="form-row">
-                                                    <input type="text" id="price" name="size_number"
-                                                        class="form-control col-8" value="{{ old('price') }}" required>
-                                                    @if ($errors->has('price'))
-                                                        <em class="invalid-feedback">
-                                                            {{ $errors->first('price') }}
-                                                        </em>
-                                                    @endif
-                                                    <select class="form-control col-4"
-                                                        id="exampleFormControlSelect1 main_catog" name="size">
-                                                        <option selected value="">-- إختر --</option>
-                                                        @foreach ($size as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-
-                                        @if ($errors->has('main_line'))
+                                <div class="form-group">
+                                    <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                                        <label for="name">اﻹسم*</label>
+                                        <input type="text" id="name" name="name" class="form-control"
+                                            value="{{ old('name', isset($user) ? $user->name : '') }}">
+                                        @if ($errors->has('name'))
                                             <em class="invalid-feedback">
-                                                {{ $errors->first('main_line') }}
+                                                {{ $errors->first('name') }}
+                                            </em>
+                                        @endif
+                                        <p class="helper-block">
+                                            {{ trans('cruds.user.fields.name_helper') }}
+                                        </p>
+                                    </div>
+                                    <div class=" {{ $errors->has('id') ? 'has-error' : '' }}">
+                                        <label for="qoutation_date">المرجع*</label>
+                                        <input type="text" id="id" name="refrence" class="form-control"
+                                            value="{{ old('refrence') }}">
+                                        @if ($errors->has('refrence'))
+                                            <em class="invalid-feedback">
+                                                {{ $errors->first('refrence') }}
                                             </em>
                                         @endif
 
+                                    </div>
+
+                                    {{--  customer --}}
+                                    <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}"
+                                        style="border-radius: 50%;border:1px">
+                                        <span style="border-radius: 3rem">
+                                        </span>
+                                    </div>
+                                    <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}">
+                                        <label for="qoutation_date">العميل*</label>
+                                        <input type="text" id="customer" name="customer" class="form-control"
+                                            value="{{ old('customer') }}">
+                                        @if ($errors->has('customer'))
+                                            <em class="invalid-feedback">
+                                                {{ $errors->first('customer') }}
+                                            </em>
+                                        @endif
 
                                     </div>
+
+
+                                    <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}"
+                                        style="border-radius: 50%;border:1px">
+                                        <span style="border-radius: 3rem">
+                                        </span>
+                                    </div>
                                     <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery">الماركة</label>
+                                        <label for="line_catogery">التصنيف</label>
 
 
                                         <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                            name="brand">
+                                            name="catogery">
                                             <option selected value="">-- إختر --</option>
-                                            @foreach ($brand as $item)
+                                            @foreach ($catogery as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
@@ -758,20 +697,168 @@
 
                                     </div>
 
-                                    <hr>
 
-                            </div>
-                            <div>
+                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                        <label for="line_catogery">النوع</label>
 
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                            </div>
-                            </form>
 
+                                        <select class="form-control" id="exampleFormControlSelect1 main_catog"
+                                            name="type">
+                                            <option selected value="">-- إختر --</option>
+                                            @foreach ($type as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+
+
+
+                                        @if ($errors->has('main_line'))
+                                            <em class="invalid-feedback">
+                                                {{ $errors->first('main_line') }}
+                                            </em>
+                                        @endif
+
+
+                                    </div>
+                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                        <label for="line_catogery" class="m-1">المقاس</label>
+                                        <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
+                                            <div class="form-row">
+                                                <input type="text" id="price" name="size_number"
+                                                    class="form-control col-8" value="{{ old('price') }}">
+                                                @if ($errors->has('price'))
+                                                    <em class="invalid-feedback">
+                                                        {{ $errors->first('price') }}
+                                                    </em>
+                                                @endif
+                                                <select class="form-control col-4"
+                                                    id="exampleFormControlSelect1 main_catog" name="size">
+                                                    <option selected value="">-- إختر --</option>
+                                                    @foreach ($size as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+
+                                </div>
+                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                    <label for="line_catogery">الماركة</label>
+
+
+                                    <select class="form-control" id="exampleFormControlSelect1 main_catog"
+                                        name="brand">
+                                        <option selected value="">-- إختر --</option>
+                                        @foreach ($brand as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+
+                                </div>
+
+                                <hr>
 
                         </div>
+                        <div>
+
+                            <input class="btn btn-primary" style="" type="submit" value="حفظ">
+                        </div>
+                        </form>
+
+
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    </div>
+    {{-- discount Table  --}}
+
+    <div class="card mt-1">
+        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <div class="d-flex justify-center">
+                    <h2 class=" text-2xl bold">حساب القيمة</h2>
+                    <div class=" form-row mx-1">
+                        <input type="text" name="" id="" class="discount-amount border border-1">
+                    </div>
+                    <button class="discount-btn btn btn-primary">حساب </button>
+
+                </div>
+
+                <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
+                    <thead class=" overflow-x-scroll bg-blue-50">
+                        <tr class=" overflow-x-scroll discount-header">
+                            <th width="10">
+                                #
+                            </th>
+
+                            <th style="text-align: center">
+
+                                الوصف </th>
+
+
+
+
+
+
+                            &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="discount-body">
+                        <?php $i = 1; ?>
+                        @foreach ($discount as $key => $value)
+                            <tr class="discount-row{{ $key }}">
+
+                                <td width="10">
+
+                                    {{ $i++ }}
+                                </td>
+
+
+                                <td>
+
+                                    {{ $value }}
+                                </td>
+
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+
+                </table>
+                {{-- <input type="text"  id="{{ $item->id }}"
+                    value="0" class="totals border border-1" readonly> --}}
+            </div>
+
+
+
         </div>
     </div>
     {{-- modal for terms --}}
@@ -790,11 +877,11 @@
                             @method('PUT')
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
                                 <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
 
                                 <label for="name">اﻹسم*</label>
                                 <input type="text" id="name" name="name" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
                                 @if ($errors->has('name'))
                                     <em class="invalid-feedback">
                                         {{ $errors->first('name') }}
@@ -806,11 +893,11 @@
                             </div>
                             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
                                 <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
 
                                 <label for="name">الشركة الصنعة*</label>
                                 <input type="text" id="company" name="company" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
                                 @if ($errors->has('name'))
                                     <em class="invalid-feedback">
                                         {{ $errors->first('name') }}
@@ -885,7 +972,7 @@
                             <form action="{{ url('brand/delete') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
                                 <input class="btn btn-danger b-a-1" style="" type="submit" value="مسح">
                             </form>
                         </div>
@@ -907,6 +994,7 @@
 @endsection
 @section('scripts')
     @parent
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.20.0/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function() {
             let all_line = {};
@@ -918,275 +1006,348 @@
             })
 
 
+
+
+
             $(".btn-line").click(function(e) {
                 e.preventDefault();
+                //  get data with jquery
+
+
+                var id = $(this).attr('id');
+
+                $.ajax({
+                    url: '/lines/show/' + this.id, // replace with your API endpoint
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // assuming data is an array of objects
+
+
+                        // use each to iterate over the array of objects
+
+                        // create a new row for each line
+                        var row = `<tr id="${data.line.id}">
+                                        <td class="counter">
+                                            ${data.line.id}
+                                        </td>
+                                        <td style="text-align: center">
+                                            <select class="form-control products  w-full"
+                                                id="${data.line.id}" name="item[${data.line.id}][]">
+                                                <option selected value=""> </option>
+
+                                                ${data.products.map(product => `
+                                <option value="${product.id}" data-price="${product.price}">
+                                    ${product.name}
+                                </option>
+                            `).join('')}
+                                            <input type="hidden" name="" class="product-price" readonly
+                                                id="${data.line.id}">
+                                        </td>
+                                        <td style="text-align: center">
+
+                                            <select class="form-control select2" id="${data.line.id}"
+                                                name="unit[${data.line.id}][]">
+                                                <option selected value=""> </option>
+                                                ${data.units.map(unit => `
+                                <option value="${unit.id}" data-price="${unit.price}">
+                                    ${unit.name}
+
+                                </option>
+                            `).join('')}
+                                            </select>
+                                        </td>
+                                        <td style="text-align: center">
 
+                                            <input type="text" name="factor_price[${data.line.id}][]"
+                                                class="border border-1 factor_price" readonly
+                                                id="${data.line.id}">
+                                        </td>
+                                        <td style="text-align: center">
+
+                                            <input type="text" name="qty[${data.line.id}][]"
+                                                class="border border-1 qty" id="${data.line.id}"
+                                                value="0">
+                                        </td>
+                                        <td style="text-align: center">
+
+                                            <input type="text" name="product_factor[${data.line.id}][]"
+                                                readonly id="${data.line.id}" value="0"
+                                                class="border border-1 simetot">
+                                        </td>
+                                        <td style="text-align: center">
 
-                $(".line_data#" + this.id).append(
-                    `
-                    <tr>
-                                            <td width="10">
-                                                #
-                                            </td>
-                                            <td style="text-align: center">
-                                                <select class="form-control products" id="{{ $item->id }}"
-                                                    name="item[{{ $item->id }}][]" required>
-                                                    <option selected value="">-- إختر --</option>
-                                                    @foreach ($items as $product)
-                                                        <option value="{{ $product->id }}"
-                                                            data-price="{{ $product->price }}">{{ $product->name }} <span
-                                                                id="{{ $product->id }}">{{ $product->price }}</span>
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <input type="text" name="" class="product-price" readonly
-                                                    id="{{ $item->id }}">
-                                            </td>
-                                            <td style="text-align: center">
-
-
-                                                <select class="form-control products" id="{{ $item->id }}"
-                                                    name="unit[{{ $item->id }}][]" required>
-                                                    <option selected value="">-- إختر --</option>
-                                                    @foreach ($units as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="factor_price[{{ $item->id }}][]"
-                                                    class="border border-1 factor_price" readonly
-                                                    id="{{ $item->id }}">
-                                            </td>
-                                            <td style="text-align: center">
-
-                                                <input type="text" name="qty[{{ $item->id }}][]"
-                                                    class="border border-1 qty" id="{{ $item->id }}" value="0"
-                                                    required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="simetot[{{ $item->id }}][]" readonly
-                                                    id="{{ $item->id }}" value="0"
-                                                    class="border border-1 simetot">
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class="border border-1 material" required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="material_acc[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_acc" required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="material_other[{{ $item->id }}][]"
-                                                    value="0" id="{{ $item->id }}"
-                                                    class="border border-1 material_other" required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0" readonly
-                                                    class="border border-1 tot_material">
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="tot_material[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" readonly
-                                                    class=" border border-1 all_material" value="0">
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="labour[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class="border border-1 labour" required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="labour_other[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 labour_other" required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="" class=" border border-1 tot_labour" value="0"
-                                                    readonly required>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text" name="worker_tot[{{ $item->id }}][]"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 all_labour" readonly>
-                                            </td>
-                                            <td style="text-align: center">
-                                                <input type="text"
-                                                    id="{{ $item->id }}" value="0"
-                                                    class=" border border-1 all_tot" readonly>
+                                            <input type="text" name="material[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class="border border-1 material">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                            </td>
-                                            <td style="text-align: center">
-                                                <div class="form-group col-md-2 justify-center">
+                                            <input type="text" name="material_acc[${data.line.id}][]"
+                                                value="0" id="${data.line.id}"
+                                                class="border border-1 material_acc">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <button class="btn btn-sm btn-bd-primary remove-record">حساب</button>
-                                                </div>
+                                            <input type="text" name="material_other[${data.line.id}][]"
+                                                value="0" id="${data.line.id}"
+                                                class="border border-1 material_other">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                            </td>
-                                        </tr>`).ready(function() {
+                                            <input type="text" name="tot_material[${data.line.id}][]"
+                                                id="${data.line.id}" value="0" readonly
+                                                class="border border-1 tot_material">
+                                        </td>
+                                        <td style="text-align: center">
 
+                                            <input type="text" name="total_material[${data.line.id}][]"
+                                                id="${data.line.id}" readonly
+                                                class=" border border-1 all_material px-4" value="0">
+                                        </td>
+                                        <td style="text-align: center">
 
+                                            <input type="text" name="labour[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class="border border-1 labour">
+                                        </td>
 
 
+                                        <td style="text-align: center">
 
+                                            <input type="text" name="labour_other[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class=" border border-1 labour_other">
+                                        </td>
+                                        <td style="text-align: center">
 
 
+                                            <input type="text" name="worker_tot[${data.line.id}][]"
+                                                id="" class=" border border-1 tot_labour" value="0"
+                                                readonly>
+                                        </td>
+                                        <td style="text-align: center">
 
 
-                    // // material
+                                            <input type="text" name="total_labour[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class=" border border-1 all_labour px-4" readonly>
+                                        </td>
+                                        <td style="text-align: center">
 
+                                            <input type="text" id="${data.line.id}" value="0"
+                                                class=" border border-1 all_tot" readonly>
 
+                                        </td>
 
+                                    </tr>`;
 
-                    $(".remove-record").click(function(e) {
-                        e.preventDefault()
-                        $(this).closest("tr").remove()
-                    })
 
 
+                        console.log("tbody#" + id);
+                        $("tbody#" + id).append(row).ready(function() {
 
+                            $(".remove-record").click(function(e) {
+                                e.preventDefault()
 
-                    // let hole_tot = 0;
-                    // // product total
+                                $(this).closest("tr").remove()
+                            })
 
-                    $(".products").change(function() {
 
-                        var factor = $(".factor").val() || 0
-                        var tot = 0;
-                        var product = 0;
-                        sum_product($(this))
-                        sumation_all_tot();
-                    })
 
 
+                            // let hole_tot = 0;
+                            // // product total
+                            $('select').select2();
+                            $(".products").change(function() {
+                                $(this).closest("tr").find(".material").val($(
+                                    this).find(
+                                    'option:selected').data('price'));
+                                var factor = $(".factor").val() || 0
+                                var tot = 0;
+                                var product = 0;
+                                $(this).valid()
+                                sum_product($(this))
 
+                                sumation_all($(this))
+                            })
 
-                    $(".qty").keyup(function(e) {
 
-                        var product_factor = $(this).parent().parent().find(".factor_price")
-                            .val()
-                        var tot = product_factor * $(this).val();
 
-                        $(this).parent().parent().find(".hole_tot").val('');
 
-                        $(this).parent().parent().find(".simetot").val(tot);
-                        var all_tot = $(this).parent().parent().find(".all_tot").val(
-                            parseInt($(this).parent().parent().find(".all_labour")
-                                .val()) + parseInt($(this).parent().parent().find(
-                                ".all_material").val()))
+                            $(".qty").on('input', function(e) {
 
-                        // sumations_profit($(this));
 
-                        sumations($(this));
 
-                        //  here fire the profit
+                                sumations($(this));
 
-                        sumation_all_tot();
+                                //  here fire the profit
 
-                        sum_product($(this))
 
-                        total_sale_factor($(this))
-                        summary_product_factor();
+                                sum_product($(this))
+                                sum_profit($(this))
+                                all_tot($(this))
+                                total_sale_factor($(this))
+                                summary_product_factor();
+                                sumation_all($(this))
+                                // sum_profit($(this))
+                            })
 
-                    })
 
+                            // // material daim main
 
-                    // // material daim main
+                            $(".material").on('input', function(e) {
+                                materials_sumation($(this))
+                                sumation_all_material($(this))
 
-                    $(".material").keyup(function(e) {
-                        materials_sumation($(this))
-                        sumation_all_material($(this))
-                        // sumation_all_materials()
-                        sumations($(this));
-                        sumation_all_tot();
-                    })
+                                sumations($(this));
+                                sumation_all($(this))
 
-                    // material Acssories
 
-                    $(".material_acc").keyup(function(e) {
+                            })
 
-                        materials_sumation($(this))
+                            // material Acssories
 
-                        sumation_all_material($(this))
-                        // sumation_all_materials()
-                        sumations($(this));
-                        sumation_all_tot();
-                    })
+                            $(".material_acc").on('input', function(e) {
 
+                                materials_sumation($(this))
 
+                                sumation_all_material($(this))
 
-                    // material_other
-                    $(".material_other").keyup(function(e) {
+                                sumations($(this));
 
-                        materials_sumation($(this))
-                        sumation_all_material($(this))
-                        // sumation_all_materials()
-                        sumations($(this));
-                        line_detect()
-                        // sumation_all_materials()
-                        sumation_all_tot();
-                    })
+                                sumation_all($(this))
 
+                                all_tot($(this))
+                            })
 
 
-                    //labour
 
+                            // material_other
+                            $(".material_other").on('input', function(e) {
 
-                    $(".labour").keyup(function(e) {
+                                materials_sumation($(this))
+                                sumation_all_material($(this))
+                                // sumation_all_materials()
 
-                        labour_sumation($(this))
+                                line_detect()
+                                // sumation_all_materials()
+                                sumations($(this));
 
+                                sumation_all($(this))
 
-                        // all_labour
-                        sumation_all_labour($(this));
-                        // sumation_all_labour1($(this));
-                        // sumations($(this))
-                        sumation_all_tot();
+                            })
 
-                    })
 
 
-                    // labour other
+                            //labour
+                            $(".labour").on('input', function(e) {
 
-                    $(".labour_other").keyup(function(e) {
+                                labour_sumation($(this))
 
-                        labour_sumation($(this))
-                        sumation_all($(this))
-                        sumation_all_labour($(this));
-                        total_sale_factor($(this))
-                        // sumations($(this))
-                        line_detect()
-                        // sumation_all_labour1($(this));
-                        sumation_all_tot();
-                        all_tot($(this))
-                    })
 
+                                // all_labour
+                                sumation_all_labour($(this));
+                                sumation_all_labours()
+                                sumation_all($(this))
+                                sumations($(this))
+                                all_tot($(this))
 
+                            })
 
+                            $(".labour").on('input', function(e) {
 
+                                labour_sumation($(this))
 
 
+                                // all_labour
+                                sumation_all_labour($(this));
 
+                                sumation_all($(this))
+                                sumations($(this))
+                                all_tot($(this))
 
+                            })
+
+
+                            // labour other
+
+                            $(".labour_other").on('input', function(e) {
+
+                                labour_sumation($(this))
+
+                                sumation_all_labour($(this));
+                                total_sale_factor($(this))
+                                // sumations($(this))
+
+                                // sumation_all_labour1($(this));
+                                sumation_all_labours()
+                                all_tot($(this))
+                                sumation_all($(this))
+                                sumation_all_tot
+                                    (); // calculate the total of all and put it in the summary
+                            })
+                            line_detect()
+                        });
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error: ' + textStatus); // log the error type
+                        console.error('HTTP status: ' + jqXHR
+                            .status); // log the HTTP status code
+                        console.error('Error message: ' +
+                            errorThrown); // log the exception, if one occurred
+                    }
                 });
-                line_detect()
-            });
 
 
 
+
+
+
+
+                //  call the child line with the id of .btn-line
+
+
+            }); // end of btn-line been copied to edit
+
+
+            $(".products").val("")
 
             //*******************************************************************************************
             // ********************************** Here is the main *****************************************
             // *********************************************************************************************
 
+            $(".saving").click(function(e) { //edit
+
+                $(".statues").val("موافق")
+                $(".qoute").submit()
+            })
+
+
+            $(".draft").click(function(e) { //edit
+
+                $(".statues").val("مسودة")
+                $(".qoute").submit()
+            })
+            $(".contract").click(function(e) { //edit
+
+                $(".statues").val("تعميد")
+                $(".qoute").submit()
+            })
+
+
+            $('select#inputState.customer').select2(); //edit
+            $('.products').select2(); //edit
             $("select#inputState.customer").change(function(e) {
+                $(this).valid();
+                $(".cust-name").html()
+                $(".cust-phone").html("")
+                $(".cust-email").html("")
+                $(".cust-tax-number").html("");
+                $(".cust-name").html("")
                 var custom = this.value;
+                $(this).valid();
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1216,38 +1377,68 @@
 
                 })
             })
+            $(".factor").on('input', function() {
+                // all summary function
+                $(".factor").valid();
+                $(".factor_summary").val($(this).val());
+                $(".factor_summary1").val($(this).val());
 
+
+
+
+                // call qty event on input if not null call it with its id
+                $(".qty").each(function() {
+                    if ($(this).val() != null) {
+                        $(this).trigger('input')
+                    }
+                })
+
+
+
+                sumations($(this));
+
+                product_calculation(); // calculate the product * factor factor
+
+
+                sumation_all_tot(); // calculate the summary of all and put it in the summary1 factor
+
+                summary_product_factor(); //calculate the summary of product factor and put it in faactor
+                calcualte(); //factor
+            })
 
             $(".remove-record").click(function(e) {
                 e.preventDefault()
                 $(this).closest("tr").remove()
             })
             $(".products").change(function() {
-
+                $(this).closest("tr").find(".material").val($(this).find('option:selected').data('price'));
                 var factor = $(".factor").val() || 0
                 var tot = 0;
                 var product = 0;
-
+                $(this).valid()
                 sum_product($(this))
-                sumation_all_tot();
+                // sumation_all($(this))
+                // calcualte()
+
+                // sum_profit($(this))
+                // // all summary function
+                // sum_product($(this))
+                // sumation_all_tot();
+
+                // summary_product_factor();
+                // calcualte()
+
+
+
             })
 
 
+            // every textfiled in breif in eqaull to 0
 
 
-            $(".qty").keyup(function(e) {
 
-                var product_factor = $(this).parent().parent().find(".factor_price")
-                    .val()
-                var tot = product_factor * $(this).val();
+            $(".qty").on('input', function(e) {
 
-                $(this).parent().parent().find(".hole_tot").val('');
-
-                $(this).parent().parent().find(".simetot").val(tot);
-                var all_tot = $(this).parent().parent().find(".all_tot").val(
-                    parseInt($(this).parent().parent().find(".all_labour")
-                        .val()) + parseInt($(this).parent().parent().find(
-                        ".all_material").val()))
 
                 // sumations_profit($(this));
 
@@ -1255,50 +1446,76 @@
 
                 //  here fire the profit
 
-                sumation_all_tot();
-
                 sum_product($(this))
 
-                total_sale_factor($(this))
-                summary_product_factor();
+                sum_profit($(this))
 
+
+                materials_sumation($(this))
+                // sum_product($(this))
+
+                total_sale_factor($(this))
+
+                sumation_all($(this))
+                summary_product_factor();
+                calcualte()
+                $(".labour_other").each(function() {
+                    if ($(this).val() != null) {
+                        $(this).trigger('input')
+                    }
+                })
             })
 
 
             // // material daim main
 
-            $(".material").keyup(function(e) {
-                materials_sumation($(this))
-                sumation_all_material($(this))
-                // sumation_all_materials()
-                sumations($(this));
-                sumation_all_tot();
+            $(".material").on('input', function(e) {
+
+                $(".material_acc").each(function() {
+                    if ($(this).val() != null) {
+                        $(this).trigger('input')
+                    }
+                })
             })
 
             // material Acssories
 
-            $(".material_acc").keyup(function(e) {
+            $(".material_acc").on('input', function(e) {
 
-                materials_sumation($(this))
+                $(".labour_other").each(function() {
+                    if ($(this).val() != null) {
+                        $(this).trigger('input')
+                    }
+                })
 
                 sumation_all_material($(this))
-                // sumation_all_materials()
+
                 sumations($(this));
-                sumation_all_tot();
+
+                sumation_all($(this))
+
+                all_tot($(this))
             })
 
 
 
             // material_other
-            $(".material_other").keyup(function(e) {
-
+            $(".material_other").on('input', function(e) {
+                $(".labour_other").each(function() {
+                    if ($(this).val() != null) {
+                        $(this).trigger('input')
+                    }
+                })
                 materials_sumation($(this))
                 sumation_all_material($(this))
                 // sumation_all_materials()
-                sumations($(this));
+
                 line_detect()
                 // sumation_all_materials()
-                sumation_all_tot();
+                sumations($(this));
+
+                sumation_all($(this))
+
             })
 
 
@@ -1306,42 +1523,57 @@
             //labour
 
 
-            $(".labour").keyup(function(e) {
+            $(".labour").on('input', function(e) {
 
+                $(".labour_other").each(function() {
+                    if ($(this).val() != null) {
+                        $(this).trigger('input')
+                    }
+                })
                 labour_sumation($(this))
 
 
-                // all_labour
+                // // all_labour
                 sumation_all_labour($(this));
-                // sumation_all_labour1($(this));
-                // sumations($(this))
-                sumation_all_tot();
 
+                sumation_all($(this))
+                sumations($(this))
+                all_tot($(this))
+                sumation_all_labours()
             })
 
 
             // labour other
 
-            $(".labour_other").keyup(function(e) {
+            $(".labour_other").on('input', function(e) {
 
                 labour_sumation($(this))
-                sumation_all($(this))
+
                 sumation_all_labour($(this));
-                total_sale_factor($(this))
-                // sumations($(this))
-                line_detect()
-                // sumation_all_labour1($(this));
-                sumation_all_tot();
+
+                sumations($(this))
+
+                // // sumation_all_labour1($(this));
+
                 all_tot($(this))
-            })
-
-            $(".remove-record").click(function(e) {
-                e.preventDefault()
-                console.log("log");
+                sumation_all($(this))
+                sumation_all_tot();
             })
 
 
+            $(".qoutation_date").val(new Date().toJSON().slice(0, 10));
 
+
+
+            // add a day or anyday you like
+
+            todaysDate = new Date()
+            var nextDate = new Date(+todaysDate + 7 * 24 * 60 * 60 * 1000);
+
+            $(".expire_date").val(nextDate.toJSON().slice(0, 10))
+            $(".expire_date").change(function() {
+                console.log($(this).val());
+            })
             // calculation functions
             // *******************************************************
             // ******************************************************
@@ -1355,15 +1587,16 @@
 
                 var id = parent.attr("id")
                 all_line[id] = 0;
-                console.log("sumation " + id);
-                parent.closest(".line_data").each(function() {
+
+                $(".line_data").each(function() {
                     $(this).find(".all_tot").each(function() {
 
                         all_line[id] += parseInt($(this).val())
+
                         $(this).closest(".card-body").find("input.total").val(isNaN(all_line[id]))
 
                     })
-                    $("input.profit").val(sum)
+
                 })
 
 
@@ -1371,23 +1604,29 @@
             }
             var summ = 0;
 
+
+
+
+
+
+
+
+
             function sumation_all_material(parent) {
                 // all_line[id]-0;
 
 
                 var id = parent.attr("id")
 
+                all_line[id] = 0;
                 parent.closest(".line_data").each(function() {
                     $(this).find(".all_material").each(function() {
 
                         all_line[id] += parseInt($(this).val() || 0)
                         $(this).closest(".card-body").find("input.total_material").val(all_line[id])
-                        $("#" + id + ".all_material_summary").val(isNaN(all_line[id]))
-
+                        $("#" + id + ".all_material_summary").val(all_line[id])
                     })
 
-
-                    $("input.profit").val(sum)
                 })
 
                 var sum = 0;
@@ -1411,8 +1650,7 @@
 
                 })
 
-                sumation_all(parent)
-                sumation_all_labours()
+
             }
 
 
@@ -1438,121 +1676,154 @@
                 })
             }
 
+            function product_calculation() {
+                var factor = $(".factor").val() || 0;
+                $(".line_data").each(function() {
+                    var factor_price = $(this).find(".factor_price")
+                    $(this).find(".products").each(function() {
+                        var price = $(this).find('option:selected').data('price') || 0;
+                        console.log($(this).parent().parent().find(".factor_price").val(price *
+                            factor))
+
+                    })
+
+                })
+
+
+            }
+
+
+            // function for calculate the simtot
+            function simtot_calculation() {
+                $(".line_data").each(function() {
+                    var factor = $(".factor").val() || 0;
+                    $(this).find(".simetot").each(function() {
+                        var product = $(this).parent().parent().find(".product").val() || 0;
+                        var qty = $(this).parent().parent().find(".qty").val() || 0;
+                        var simetot = product * qty * factor;
+                        $(this).val(simetot);
+                    })
+
+                })
+
+            }
+
+
+
+
 
             function sum_product(parent) {
 
-
+                // here the bug
                 var sum = 0;
 
                 var id = parent.attr("id")
 
-                all_line[id] = 0;
-                var qty = [];
-                var product = [];
-
-                parent.closest(".line_data").each(function() {
-
-                    $(this).find("select.products option:selected").each(function(index) {
-                        product[index] = $(this).data("price") || 0
-
-                    })
 
 
 
+                var factor = parseInt($(".factor").val()) || 0;
+                var product = parent.parent().parent().find('.products').find('option:selected').data('price') || 0;
+                var qty = (parent.parent().parent().find(".qty").val()) || 0;
 
 
-                    $(this).children().find(".qty").each(function(index) {
-                        qty[index] = $(this).val() || 0
+                //  sumation for
+
+                parent.parent().parent().find(".factor_price").val(product * factor);
+                parent.parent().parent().find(".simetot").val(product * factor * qty)
 
 
-                    })
-                    var factor = $('.factor').val() || 0;
-                    $(this).find("#" + id + ".factor_price").each(function(index) {
-                        $(this).val(product[index] * factor)
-                    })
-                    $(this).find("#" + id + ".simetot").each(function(index) {
-                        $(this).val(qty[index] * product[index] * factor)
-
-                        sum_profit(id)
-
-                    })
-                })
 
             }
 
-            function sum_profit(id) {
+            function sum_profit(parent) {
+                var id = parent.attr("id")
 
-
-                var sum = 0;
-
-
-
-
-                $(".line_data").each(function() {
-
-
+                all_line[id] = 0;
+                parent.closest(".line_data").each(function() {
+                    console.log($(this).find("#" + id + ".simetot"));
                     $(this).find("#" + id + ".simetot").each(function() {
 
-                        sum += parseInt($(this).val() || 0);
-                        $("#" + id + ".total_profit").val(sum)
+                        all_line[id] += parseInt($(this).val() || 0)
+
+                        // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
+
+                        console.log(all_line[id] + " profit");
+                        $("#" + id + ".total_profit").val(all_line[id]);
+
                     })
-
-                })
-
+                });
             }
-            sumation_all($(".tot"))
 
-            $(this).find('input:text').val('');
+
+
             $(this).find('select').val('');
 
 
 
 
 
-            function sumation_all(parent) {
+            function sumation_all(parent) { // total of all_tot and put it in the total
                 // all_line[id]-0;
                 var sum = 0;
 
                 var id = parent.attr("id")
                 all_line[id] = 0;
 
+
+
+
+
+
+                all_line[id] = 0;
                 parent.closest(".line_data").each(function() {
+                    console.log($(this).find("#" + id + ".simetot"));
                     $(this).find("#" + id + ".all_tot").each(function() {
 
                         all_line[id] += parseInt($(this).val() || 0)
 
                         // $(this).closest(".card-body").find("#"+id+"input.all_tot_summary").val(all_line[id])
-                        $("#" + id + ".total").val($(this).val() || 0)
-                        console.log($(this).val() || 0);
-                        $("#" + id + ".all_tot_summary").val(all_line[id] || 0);
+
+                        console.log(all_line[id] + " profit");
+                        $("#" + id + ".total").val(all_line[id]);
+                        $("#" + id + ".all_tot_summary").val(all_line[id])
 
                     })
-                    // total_factor(parent);
+                });
 
-                })
+            }
 
+            // all sime_total is gernal functiom for all line_data row multiply by qty
+            function sime_total() {
+                $(".simetot").each(function() {
+                    var product = parseInt($(this).parent().parent().find(".product").val());
+                    var qty = parseInt($(this).parent().parent().find(".qty").val());
+                    var factor = parseInt($(".factor").val());
+                    var simetot = product * qty * factor;
 
+                    $(this).val(simetot);
+                });
 
             }
 
 
 
+            /**
+             * Calculates the total sale factor based on the given parent element.
+             *
+             * @param {Object} parent - The parent element.
+             */
             function total_sale_factor(parent) {
                 // all_line[id]-0;
                 var sum = 0;
 
                 var id = parent.attr("id")
 
-                $("input#" + parent.attr('id') + ".total_profit").each(function() {
-
+                $("#" + id + ".total_profit").each(function() {
                     sum += (parseInt($(this).val()) || 0);
-
-
                 })
 
-                $("input#" + id + ".sale_factor_summary").val(sum)
-
-
+                $("input#" + id + ".sale_factor_summary").val(sum);
             }
 
 
@@ -1583,24 +1854,19 @@
                 });
                 // $('#gross_amount').text(gross.toFixed(2));
                 $(".all_material_summary1").val(sum)
+                calcualte()
 
 
 
             }
 
             function sumation_all_labours() {
-                var sum = 0;
+                let sum = Array.from($(".all_labour_summary")).reduce((total, element) => {
+                    return total + parseInt($(element).val() || 0);
+                }, 0);
 
-
-                $(".all_labour_summary").each(function() {
-                    let $el = $(this);
-                    sum += parseInt(($el.val() || 0));
-
-
-                });
-                // $('#gross_amount').text(gross.toFixed(2));
-                $(".all_labour_summary1").val(sum)
-
+                $(".all_labour_summary1").val(sum);
+                calcualte()
 
 
             }
@@ -1613,22 +1879,11 @@
 
             function materials_sumation(parent) {
 
-                if (parent.attr("class") == "border border-1 material_other") {
 
-                    var material = parent.parent().parent().find(".material").val() || 0
-                    var material_acc = parent.parent().parent().find(".material_acc").val() || 0
-                    var material_other = parent.val() || 0
-                } else if (parent.attr("class") == "border border-1 material_acc") {
-                    var material_other = parent.parent().parent().find(".material_other").val() || 0
-                    var material = parent.parent().parent().find(".material").val() || 0
-                    var material_acc = parent.val() || 0
-                    console.log(material + " " + material_acc);
-                    console.log(parent.attr("class"));
-                } else {
-                    var material_other = parent.parent().parent().find(".material_other").val() || 0
-                    var material_acc = parent.parent().parent().find(".material_acc").val() || 0
-                    var material = parent.val() || 0
-                }
+
+                var material = parent.parent().parent().find(".material").val() || 0
+                var material_acc = parent.parent().parent().find(".material_acc").val() || 0
+                var material_other = parent.parent().parent().find(".material_other").val() || 0
 
                 tot_material = parseInt(material) + parseInt(material_other) + parseInt(material_acc)
 
@@ -1642,12 +1897,11 @@
             }
 
             function all_tot(parent) {
-                var all_tot = 0;
-                var all_material = 0;
-                var all_labour = 0;
-                all_material = (parseInt(parent.parent().parent().find(".all_material").val()));
-                all_labour = (parseInt(parent.parent().parent().find(".all_labour").val()));
-                console.log(all_material + " " + all_labour);
+                var all_tot;
+
+                var all_material = (parseInt(parent.parent().parent().find(".all_material").val())) || 0;
+                var all_labour = (parseInt(parent.parent().parent().find(".all_labour").val())) || 0;
+
                 all_tot = (all_material) + (all_labour)
                 parent.parent().parent().find(".all_tot").val(all_tot || 0)
 
@@ -1656,23 +1910,21 @@
 
 
 
-
+            // Labour Sumation and labour * qty sumation
 
             function labour_sumation(parent) {
-                var labour_other = 0;
-                var labour = 0;
-                if (parent.className == "labour_other") {
-                    var labour_other = parent.parent().parent().find(".labour").val() || 0
-                    var labour = parent.val() || 0
-                } else {
-                    var labour_other = parseInt(parent.parent().parent().find(".labour_other").val()) || 0
-                    var labour = parseInt(parent.val()) || 0
-                }
-                var tot_labour = 0;
-                tot_labour = parseInt(labour) + parseInt(labour_other)
 
-                console.log(tot_labour);
+
+                var labour_other = parseInt(parent.parent().parent().find(".labour_other").val() || 0)
+                var labour = parseInt(parent.parent().parent().find(".labour").val() || 0)
+
+
+                var tot_labour;
+                tot_labour = (labour) + labour_other
+
+
                 parent.parent().parent().find(".tot_labour").val(tot_labour);
+                console.log(tot_labour);
                 var qty = parent.parent().parent().find(".qty").val() || 0;
                 var all_labour = parent.parent().parent().find(".all_labour").val(tot_labour * qty);
 
@@ -1680,144 +1932,171 @@
 
             }
 
+            /**
+             * Calculates the summary of product factors.
+             *
+             * @returns {void}
+             */
             function summary_product_factor() {
+                let sum = Array.from($(".sale_factor_summary")).reduce((total, element) => {
+                    return total + parseInt($(element).val() || 0);
+                }, 0);
 
-
-
-                var sum = 0;
-                $(".summary").each(function() {
-                    $(this).find(".sale_factor_summary").each(function() {
-                        sum += (parseInt($(this).val() || 0))
-
-                    })
-
-                    $(".sale_factor_summary1").val(sum)
-                    $(".total-cost").val(sum)
-                })
-
-
+                $(".sale_factor_summary1").val(sum);
             }
+
+
+
+
+
+            //  function that sumation every factor_price in the same line_data row without deail with aid or prent
+
+
+
+
+
+
+
 
             function sumation_all_tot() {
 
-                var sum = 0;
-                $(".summary").each(function() {
-                    $(this).find(".all_tot_summary").each(function() {
-                        sum += (parseInt($(this).val() || 0))
-
-                    })
-
-                    $(".all_tot_summary1").val(sum)
-                    $(".total-cost").val(sum)
-                })
 
 
 
+                let sum = Array.from($(".all_tot_summary")).reduce((total, element) => {
+                    return total + parseInt($(element).val() || 0);
+                }, 0);
+
+                $(".all_tot_summary1").val(sum)
+
+
+                calcualte()
 
 
             }
+            // no problem
 
-
-            $(".risk").keyup(function(e) {
+            $(".risk").on('input', function(e) {
                 e.preventDefault();
-                console.log("h2");
+
                 calcualte()
             })
 
 
-            $(".indrect").keyup(function() {
+            $(".indrect").on('input', function(e) {
                 e.preventDefault();
-                console.log("h2");
+
                 calcualte()
             })
-            $(".consult").keyup(function() {
+            $(".consult").on('input', function(e) {
                 e.preventDefault();
-                console.log("h2");
+
                 calcualte()
             })
 
+            /**
+             * Calculates the total cost, net profit, and sale profit based on the given inputs.
+             */
             function calcualte() {
-                var cost = parseInt($(".all_tot_summary1").val() || 0)
+                const getVal = (selector) => parseInt($(selector).val() || 0);
 
-                var consult = parseInt($(".consult").val() || 0) / 100;
-                console.log($(".indrect").val() + " wwww2");
-                var indirect = parseInt($(".indrect").val() || 0) / 100
+                const cost = getVal(".all_tot_summary1");
+                const consult = getVal(".consult") / 100;
+                const indirect = getVal(".indrect") / 100;
+                const addition_cost = getVal(".addition") / 100;
+                const risk = getVal(".risk") / 100;
 
-                var addition_cost = parseInt($(".addition").val() || 0) / 100
-                var resk = parseInt($(".risk").val() || 0) / 100
+                const result = cost + ((consult + indirect + addition_cost + risk) * cost);
+                const profit = getVal(".sale_factor_summary1");
 
-                var result = cost + ((consult * cost) + (indirect * cost) + (addition_cost * cost) + (resk * cost))
-                var profit = parseInt($(".sale_factor_summary1").val() || 0)
-                $(".sale_profit").val(profit)
-                $(".total-cost").val(result.toFixed(2))
-                var net = profit - result
-                console.log(net);
-                $(".net-profit").val(net.toFixed(2))
+                $(".sale_profit").val(profit);
+                $(".total-cost").val(result.toFixed(2));
+                // net is percent of profit after substracting the cost from profit
 
+                const net = ((profit - result) / profit) * 100;
+                $(".net-profit").val(`${net.toFixed(2)}%`);
             }
-
-            // addition-cost
-
-
-
-            // all_material_summary
-
-            // sale_factor_summary
-
-            //             $(".material").keyup(function(e){
-            //   var product= $(this).parent().parent().find("select").val()
-            //   $(this).parent().parent().find(".tot_material").val( product * $(this).val());
-            //             })
-            //             $(".material").keyup(function(e){
-            //   var product= $(this).parent().parent().find("select").val()
-            //   $(this).parent().parent().find(".tot_material").val( product * $(this).val());
-            //             })
-            //             $(".material").keyup(function(e){
-            //   var product= $(this).parent().parent().find("select").val()
-            //   $(this).parent().parent().find(".tot_material").val( product * $(this).val());
-            //             })
-            // $('.new_item').click(function() {
-            //     $('#exampleModal').modal('show');
-            // })
-
-            // $('.customer').change(function() {
-
-            //     var custom = this.value;
-            //     $.ajaxSetup({
-            //         headers: {
-            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         }
-            //     });
-            //     $.ajax({
-            //         type: 'GET',
-            //         url: 'http://127.0.0.1:8000/customer/data/' + custom,
-            //         //   data : ({id : $(this).value}),
-            //         dataType: 'JSON',
-            //         success: function(response) {
-
-            //             $('.customer_data').html(
-            //                 `<td> name</td>` + data.name + `</td><td>رقم الهاتف</td><td>` +
-            //                 data.phone_number + `</td><td></td><td>` + data.id + `</td>`
+            $(".discount-btn").click(function(e) {
+                e.preventDefault()
 
 
 
-            //             )
-            //         }
+
+                // values from the perevious table
+
+                var cost = parseInt($(".all_tot_summary1").val() || 0);
+                var consult = parseInt($(".consult").val() || 0) / 100;
+                var indirect = parseInt($(".indrect").val() || 0) / 100;
+                var addition_cost = parseInt($(".addition").val() || 0) / 100;
+                var risk = parseInt($(".risk").val() || 0) / 100;
+
+                var result = cost + ((consult + indirect + addition_cost + risk) * cost);
+                var profit = parseInt($(".sale_factor_summary1").val() || 0);
+
+                var discount_amount = parseInt($(".discount-amount").val() || 0);
+                var newprofit = profit - (discount_amount * ($("tr.discount-row0").children().length - 2));
+                // net is percent of profit after substracting the cost from profit
+
+                var net = ((newprofit - result));
+                var percent = ((net / profit) * 100).toFixed(2);
+                console.log();
+                // the profit from last value
 
 
+                console.log(net);
+                var color = "";
+                if (percent > 17) {
+                    color = "bg-success";
 
+                } else if (percent == 17) {
+                    color = "bg-yallow";
+
+                } else {
+                    color = "bg-danger";
+
+                }
+                console.log(color);
+                $("tr.discount-row0").append(`<td>` + newprofit + `</td>`);
+                $("tr.discount-row1").append(`<td>` + cost + `</td>`);
+                $("tr.discount-row2").append(`<td>` + indirect.toFixed(2) + `</td>`);
+                $("tr.discount-row3").append(`<td>` + result + `</td>`);
+                $("tr.discount-row4").append(`<td>` + net.toFixed(2) + `</td>`);
+                $("tr.discount-row5").append(`<td class='` + color + `'>` + percent +
+                    `%</td>`);
+                $("tr.discount-header").append(`<th>` + (discount_amount * ($("tr.discount-row0").children()
+                    .length - 3)) + `القيمة (ر.س)</th>`)
 
 
 
 
 
+            })
 
-            // })
+            $("form").validate({
+                rules: {
+                    // simple rule, converted to {required:true}
+                    customer: "required",
+                    // compound rule
+                    factor: {
+                        required: true,
+                        digits: true,
+                        range: [0.0, 100.0]
+                    },
+                    qoutation_date: {
 
+                    }
+                },
+                messages: {
+                    customer: "الرجاء ادخال المستخدم",
+                    factor: {
+                        required: "الرجاء ادخال المعامل ",
+
+                        digits: "الرجاء ادخال رقم على الاقل"
+                    }
+
+                }
+            });
 
         });
     </script>
-@endsection
-
-
 @endsection

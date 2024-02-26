@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('lines')) {
-
-        Schema::createifNotexist('lines', function (Blueprint $table) {
+        Schema::create('about_companies', function (Blueprint $table) {
             $table->id();
-            $table->text("name");
-            $table->text("terms")->nullable();
-            $table->text("not_include")->nullable();
-            $table->unsignedBigInteger('main_line')->nullable();
-            $table->foreign('main_line')->references('id')->on('lines')->onDelete('cascade');
             $table->timestamps();
+            $table->string('name');
+            $table->string('phone');
+            $table->string('email');
+            $table->text('about');
+
+            $table->string('logo');
         });
     }
-    }
+
     /**
      * Reverse the migrations.
      *
@@ -33,7 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-
-        Schema::dropIfExists('lines');
+        Schema::dropIfExists('about_companies');
     }
 };

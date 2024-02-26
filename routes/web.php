@@ -14,7 +14,8 @@ use App\Http\Controllers\QoutationController;
 use App\Http\Controllers\UnitsController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\AboutCompanyController;
+use App\Http\Controllers\LogoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,6 +45,9 @@ Route::get('lines/{master?}', [LineController::class,"index"]);
 Route::post('lines', [LineController::class,"store"])->name('lines');
 Route::post('lines/delete', [LineController::class,"destroy"])->name('lines.delete');
 Route::put('lines/update', [LineController::class,"update"])->name('lines.update');
+// route for show
+Route::get('lines/show/{id}', [LineController::class,"show"])->name('lines.show');
+
 
 
 
@@ -97,10 +101,12 @@ Route::put('units/update', [unitsController::class,"update"])->name('units.updat
 Route::get('qoute', [QoutationController::class,"index"])->name('qoute');
 Route::get('qoute/create', [QoutationController::class,"create"])->name('qoute.create');
 Route::post('qoute/store', [QoutationController::class,"store"])->name('qoute.store');
+
+Route::get('qoute/edit/{id}', [QoutationController::class,"edit"])->name('qoute.edit');
+Route::put('qoute/update', [QoutationController::class,"update"])->name('qoute.update');
 Route::post('qoute/delete', [QoutationController::class,"destroy"])->name('qoute.delete');
-Route::put('qoute/update', [QoutationController::class,"update"])->name('quotation.update');
-Route::put('qoute/edit', [QoutationController::class,"edit"])->name('quotation.edit');
-Route::put('qoute/pdf', [QoutationController::class,"pdf"])->name('quotation.pdf');
+Route::get('qoute/pdf/{id}', [QoutationController::class,"pdf"])->name('qoute.pdf');
+
 // Route::put('lines/store', [QoutationController::class,"store"])->name('lines.store');
 
 
@@ -117,10 +123,12 @@ Route::get('customer/data/{id}', [customerController::class,"data_customer"])->n
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //reports routes
-Route::get('/reports',[ReportController::class,'index'])->name('reports');
+Route::get('/reports',[QoutationController::class,'contract'])->name('reports');
 
-Route::get('/reports/price_offer',[ReportController::class," priceOffer"])->name('reports.price_offer');
-
-
+Route::get('/reports/qoutation_pdf/{qoutation}',[QoutationController::class,'qoutation_pdf'])->name('reports.price_offer');
 
 
+Route::get('/about_company',[AboutCompanyController::class,'index'])->name('about_company');
+Route::post('/about_company/store',[AboutCompanyController::class,'store'])->name('about_company.store');
+Route::post('/upload-logo', [LogoController::class, 'upload'])->name('logo.upload');
+Route::get('/logo', [LogoController::class, 'index'])->name('logo');

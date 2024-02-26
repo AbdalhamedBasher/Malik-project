@@ -300,19 +300,19 @@
 
 
     </style>
-@endsection    
+@endsection
 @section('content')
 <div>
-    <h2 class="price-offer-intro">عرض سعر لعملية توريد وتركيب وتشغيل كابلات كهربائية + S</h2>
+    <h2 class="price-offer-intro">{{$qoute->description}}</h2>
     <div class="region_project_number">
 
         <h3 class="region">المنطقة : القصيم      </h3>
-        <h3 class="project_number">رقم المشروع : D-09-85</h3>
+        <h3 class="project_number">رقم المشروع :{{$qoute->project_name}}</h3>
 
     </div>
     <h3 class="offer-giver">مقدم العرض :</h3>
 
-    
+
     <div class="foundation-intro">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
         <div>
@@ -321,7 +321,7 @@
 
         </div>
         <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-        
+
     </div>
     <div class="contents">
         <h3>المحتويات :</h3>
@@ -333,45 +333,45 @@
     </ol>
     </div>
     <div class="provided-to">
-           
+
     <h3>مقدم إلى شركة :</h3>
-    <h1 class="tagana-contracting">مؤسسة تقانة للمقاولات</h1>
+    <h1 class="tagana-contracting">{{$qoute->customers_data?$qoute->customers_data->name:""}}</h1>
     </div>
- 
+
     <div class="submit-by">
         <div>
             <h3 class="first-child">Submit it by;</h3>
             <h3>Spaces Management Est. For Contracting</h3>
-        
+
         </div>
 
 
-       
+
         <h3 class="date">23/6/2023</h3>
     </div>
 
-        
+
     <div class="foundation-intro">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
         <div>
-            <h3>مؤسسة إدارة المساحات للمقاولات</h3>
+            <h3></h3>
             <h3>Spaces Management Est. For Contracting</h3>
 
         </div>
         <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-        
+
     </div>
     <div class="ref-date-page">
-        <h3>Ref : 22-09-85</h3>
+        <h3>Ref :{{date('d/m/y')}}</h3>
         <div class="date-page">
-            <h3><span class="header-date">Date</span> : 23/6/2023</h3>
+            <h3><span class="header-date">Date</span> {{$qoute->qoutation_date}}</h3>
             <h3 class="page">Page 1 of 7.</h3>
         </div>
-      
+
     </div>
     <div class="topic-project-name">
          <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
-  
+
     <p class="header-project-name">
         <span class="project-name">إسم المشروع </span>: مبنى مجمع تجاري قائم - القصيم
     </p>
@@ -381,17 +381,17 @@
             <h3>السادة / مؤسسة تقانة للمقاولات</h3>
             <h3>عناية المهندس / قتيبة</h3>
 
-    
+
         </div>
         <div style="color: blue;">
             <h3>المحترم</h3>
             <h3>المحترمين</h3>
-    
-    
+
+
         </div>
     </div>
-    
-   
+
+
     <h4 class="hi">تحية طيبة وبعد ،،،
     </h4>
     <p class="topic-main">
@@ -444,7 +444,7 @@
 
         </div>
         <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-        
+
     </div>
     <div class="ref-date-page">
         <h3>Ref : 22-09-85</h3>
@@ -452,18 +452,18 @@
             <h3>Date : 23/6/2023</h3>
             <h3 class="page">Page 2 of 7.</h3>
         </div>
-      
+
     </div>
     <div class="topic-project-name">
          <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
-  
+
     <p class="header-project-name">
         <span class="project-name">إسم المشروع : مبنى مجمع تجاري قائم - القصيم</span>
     </p>
     </div>
-    
-    
-    
+
+
+
 
 <div>
     <h3 class="first-summary">أ.ملخص جدول الكميات والأسعار للأعمال محل هذا العرض :-</h3>
@@ -481,19 +481,19 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    
+
                 </tr>
                 <tr>
                     <td></td>
                     <td></td>
                     <td></td>
-                    
+
                 </tr>
                 <tr>
                     <td>381,216.88</td>
                     <td>DISTRIBUTION BOARDS</td>
                     <td>1</td>
-                    
+
                 </tr>
                 <tr>
                     <td></td>
@@ -503,13 +503,13 @@
                 <tr>
                     <td>4,732,164.36</td>
                     <td>MAIN FEEDER CABLES</td>
-                    <td>2</td> 
+                    <td>2</td>
                 </tr>
                 <tr>
                     <td>5,113,381.24</td>
                     <td>TOTAL OF ELECTRICAL WORKS (SAR)</td>
-                </tr>    
-                        
+                </tr>
+
             </tbody>
         </table>
 </div>
@@ -539,7 +539,7 @@
 
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    
+
 </div>
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
@@ -547,7 +547,7 @@
         <h3>Date : 23/6/2023</h3>
         <h3 class="page">Page 3 of 7.</h3>
     </div>
-  
+
 </div>
 <div class="topic-project-name">
      <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
@@ -579,7 +579,7 @@
                         current devices, indicator lamps and all necessary accessories and ancillary works required in
                         according to specifications and as sample shown on site and supervision engineer instruction</td>
                     <td>1</td>
-                    
+
                 </tr>
                 <tr>
                     <td>139,303.75</td>
@@ -615,7 +615,7 @@
                     <td>1</td>
                     <td>MDB Main CB1600A Branch CB(1000A+800A+
                         250A+160A)  </td>
-                    <td>1-4</td> 
+                    <td>1-4</td>
                 </tr>
                 <tr>
                     <td>45,809.54</td>
@@ -633,14 +633,14 @@
                     <td>7</td>
                     <td>MDB Main CB1600A Branch CB(1000A+ 630A +
                         400A+250A) </td>
-                    <td>1-6</td>  
+                    <td>1-6</td>
                 </tr>
                 <tr>
-                    
+
                     <td>381,216.88</td>
-                    
+
                     <td>Total OF SECONDARY DISTRIBUTION BOARDS (SDB'S) - SAR</td>
-                </tr>             
+                </tr>
             </tbody>
 
         </table>
@@ -672,7 +672,7 @@
 
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    
+
 </div>
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
@@ -680,7 +680,7 @@
         <h3>Date : 23/6/2023</h3>
         <h3 class="page">Page 3 of 7.</h3>
     </div>
-  
+
 </div>
 <div class="topic-project-name">
      <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
@@ -711,9 +711,9 @@
                         distribution panel boards extended on cable tray or pvc conduit, including termination both two
                         sides, glands, and all necessary accessories and ancillary works required for complete operative
                         system according to specifications and as supervision instruction .</td>
-                        
+
                     <td>1</td>
-                    
+
                 </tr>
                 <tr>
                     <td></td>
@@ -747,7 +747,7 @@
                     <td>3100</td>
                     <td>(3x50)mm² XLPE/PVC +1x25mm² XLPE/PVC </td>
                     <td>1-3</td>
-                </tr>     
+                </tr>
                 <tr>
                     <td>23,990.40</td>
                     <td>171.36</td>
@@ -756,7 +756,7 @@
                     <td>(3x35)mm² XLPE/PVC +1x16mm² XLPE/PVC  </td>
                     <td>1-4</td>
 
-                </tr> 
+                </tr>
                 <tr>
                     <td>4,732,164.36</td>
                     <td>32,747.40
@@ -770,10 +770,10 @@
                 <tr>
                     <td>9,072.00
                     </td>
-                    <td>113.40</td>  
+                    <td>113.40</td>
                     <td>m</td>
 
-                    <td>80</td> 
+                    <td>80</td>
                     <td>(3x16)mm² XLPE/PVC+1x10mm² XLPE/PVC </td>
                     <td>1-6</td>
                 </tr>
@@ -784,17 +784,17 @@
                     <td>112</td>
                     <td>(3x10)mm² XLPE/PVC+1x6mm² XLPE/PVC </td>
                     <td>1-7</td>
-                </tr>  
+                </tr>
                 <tr>
                     <td>4,732,164.36
                     </td>
-                    <td>Total OF Main lectrical Feeder Cable - SAR</td>  
+                    <td>Total OF Main lectrical Feeder Cable - SAR</td>
                 </tr>
             </tbody>
-        </table>            
-                    
+        </table>
 
-                   
+
+
 
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
@@ -823,7 +823,7 @@
 
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    
+
 </div>
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
@@ -831,7 +831,7 @@
         <h3>Date : 23/6/2023</h3>
         <h3 class="page">Page 3 of 7.</h3>
     </div>
-  
+
 </div>
 <div class="topic-project-name">
      <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
@@ -846,7 +846,7 @@
     <div class="images-container">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-    </div>  
+    </div>
     <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
     <div class="page-footer">
         <div>
@@ -872,7 +872,7 @@
 
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    
+
 </div>
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
@@ -880,7 +880,7 @@
         <h3>Date : 23/6/2023</h3>
         <h3 class="page">Page 3 of 7.</h3>
     </div>
-  
+
 </div>
 <div class="topic-project-name">
      <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
@@ -895,7 +895,7 @@
     <div class="images-container">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-    </div>  
+    </div>
     <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
     <div class="page-footer">
         <div>
@@ -921,7 +921,7 @@
 
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    
+
 </div>
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
@@ -929,7 +929,7 @@
         <h3>Date : 23/6/2023</h3>
         <h3 class="page">Page 3 of 7.</h3>
     </div>
-  
+
 </div>
 <div class="topic-project-name">
      <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
@@ -944,7 +944,7 @@
     <div class="images-container">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
         <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-    </div>  
+    </div>
     <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
     <div class="page-footer">
         <div>
@@ -964,5 +964,4 @@
 </div>
 </div>
 @endsection
-  
-  
+

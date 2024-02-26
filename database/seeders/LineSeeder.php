@@ -14,6 +14,6 @@ class LineSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Line::factory()->count(10)->create();
     }
 }
