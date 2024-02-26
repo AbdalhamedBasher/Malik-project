@@ -12,6 +12,7 @@ use App\Http\Controllers\SizeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\QoutationController;
 use App\Http\Controllers\UnitsController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -114,6 +115,12 @@ Route::get('customer/data/{id}', [customerController::class,"data_customer"])->n
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//reports routes
+Route::get('/reports',[ReportController::class,'index'])->name('reports');
+
+Route::get('/reports/price_offer',[ReportController::class," priceOffer"])->name('reports.price_offer');
+
 
 
 
