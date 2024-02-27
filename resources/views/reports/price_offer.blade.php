@@ -373,13 +373,13 @@
          <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
 
     <p class="header-project-name">
-        <span class="project-name">إسم المشروع </span>: مبنى مجمع تجاري قائم - القصيم
+        <span class="project-name">إسم المشروع </span>:{{$qoute->project_name}}
     </p>
     </div>
     <div class="mister-eng">
         <div style="color: blue;">
             <h3>السادة / مؤسسة تقانة للمقاولات</h3>
-            <h3>عناية المهندس / قتيبة</h3>
+            <h3> {{$qoute->customers_data->name}} </h3>
 
 
         </div>
@@ -398,18 +398,20 @@
           إشارة إلى الموضوع أعلاه ، نشكركم لدعوتكم لنا ويسرنا  ويشرفنا أن  نتقدم لكم بعرض سعرنا الخاص بعملية  <span style="color: blue;font-weight:bold;">توريد وتركيب وتشغيل كابلات كهرباء + لوحات SDP، وعليه  يكون إجمالي المبلغ (5,113,381.24 ريال سعودي )،  خمسة مليون وثلاثة  عشرة ألف وثلاثمائة وواحد وثمانون ريال سعودي فقط وأربعة عشرون هللة لا غير ،</span> وذلل  حسب وذلك حسب جداول الكميات والبنود والكميات والأسعار المرفقة  مع هذا العرض .(، وذلك وفقاً للمواصفات والكميات والأسعار المرفقة مع هذا العرض.
     </p>
     <h3 class="terms">الشروط والأحكام العامة :</h3>
-    <ul class="terms-general-rules">
-        <li>العرض ساري لمدة 10 يوم من تاريخه.</li>
-        <li>عرضنا لايشمل أي أعمال حفر أو ردم أو تكسير أو تخريم أو أي أعمال مدنية أخرى</li>
-        <li>الأسعار تشمل التوريد والتركيب والتشغيل.</li>
-        <li>الأسعار تشمل الضمان لمدة سنتين.</li>
-        <li>سعر وحدة البن تم تسعيره على أساس الكميات المذكورة بجداول الكميات المرفقة .</li>
-        <li>مدة تنفيذ الأعمال محل هذا العرض (سوف يتم الإتفاق عليها لاحقا - بالعقد) الإضافية والتعديلات اللازمة.</li>
-        <li>الدفعات المالية للأعمال محل هذا العرض (سوف يتم الإتفاق عليها لاحقا - بالعقد) الإضافية والتعديلات اللازمة.</li>
-        <li>خطة الأعمال والبرنامج الزمني والمخططات التنفيذية  العرض (سوف يتم الإتفاق عليها عند التعميد) تشمل الأعمال الإضافية والتعديلات اللازمة.</li>
-        <li>خطة الأعمال والبرنامج الزمني والمخططات التنفيذية العرض (سوف يتم الإتفاق عليها لاحقا - عند التعميد)</li>
-        <li>مرفق جدول الكميات  والمواصفات والأسعار للبنود محل هذا العرض (الصفحات التالية)</li>
-    </ul>
+
+    @foreach ($qoute->qoute_batch as $batch)
+
+        @foreach ($lines as $line)
+
+        @if ($line->id==$batch->line)
+            <li>
+                {{ $line->terms }}
+            </li>
+
+        @endif
+
+@endforeach
+@endforeach
     <p class="hope-satisfied">أملين أن يحوز عرضنا على رضاكم  ،،،</p>
     </p>
     <div class="topic-footer">
@@ -477,38 +479,30 @@
                 </tr>
             </thead>
             <tbody>
+<?php $i=1; ?>
+                @foreach ($qoute->qoute_batch as $batch)
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
 
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>&emsp;</td>
 
+                    <td>&emsp;</td>
+                    <td>&emsp;</td>
                 </tr>
                 <tr>
-                    <td>381,216.88</td>
-                    <td>DISTRIBUTION BOARDS</td>
-                    <td>1</td>
+                    <td>{{$i++}}</td>
 
+
+                    <td>{{$batch->lines->name}}</td>
+                    <td>{{$batch->qoute_lines->sum('product_factor')}}</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+
+                    <td>&emsp;</td>
+
+                    <td>&emsp;</td>
+                    <td>&emsp;</td>
                 </tr>
-                <tr>
-                    <td>4,732,164.36</td>
-                    <td>MAIN FEEDER CABLES</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>5,113,381.24</td>
-                    <td>TOTAL OF ELECTRICAL WORKS (SAR)</td>
-                </tr>
+                @endforeach
 
             </tbody>
         </table>
@@ -553,10 +547,13 @@
      <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
 
 <p class="header-project-name">
-    <span class="project-name">إسم المشروع : مبنى مجمع تجاري قائم - القصيم</span>
+    <span class="project-name">إسم المشروع :      {{$qoute->project_name}}</span>
 </p>
 </div>
 <div>
+    @foreach ($qoute->qoute_batch as $batch) )
+
+
     <h3 class="second-summary">ج. جدول الكميات والومواصفات والأسعار للوحات الكهرباء SDP-:
     </h3>
     <h2>SECONDARY DISTRIBUTION BOARDS (SDB'S)</h2>
@@ -573,68 +570,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Supply, install, connect and test the following panel boards (Type Tested) complete with Metering
-                        Devices in large panel boards, circuit breakers, bus bars cabinets, conductors relays, residual
-                        current devices, indicator lamps and all necessary accessories and ancillary works required in
-                        according to specifications and as sample shown on site and supervision engineer instruction</td>
-                    <td>1</td>
+
+
+                <tr aria-rowspan="2" aria-colspan="6">
+                    <td aria-rowspan="2" aria-colspan="6">{{$batch->qoutes->description}}</td>
+
 
                 </tr>
+                @php
+                $i=1;
+                @endphp
+@foreach ($batch->qoute_lines as $qoute_line )
+
+
                 <tr>
-                    <td>139,303.75</td>
-                    <td>34,825.94</td>
-                    <td>No.</td>
-                    <td>4</td>
-                    <td>MDB 1600A approval for SCECO</td>
-                    <td>1-1</td>
+                    <td> {{ $qoute_line->product_factor* $qoute_line->qty}}</td>
+                    <td> {{$qoute_line->product_factor}}</td>
+                    <td> {{$qoute_line->unit ? $qoute_line->units->name:""}}</td>
+                    <td> {{$qoute_line->qty}}</td>
+                    <td> {{$qoute_line->items?$qoute_line->items->name:""}}</td>
+                    <td> {{$i++}}</td>
                 </tr>
-                <tr>
-                    <td>43,097.54</td>
-                    <td>43,097.54</td>
-                    <td>No.</td>
-                    <td>1</td>
-                    <td>MDB Main CB1600A Branch CB (1250A+630A+2X160A) </td>
-                    <td>1-2</td>
-                </tr>
-                <tr>
-                    <td>43,097.54</td>
-                    <td>43,097.54</td>
-                    <td>No.</td>
-                    <td>1</td>
-                    <td>MDB Main CB1600A Branch CB(1000A+630A+
-                        250A+160A)</td>
-                    <td>1-3</td>
-                </tr>
-                <tr>
-                    <td>45,809.54
-                    </td>
-                    <td>45,809.54
-                    </td>
-                    <td>No.</td>
-                    <td>1</td>
-                    <td>MDB Main CB1600A Branch CB(1000A+800A+
-                        250A+160A)  </td>
-                    <td>1-4</td>
-                </tr>
-                <tr>
-                    <td>45,809.54</td>
-                    <td>45,809.54</td>
-                    <td>No.</td>
-                    <td>1</td>
-                    <td>MDB Main CB1600A Branch CB(1000A+ 630A +
-                        400A+160A) </td>
-                    <td>1-5</td>
-                </tr>
-                <tr>
-                    <td>64,098.97</td>
-                    <td>9,157.00</td>
-                    <td>No.</td>
-                    <td>7</td>
-                    <td>MDB Main CB1600A Branch CB(1000A+ 630A +
-                        400A+250A) </td>
-                    <td>1-6</td>
-                </tr>
+
+                @endforeach
                 <tr>
 
                     <td>381,216.88</td>
@@ -644,6 +602,7 @@
             </tbody>
 
         </table>
+
     </div>
     <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
 <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
@@ -682,122 +641,20 @@
     </div>
 
 </div>
-<div class="topic-project-name">
-     <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
+@endforeach
+@foreach ($qoute->qoute_batch as $batch)
 
-<p class="header-project-name">
-    <span class="project-name">إسم المشروع : مبنى مجمع تجاري قائم - القصيم</span>
-</p>
-</div>
+
 <div>
-    <h3 class="third-summary">ب. جدول الكميات والمواصفات واألسعار ألعمال الكابالت محل هذا العرض -:-:
+    <h3 class="fourth-summary"> {{ ($batch->lines->main_lines->name)}}</h3>
     </h3>
-    <h2>MAIN ELECTRICAL FEEDER CABLES</h2>
-    <div class="table-responsive">
-        <table class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>الإجمالي <span>Total</span></th>
-                    <th>سعر الوحدة<span>U/Price</span></th>
-                    <th>الكمية <span>QTY</span></th>
-                    <th>الوحدة<span>Unit</span></th>
-                    <th> وصــــف البند<span>Item Description</span></th>
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Supply, install, connect copper cables from main distribution panelboard to sub distribution &
-                        distribution panel boards extended on cable tray or pvc conduit, including termination both two
-                        sides, glands, and all necessary accessories and ancillary works required for complete operative
-                        system according to specifications and as supervision instruction .</td>
+    <div class="images-container">
+    @foreach($batch->attachment as $attach  )
 
-                    <td>1</td>
-
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Cable Brand : BAHRA Cable , KSA
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>508,334.40</td>
-                    <td>619.92</td>
-                    <td>m</td>
-                    <td>820</td>
-                    <td>(1x630)mm² XLPE/PVC </td>
-                    <td>1-1</td>
-                </tr>
-                <tr>
-                    <td>3,507,840.00</td>
-                    <td>584.64</td>
-                    <td>m</td>
-                    <td>6000</td>
-                    <td>(3x185)mm² XLPE/PVC +1x95mm² XLPE/PVC</td>
-                    <td>1-2</td>
-                </tr>
-                <tr>
-                    <td>640,584.00</td>
-                    <td>206.64</td>
-                    <td>m</td>
-                    <td>3100</td>
-                    <td>(3x50)mm² XLPE/PVC +1x25mm² XLPE/PVC </td>
-                    <td>1-3</td>
-                </tr>
-                <tr>
-                    <td>23,990.40</td>
-                    <td>171.36</td>
-                    <td>m</td>
-                    <td>140</td>
-                    <td>(3x35)mm² XLPE/PVC +1x16mm² XLPE/PVC  </td>
-                    <td>1-4</td>
-
-                </tr>
-                <tr>
-                    <td>4,732,164.36</td>
-                    <td>32,747.40
-                    </td>
-                    <td>142.38</td>
-                    <td>m</td>
-                    <td>230</td>
-                    <td> (3x25)mm² XLPE/PVC+1x16mm² XLPE/PVC </td>
-                    <td>1-5</td>
-                </tr>
-                <tr>
-                    <td>9,072.00
-                    </td>
-                    <td>113.40</td>
-                    <td>m</td>
-
-                    <td>80</td>
-                    <td>(3x16)mm² XLPE/PVC+1x10mm² XLPE/PVC </td>
-                    <td>1-6</td>
-                </tr>
-                <tr>
-                    <td>9,596.16</td>
-                    <td>85.68</td>
-                    <td>m</td>
-                    <td>112</td>
-                    <td>(3x10)mm² XLPE/PVC+1x6mm² XLPE/PVC </td>
-                    <td>1-7</td>
-                </tr>
-                <tr>
-                    <td>4,732,164.36
-                    </td>
-                    <td>Total OF Main lectrical Feeder Cable - SAR</td>
-                </tr>
-            </tbody>
-        </table>
-
-
-
-
+        <img src="{{ Storage::url($attach->path)}}" style="width:20%;height:20%;">
+    @endforeach
     </div>
-    <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
+    @endforeach
     <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
     <div class="page-footer">
         <div>
@@ -833,135 +690,13 @@
     </div>
 
 </div>
-<div class="topic-project-name">
-     <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
 
-<p class="header-project-name">
-    <span class="project-name">إسم المشروع : مبنى مجمع تجاري قائم - القصيم</span>
-</p>
-</div>
-<div>
-    <h3 class="fourth-summary">د. سابقة أعمالنا لأعمال الكهرباء - -
-    </h3>
-    <div class="images-container">
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-    </div>
-    <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
-    <div class="page-footer">
-        <div>
-            <h3>الرياض ، حي اليرموك - طريق الدمام</h3>
-            <h3>ص . ب 18199 الرياض 11415</h3>
-            <h3>سجل تجاري : 1010515706</h3>
-        </div>
-        <div>
-            <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-        </div>
-        <div>
-            <h3>KSA - Riyadh City , Dammam Road</h3>
-            <h3>PO Box 18199 Riyadh 11415</h3>
-            <h3>CR .1010515706</h3>
-        </div>
-    </div>
-</div>
-<div class="foundation-intro">
-    <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    <div>
-        <h3>مؤسسة إدارة المساحات للمقاولات</h3>
-        <h3>Spaces Management Est. For Contracting</h3>
 
-    </div>
-    <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
 
-</div>
-<div class="ref-date-page">
-    <h3 class="ref">Ref : 22-09-85</h3>
-    <div class="date-page">
-        <h3>Date : 23/6/2023</h3>
-        <h3 class="page">Page 3 of 7.</h3>
-    </div>
 
-</div>
-<div class="topic-project-name">
-     <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
 
-<p class="header-project-name">
-    <span class="project-name">إسم المشروع : مبنى مجمع تجاري قائم - القصيم</span>
-</p>
-</div>
-<div>
-    <h3 class="fourth-summary">د. سابقة أعمالنا لأعمال الكهرباء - -
-    </h3>
-    <div class="images-container">
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-    </div>
-    <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
-    <div class="page-footer">
-        <div>
-            <h3>الرياض ، حي اليرموك - طريق الدمام</h3>
-            <h3>ص . ب 18199 الرياض 11415</h3>
-            <h3>سجل تجاري : 1010515706</h3>
-        </div>
-        <div>
-            <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-        </div>
-        <div>
-            <h3>KSA - Riyadh City , Dammam Road</h3>
-            <h3>PO Box 18199 Riyadh 11415</h3>
-            <h3>CR .1010515706</h3>
-        </div>
-    </div>
-</div>
-<div class="foundation-intro">
-    <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-    <div>
-        <h3>مؤسسة إدارة المساحات للمقاولات</h3>
-        <h3>Spaces Management Est. For Contracting</h3>
 
-    </div>
-    <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
 
-</div>
-<div class="ref-date-page">
-    <h3 class="ref">Ref : 22-09-85</h3>
-    <div class="date-page">
-        <h3>Date : 23/6/2023</h3>
-        <h3 class="page">Page 3 of 7.</h3>
-    </div>
-
-</div>
-<div class="topic-project-name">
-     <p class="header-topic"> <span class="topic">الموضوع : </span>عرض سعر عملية توريد وتركيب وتشغيل كابالت كهربائية + S</p>
-
-<p class="header-project-name">
-    <span class="project-name">إسم المشروع : مبنى مجمع تجاري قائم - القصيم</span>
-</p>
-</div>
-<div>
-    <h3 class="fourth-summary">د. سابقة أعمالنا لأعمال الكهرباء - -
-    </h3>
-    <div class="images-container">
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
-    </div>
-    <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
-    <div class="page-footer">
-        <div>
-            <h3>الرياض ، حي اليرموك - طريق الدمام</h3>
-            <h3>ص . ب 18199 الرياض 11415</h3>
-            <h3>سجل تجاري : 1010515706</h3>
-        </div>
-        <div>
-            <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
-        </div>
-        <div>
-            <h3>KSA - Riyadh City , Dammam Road</h3>
-            <h3>PO Box 18199 Riyadh 11415</h3>
-            <h3>CR .1010515706</h3>
-        </div>
-    </div>
-</div>
 </div>
 @endsection
 

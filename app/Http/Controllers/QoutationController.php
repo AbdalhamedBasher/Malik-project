@@ -272,8 +272,8 @@ $sumation= $this->summary($qoute->id);
     }
     public function qoutation_pdf($qoutation){
     $qoute=qoutation::find($qoutation);
-
-    return view('reports.price_offer')->with(['qoute' => $qoute]);
+$lines = \App\Models\line::get();
+    return view('reports.price_offer')->with(['qoute' => $qoute, 'lines' => $lines]);
     }
 
 }

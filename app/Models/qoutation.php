@@ -5,7 +5,7 @@ use App\Models\Customer;
 use App\Models\qoutation_batch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\line;
 class qoutation extends Model
 {
     use HasFactory;

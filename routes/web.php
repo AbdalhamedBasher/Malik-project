@@ -16,6 +16,7 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AboutCompanyController;
 use App\Http\Controllers\LogoController;
+use App\Http\Controllers\AttachmentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -132,3 +133,9 @@ Route::get('/about_company',[AboutCompanyController::class,'index'])->name('abou
 Route::post('/about_company/store',[AboutCompanyController::class,'store'])->name('about_company.store');
 Route::post('/upload-logo', [LogoController::class, 'upload'])->name('logo.upload');
 Route::get('/logo', [LogoController::class, 'index'])->name('logo');
+
+
+// attachment route
+Route::get('attach', [AttachmentController::class,"index"]);
+// attachment store
+Route::post('attach', [AttachmentController::class,"store"])->name('attach');
