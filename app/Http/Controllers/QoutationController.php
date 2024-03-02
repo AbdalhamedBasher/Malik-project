@@ -196,13 +196,18 @@ class QoutationController extends Controller
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
+        $qoute_batch = config('app.my_constant.key1');;
+        foreach ($qoute->qoute_batch as $value) {
+            $qoute_batch[$value->line] = $value;
+        }
+
+
         $qoute_line_total = [];
 // sumation of all qoute lines in qoutation batch
 $sumation= $this->summary($qoute->id);
 
 
-
-        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units , 'sumation' => $sumation]);
+        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units , 'sumation' => $sumation , 'qoute_batch' => $qoute_batch]);
     }
 
     /**

@@ -154,242 +154,500 @@
                     </div>
                 </div>
                 <input type="hidden" name="statues" class="statues">
-                @foreach ($line as $item)
+
+                 @foreach ($line as $item)
                     <div class="card mt-1 card-detail border-0">
                         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
                             {{ $item->name }}
                         </div>
 
                         @foreach ($item->child_lines as $children)
-                            <div class="card-body border-2">
 
-                                <div class="table-responsive">
-                                    <div class="">
+                                @if (isset($qoute_batch[$children->id]))
+                                    <div class="card-body border-2">
 
-                                        <input type="checkbox" class="lines" name="lines[]" value="{{ $children->id }}"
-                                            id="">
-                                        <label class="" for="">
-                                            {{ $children->name }}
+                                        <div class="table-responsive">
+                                            <div class="">
 
-                                        </label>
+                                                <input type="checkbox" class="lines" name="lines[]"
+                                                    value="{{$qoute_batch[$children->id]->line }}" id=""
+                                                    {{$qoute_batch[$children->id]->line==$children->id ? 'checked' : '' }}>
+                                                <label class="" for="">
+                                                    {{ $children->name }}
+
+                                                </label>
+                                            </div>
+
+                                            <table class="overflow-x-scroll" style="text-align: center">
+                                                <thead class=" overflow-x-scroll bg-blue-50">
+                                                    <tr class=" border border-1 overflow-x-scroll">
+                                                        <th class=" border border-1 ">
+                                                            #
+                                                        </th>
+
+
+                                                        <th style="text-align: center">
+                                                            اسم المادة/Product Name
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            الوحدات/Unit
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            سعر الوحدة/Product*factor
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            الكمية/Qty
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            المجموع/Sale Price</th>
+                                                        <th style="text-align: center">
+                                                            المواد المساعدة/Material Price
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            د-المواد/Decoration Product
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            -غير ذلك المواد/Other Material
+                                                        </th>
+                                                        <th style="text-align: center">
+                                                            المجموع المواد/Material Total</th>
+                                                        <th style="text-align: center">
+                                                            المجموع المواد/الكلي /Material Per Qty</th>
+
+                                                        <th style="text-align: center">
+                                                            الايادي العاملة/Labour</th>
+
+                                                        <th style="text-align: center">
+                                                            غير ذلك- الايادي /Other Labour</th>
+                                                        <th style="text-align: center">
+                                                            المجموع العمالة Labour Total</th>
+                                                        <th style="text-align: center">
+                                                            الايادي العاملة/الكلي/Total Labour Per Qty</th>
+                                                        <th style="text-align: center">
+                                                            مجموع التكلفة الكلية/All Total </th>
+                                                        <th> &nbsp;</th>
+
+
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody class="line_data" id="{{$qoute_batch[$children->id]->line }}">
+@foreach ( $qoute_batch[$children->id]->qoute_lines as $value )
+
+
+                                                    <tr id="{{$value }}">
+                                                        <td class="counter">
+
+                                                            {{$value }}
+                                                        </td>
+
+                                                        <td style="text-align: center">
+
+                                                            @if ($values->item_lines)
+                                                                <select class="form-control products  w-full"
+                                                                    id="{{$value }}"
+                                                                    name="item[{{$value }}][]">
+                                                                    <option selected value=""> </option>
+
+                                                                    @foreach ($children->item_lines as $product)
+                                                                        <option value="{{ $product->id }}"
+                                                                            data-price="{{ $product->price }}" >
+                                                                            {{ $product->name  }}
+                                                                            <span
+                                                                                id="{{ $product->id }}">{{ $product->price }}</span>
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            @endif
+                                                            <input type="hidden" name="" class="product-price"
+                                                                readonly id="{{$value }}">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <select class="form-control select2" id="{{$value }}"
+                                                                name="unit[{{$value }}][]">
+                                                                <option selected value=""> </option>
+                                                                @foreach ($units as $unit)
+                                                                    <option value="{{ $unit->id }}">
+                                                                        {{ $unit->name }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="factor_price[{{$value }}][]"
+                                                                class="border border-1 factor_price" readonly
+                                                                id="{{$value }}">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" name="qty[{{$value }}][]"
+                                                                class="border border-1 qty" id="{{$value }}"
+                                                                value="0">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="product_factor[{{$value }}][]" readonly
+                                                                id="{{$value }}" value="0"
+                                                                class="border border-1 simetot">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" name="material[{{$value }}][]"
+                                                                id="{{$value }}" value="0"
+                                                                class="border border-1 material">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="material_acc[{{$value }}][]" value="0"
+                                                                id="{{$value }}"
+                                                                class="border border-1 material_acc">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="material_other[{{$value }}][]"
+                                                                value="0" id="{{$value }}"
+                                                                class="border border-1 material_other">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="tot_material[{{$value }}][]"
+                                                                id="{{$value }}" value="0" readonly
+                                                                class="border border-1 tot_material">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="total_material[{{$value }}][]"
+                                                                id="{{$value }}" readonly
+                                                                class=" border border-1 all_material px-4" value="0">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" name="labour[{{$value }}][]"
+                                                                id="{{$value }}" value="0"
+                                                                class="border border-1 labour">
+                                                        </td>
+
+
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="labour_other[{{$value }}][]"
+                                                                id="{{$value }}" value="0"
+                                                                class=" border border-1 labour_other">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+
+                                                            <input type="text"
+                                                                name="worker_tot[{{$value }}][]" id=""
+                                                                class=" border border-1 tot_labour" value="0"
+                                                                readonly>
+                                                        </td>
+                                                        <td style="text-align: center">
+
+
+                                                            <input type="text"
+                                                                name="total_labour[{{$value }}][]"
+                                                                id="{{$value }}" value="0"
+                                                                class=" border border-1 all_labour px-4" readonly>
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" id="{{$value }}"
+                                                                value="0" class=" border border-1 all_tot" readonly>
+
+                                                        </td>
+
+                                                    </tr>
+                                                    @endforeach
+
+
+                                                </tbody>
+                                            </table>
+                                            <input type="submit" value="إضافة Add"
+                                                class=" btn btn-primary btn-line col-sm-2" id="{{$value }}">
+                                        </div>
+                                        <div class="form-group col-md-2 justify-center">
+                                            <label for="inputZip"> &emsp14; </label>
+
+                                        </div>
+                                        <div class="form-group col-md-2 justify-center">
+                                            <label for="inputZip"> &emsp14; </label>
+                                            <input type="text" name="total[]" id="{{$value }}"
+                                                class="total border border-1" readonly>
+                                        </div>
+                                        <div class="form-group col-md-2 justify-center">
+                                            <label for="inputZip"> &emsp14; </label>
+                                            <input type="text" name="total[]" id="{{$value }}"
+                                                class="total_material border border-1" readonly>
+                                        </div>
+                                        <div class="form-group col-md-2 justify-center">
+                                            <label for="inputZip"> &emsp14; </label>
+                                            <input type="text" name="total[]" id="{{$value }}"
+                                                class="total_labour border border-1" readonly>
+                                        </div>
+                                        <div class="form-group col-md-2 justify-center">
+                                            <label for="inputZip">total_profit {{$value }}</label>
+                                            <input type="text" name="total[]" id="{{$value }}"
+                                                class="total_profit border border-1" readonly value="0">
+                                        </div>
+                                        <div class="form-group col-md-2 justify-center">
+                                            <label for="inputZip"> &emsp14; </label>
+
+                                        </div>
                                     </div>
+                                @else
+                                <div class="card-body border-2">
 
-                                    <table class="overflow-x-scroll" style="text-align: center">
-                                        <thead class=" overflow-x-scroll bg-blue-50">
-                                            <tr class=" border border-1 overflow-x-scroll">
-                                                <th class=" border border-1 ">
-                                                    #
-                                                </th>
+                                    <div class="table-responsive">
+                                        <div class="">
 
+                                            <input type="checkbox" class="lines" name="lines[]"
+                                                value="{{ $children->line }}" id=""
+                                              >
+                                            <label class="" for="">
+                                                {{ $children->name }}
 
-                                                <th style="text-align: center">
-                                                    اسم المادة/Product Name
-                                                </th>
-                                                <th style="text-align: center">
-                                                    الوحدات/Unit
-                                                </th>
-                                                <th style="text-align: center">
-                                                    سعر الوحدة/Product*factor
-                                                </th>
-                                                <th style="text-align: center">
-                                                    الكمية/Qty
-                                                </th>
-                                                <th style="text-align: center">
-                                                    المجموع/Sale Price</th>
-                                                <th style="text-align: center">
-                                                    المواد المساعدة/Material Price
-                                                </th>
-                                                <th style="text-align: center">
-                                                    د-المواد/Decoration Product
-                                                </th>
-                                                <th style="text-align: center">
-                                                    -غير ذلك المواد/Other Material
-                                                </th>
-                                                <th style="text-align: center">
-                                                    المجموع المواد/Material Total</th>
-                                                <th style="text-align: center">
-                                                    المجموع المواد/الكلي /Material Per Qty</th>
+                                            </label>
+                                        </div>
 
-                                                <th style="text-align: center">
-                                                    الايادي العاملة/Labour</th>
-
-                                                <th style="text-align: center">
-                                                    غير ذلك- الايادي /Other Labour</th>
-                                                <th style="text-align: center">
-                                                    المجموع العمالة Labour Total</th>
-                                                <th style="text-align: center">
-                                                    الايادي العاملة/الكلي/Total Labour Per Qty</th>
-                                                <th style="text-align: center">
-                                                    مجموع التكلفة الكلية/All Total </th>
-                                                <th> &nbsp;</th>
+                                        <table class="overflow-x-scroll" style="text-align: center">
+                                            <thead class=" overflow-x-scroll bg-blue-50">
+                                                <tr class=" border border-1 overflow-x-scroll">
+                                                    <th class=" border border-1 ">
+                                                        #
+                                                    </th>
 
 
-                                            </tr>
-                                        </thead>
+                                                    <th style="text-align: center">
+                                                        اسم المادة/Product Name
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        الوحدات/Unit
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        سعر الوحدة/Product*factor
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        الكمية/Qty
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        المجموع/Sale Price</th>
+                                                    <th style="text-align: center">
+                                                        المواد المساعدة/Material Price
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        د-المواد/Decoration Product
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        -غير ذلك المواد/Other Material
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        المجموع المواد/Material Total</th>
+                                                    <th style="text-align: center">
+                                                        المجموع المواد/الكلي /Material Per Qty</th>
 
-                                        <tbody class="line_data" id="{{ $children->id }}">
+                                                    <th style="text-align: center">
+                                                        الايادي العاملة/Labour</th>
 
-                                            <tr>
-                                                <td class="counter">
-                                                    {{ $children->id }}
-                                                </td>
+                                                    <th style="text-align: center">
+                                                        غير ذلك- الايادي /Other Labour</th>
+                                                    <th style="text-align: center">
+                                                        المجموع العمالة Labour Total</th>
+                                                    <th style="text-align: center">
+                                                        الايادي العاملة/الكلي/Total Labour Per Qty</th>
+                                                    <th style="text-align: center">
+                                                        مجموع التكلفة الكلية/All Total </th>
+                                                    <th> &nbsp;</th>
 
-                                                <td style="text-align: center">
 
-                                                    @if ($children->item_lines)
-                                                        <select class="form-control products  w-full"
-                                                            id="{{ $children->id }}" name="item[{{ $children->id }}][]">
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="line_data" id="{{ $children->line }}">
+
+                                                <tr id="{{ $children->line }}">
+                                                    <td class="counter">
+
+                                                        {{ $children->line }}
+                                                    </td>
+
+                                                    <td style="text-align: center">
+
+                                                        @if (isset($children->item_lines))
+                                                            <select class="form-control products  w-full"
+                                                                id="{{ $children->line }}"
+                                                                name="item[{{ $children->line }}][]">
+                                                                <option selected value=""> </option>
+
+                                                                @foreach ($children->item_lines as $product)
+                                                                    <option value="{{ $product->id }}"
+                                                                        data-price="{{ $product->price }}" >
+                                                                        {{ $product->name  }}
+                                                                        <span
+                                                                            id="{{ $product->id }}">{{ $product->price }}</span>
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        @endif
+                                                        <input type="hidden" name="" class="product-price"
+                                                            readonly id="{{ $children->line }}">
+                                                    </td>
+                                                    <td style="text-align: center">
+
+                                                        <select class="form-control select2" id="{{ $children->line }}"
+                                                            name="unit[{{ $children->line }}][]">
                                                             <option selected value=""> </option>
-
-                                                            @foreach ($children->item_lines as $product)
-                                                                <option value="{{ $product->id }}"
-                                                                    data-price="{{ $product->price }}">
-                                                                    {{ $product->name . ' ' . $product->type_data->name }}
-                                                                    <span
-                                                                        id="{{ $product->id }}">{{ $product->price }}</span>
+                                                            @foreach ($units as $unit)
+                                                                <option value="{{ $unit->id }}">
+                                                                    {{ $unit->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                    @endif
-                                                    <input type="hidden" name="" class="product-price" readonly
-                                                        id="{{ $children->id }}">
-                                                </td>
-                                                <td style="text-align: center">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <select class="form-control select2" id="{{ $children->id }}"
-                                                        name="unit[{{ $children->id }}][]">
-                                                        <option selected value=""> </option>
-                                                        @foreach ($units as $unit)
-                                                            <option value="{{ $unit->id }}">{{ $unit->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="factor_price[{{ $children->line }}][]"
+                                                            class="border border-1 factor_price" readonly
+                                                            id="{{ $children->line }}">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="factor_price[{{ $children->id }}][]"
-                                                        class="border border-1 factor_price" readonly
-                                                        id="{{ $children->id }}">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text" name="qty[{{ $children->line }}][]"
+                                                            class="border border-1 qty" id="{{ $children->line }}"
+                                                            value="0">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="qty[{{ $children->id }}][]"
-                                                        class="border border-1 qty" id="{{ $children->id }}"
-                                                        value="0">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="product_factor[{{ $children->line }}][]" readonly
+                                                            id="{{ $children->line }}" value="0"
+                                                            class="border border-1 simetot">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="product_factor[{{ $children->id }}][]"
-                                                        readonly id="{{ $children->id }}" value="0"
-                                                        class="border border-1 simetot">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text" name="material[{{ $children->line }}][]"
+                                                            id="{{ $children->line }}" value="0"
+                                                            class="border border-1 material">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="material[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class="border border-1 material">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="material_acc[{{ $children->line }}][]" value="0"
+                                                            id="{{ $children->line }}"
+                                                            class="border border-1 material_acc">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="material_acc[{{ $children->id }}][]"
-                                                        value="0" id="{{ $children->id }}"
-                                                        class="border border-1 material_acc">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="material_other[{{ $children->line }}][]"
+                                                            value="0" id="{{ $children->line }}"
+                                                            class="border border-1 material_other">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="material_other[{{ $children->id }}][]"
-                                                        value="0" id="{{ $children->id }}"
-                                                        class="border border-1 material_other">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="tot_material[{{ $children->line }}][]"
+                                                            id="{{ $children->line }}" value="0" readonly
+                                                            class="border border-1 tot_material">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="tot_material[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0" readonly
-                                                        class="border border-1 tot_material">
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="total_material[{{ $children->line }}][]"
+                                                            id="{{ $children->line }}" readonly
+                                                            class=" border border-1 all_material px-4" value="0">
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="total_material[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" readonly
-                                                        class=" border border-1 all_material px-4" value="0">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="labour[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class="border border-1 labour">
-                                                </td>
+                                                        <input type="text" name="labour[{{ $children->line }}][]"
+                                                            id="{{ $children->line }}" value="0"
+                                                            class="border border-1 labour">
+                                                    </td>
 
 
-                                                <td style="text-align: center">
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" name="labour_other[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class=" border border-1 labour_other">
-                                                </td>
-                                                <td style="text-align: center">
-
-
-                                                    <input type="text" name="worker_tot[{{ $children->id }}][]"
-                                                        id="" class=" border border-1 tot_labour" value="0"
-                                                        readonly>
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="labour_other[{{ $children->line }}][]"
+                                                            id="{{ $children->line }}" value="0"
+                                                            class=" border border-1 labour_other">
+                                                    </td>
+                                                    <td style="text-align: center">
 
 
-                                                    <input type="text" name="total_labour[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class=" border border-1 all_labour px-4" readonly>
-                                                </td>
-                                                <td style="text-align: center">
+                                                        <input type="text"
+                                                            name="worker_tot[{{ $children->line }}][]" id=""
+                                                            class=" border border-1 tot_labour" value="0"
+                                                            readonly>
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                                    <input type="text" id="{{ $children->id }}" value="0"
-                                                        class=" border border-1 all_tot" readonly>
 
-                                                </td>
+                                                        <input type="text"
+                                                            name="total_labour[{{ $children->line }}][]"
+                                                            id="{{ $children->line }}" value="0"
+                                                            class=" border border-1 all_labour px-4" readonly>
+                                                    </td>
+                                                    <td style="text-align: center">
 
-                                            </tr>
+                                                        <input type="text" id="{{ $children->line }}"
+                                                            value="0" class=" border border-1 all_tot" readonly>
+
+                                                    </td>
+
+                                                </tr>
 
 
 
-                                        </tbody>
-                                    </table>
-                                    <input type="submit" value="إضافة Add" class=" btn btn-primary btn-line col-sm-2"
-                                        id="{{ $children->id }}">
+                                            </tbody>
+                                        </table>
+                                        <input type="submit" value="إضافة Add"
+                                            class=" btn btn-primary btn-line col-sm-2" id="{{ $children->line }}">
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center">
+                                        <label for="inputZip"> &emsp14; </label>
+
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="text" name="total[]" id="{{ $children->line }}"
+                                            class="total border border-1" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="text" name="total[]" id="{{ $children->line }}"
+                                            class="total_material border border-1" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="text" name="total[]" id="{{ $children->line }}"
+                                            class="total_labour border border-1" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center">
+                                        <label for="inputZip">total_profit {{ $children->line }}</label>
+                                        <input type="text" name="total[]" id="{{ $children->line }}"
+                                            class="total_profit border border-1" readonly value="0">
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center">
+                                        <label for="inputZip"> &emsp14; </label>
+
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
+                                @endif
 
-                                </div>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total border border-1" readonly>
-                                </div>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_material border border-1" readonly>
-                                </div>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_labour border border-1" readonly>
-                                </div>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip">total_profit {{ $children->id }}</label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_profit border border-1" readonly value="0">
-                                </div>
-                                <div class="form-group col-md-2 justify-center">
-                                    <label for="inputZip"> &emsp14; </label>
 
-                                </div>
-                            </div>
                         @endforeach
                 @endforeach
-
-
         </div>
         <div class="card mt-1">
             <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
@@ -405,7 +663,7 @@
                                 <h2 class=" text-3xl">{{ $item->name }}</h2>
                                 <thead class=" overflow-x-scroll bg-blue-50">
                                     <tr class=" overflow-x-scroll">
-                                        <th width="10">
+                                        <th >
                                             #
                                         </th>
 
@@ -490,29 +748,31 @@
                     <td style="text-align: center">
 
                         <input type="text" name="" id="" readonly class="all_material_summary1"
-                            value="{{ $sumation["total_material"]}}">
+                            value="{{ $sumation['total_material'] }}">
                     </td>
 
                     <td style="text-align: center">
 
 
-                        <input type="text" name="" id="" value="{{ $sumation["total_labour"]}}" class="all_labour_summary1"
+                        <input type="text" name="" id="" value="{{ $sumation['total_labour'] }}"
+                            class="all_labour_summary1" readonly>
+                    </td>
+                    <td style="text-align: center">
+
+                        <input type="text" name="" id="" value="{{ $sumation['total'] }}"
+                            class="all_tot_summary1" readonly>
+
+                    </td>
+                    <td style="text-align: center">
+
+                        <input type="text" name="" value="{{ $qoute->factor }}" class="factor_summary1"
                             readonly>
+
                     </td>
                     <td style="text-align: center">
 
-                        <input type="text" name="" id="" value="{{$sumation["total"]}}" class="all_tot_summary1"
+                        <input type="text" value="{{ $sumation['product_factor'] }}" class="sale_factor_summary1"
                             readonly>
-@dd($sumation["total"])
-                    </td>
-                    <td style="text-align: center">
-
-                        <input type="text" name="" value="{{$qoute->factor}}" class="factor_summary1"   readonly>
-
-                    </td>
-                    <td style="text-align: center">
-
-                        <input type="text" value="{{ $sumation["product_factor"]}}" class="sale_factor_summary1" readonly>
 
                     </td>
                 </tr>
@@ -610,186 +870,7 @@
 
 
         {{-- modal for insert items --}}
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="card">
-                        <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                        </div>
-
-                        <div class="card-body">
-                            <form action="{{ route('item') }}" method="POST" class="form-inlineform-row"
-                                enctype="multipart/form-data">
-                                @csrf
-
-                                <div class="form-group">
-                                    <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                        <label for="name">اﻹسم*</label>
-                                        <input type="text" id="name" name="name" class="form-control"
-                                            value="{{ old('name', isset($user) ? $user->name : '') }}">
-                                        @if ($errors->has('name'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('name') }}
-                                            </em>
-                                        @endif
-                                        <p class="helper-block">
-                                            {{ trans('cruds.user.fields.name_helper') }}
-                                        </p>
-                                    </div>
-                                    <div class=" {{ $errors->has('id') ? 'has-error' : '' }}">
-                                        <label for="qoutation_date">المرجع*</label>
-                                        <input type="text" id="id" name="refrence" class="form-control"
-                                            value="{{ old('refrence') }}">
-                                        @if ($errors->has('refrence'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('refrence') }}
-                                            </em>
-                                        @endif
-
-                                    </div>
-
-                                    {{--  customer --}}
-                                    <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}"
-                                        style="border-radius: 50%;border:1px">
-                                        <span style="border-radius: 3rem">
-                                        </span>
-                                    </div>
-                                    <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}">
-                                        <label for="qoutation_date">العميل*</label>
-                                        <input type="text" id="customer" name="customer" class="form-control"
-                                            value="{{ old('customer') }}">
-                                        @if ($errors->has('customer'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('customer') }}
-                                            </em>
-                                        @endif
-
-                                    </div>
-
-
-                                    <div class=" {{ $errors->has('customer') ? 'has-error' : '' }}"
-                                        style="border-radius: 50%;border:1px">
-                                        <span style="border-radius: 3rem">
-                                        </span>
-                                    </div>
-                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery">التصنيف</label>
-
-
-                                        <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                            name="catogery">
-                                            <option selected value="">-- إختر --</option>
-                                            @foreach ($catogery as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-
-
-
-                                        @if ($errors->has('main_line'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('main_line') }}
-                                            </em>
-                                        @endif
-
-
-                                    </div>
-
-
-                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery">النوع</label>
-
-
-                                        <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                            name="type">
-                                            <option selected value="">-- إختر --</option>
-                                            @foreach ($type as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
-
-
-
-                                        @if ($errors->has('main_line'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('main_line') }}
-                                            </em>
-                                        @endif
-
-
-                                    </div>
-                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery" class="m-1">المقاس</label>
-                                        <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
-                                            <div class="form-row">
-                                                <input type="text" id="price" name="size_number"
-                                                    class="form-control col-8" value="{{ old('price') }}">
-                                                @if ($errors->has('price'))
-                                                    <em class="invalid-feedback">
-                                                        {{ $errors->first('price') }}
-                                                    </em>
-                                                @endif
-                                                <select class="form-control col-4"
-                                                    id="exampleFormControlSelect1 main_catog" name="size">
-                                                    <option selected value="">-- إختر --</option>
-                                                    @foreach ($size as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                    @if ($errors->has('main_line'))
-                                        <em class="invalid-feedback">
-                                            {{ $errors->first('main_line') }}
-                                        </em>
-                                    @endif
-
-
-                                </div>
-                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                    <label for="line_catogery">الماركة</label>
-
-
-                                    <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                        name="brand">
-                                        <option selected value="">-- إختر --</option>
-                                        @foreach ($brand as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
-
-
-
-                                    @if ($errors->has('main_line'))
-                                        <em class="invalid-feedback">
-                                            {{ $errors->first('main_line') }}
-                                        </em>
-                                    @endif
-
-
-                                </div>
-
-                                <hr>
-
-                        </div>
-                        <div>
-
-                            <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                        </div>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     </div>
     {{-- discount Table  --}}
@@ -862,133 +943,11 @@
         </div>
     </div>
     {{-- modal for terms --}}
-    <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                    </div>
-
-                    <div class="card-body">
-                        <form action="{{ url('brand/update') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
-                                <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
-
-                                <label for="name">اﻹسم*</label>
-                                <input type="text" id="name" name="name" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
-                                <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
-
-                                <label for="name">الشركة الصنعة*</label>
-                                <input type="text" id="company" name="company" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-
-                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
-                                style="border-radius: 50%;border:1px">
-                                <span style="border-radius: 3rem">
-                                </span>
-                            </div>
-                            <hr>
-                            <div>
-
-                                <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                            </div>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     </div>
 
-    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="card">
-                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                    </div>
-
-                    <div class="card-body">
-
-                        <P class="text-bold">
-                            هل تريد مسح الخدمة؟
-                        </P>
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
-
-
-
-                            <input type="text" id="name" name="name" class="form-control"
-                                value="{{ old('name', isset($user) ? $user->name : '') }}" disabled>
-                            @if ($errors->has('name'))
-                                <em class="invalid-feedback">
-                                    {{ $errors->first('name') }}
-                                </em>
-                            @endif
-                            <p class="helper-block">
-                                {{ trans('cruds.user.fields.name_helper') }}
-                            </p>
-                        </div>
-
-
-
-                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}"
-                            style="border-radius: 50%;border:1px">
-                            <span style="border-radius: 3rem">
-                            </span>
-                        </div>
-
-
-                        <div class="d-flex">
-                            <form action="{{ url('brand/delete') }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" id="id" name="id" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}">
-                                <input class="btn btn-danger b-a-1" style="" type="submit" value="مسح">
-                            </form>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div>
-
-            </div>
-        </div>
-
-    </div>
 
     </div>
 @endsection
@@ -1037,10 +996,10 @@
                                                 <option selected value=""> </option>
 
                                                 ${data.products.map(product => `
-                                <option value="${product.id}" data-price="${product.price}">
-                                    ${product.name}
-                                </option>
-                            `).join('')}
+                                                                <option value="${product.id}" data-price="${product.price}">
+                                                                    ${product.name}
+                                                                </option>
+                                                            `).join('')}
                                             <input type="hidden" name="" class="product-price" readonly
                                                 id="${data.line.id}">
                                         </td>
@@ -1050,11 +1009,11 @@
                                                 name="unit[${data.line.id}][]">
                                                 <option selected value=""> </option>
                                                 ${data.units.map(unit => `
-                                <option value="${unit.id}" data-price="${unit.price}">
-                                    ${unit.name}
+                                                                <option value="${unit.id}" data-price="${unit.price}">
+                                                                    ${unit.name}
 
-                                </option>
-                            `).join('')}
+                                                                </option>
+                                                            `).join('')}
                                             </select>
                                         </td>
                                         <td style="text-align: center">
