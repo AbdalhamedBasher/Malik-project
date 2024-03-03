@@ -21,7 +21,7 @@ class qoutation extends Model
     // customer relation
     public function customers_data()
     {
-        return (Customer::get());
+
         return $this->belongsTo(\App\Models\Customer::class, 'customer');
     }
 
