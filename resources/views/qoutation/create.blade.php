@@ -350,31 +350,31 @@
                                     <input type="submit" value="{{ $children->id }}"
                                         class=" btn btn-primary btn-line col-sm-2" id="{{ $children->id }}">
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
+                                <div class="form-group col-md-2 justify-center d-none">
                                     <label for="inputZip"> &emsp14; </label>
 
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
+                                <div class="form-group col-md-2 justify-center d-none">
                                     <label for="inputZip"> &emsp14; </label>
                                     <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total border border-1" readonly>
+                                        class="total border border-1 d-none" readonly>
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
+                                <div class="form-group col-md-2 justify-center d-none">
                                     <label for="inputZip"> &emsp14; </label>
                                     <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_material border border-1" readonly>
+                                        class="total_material border border-1 d-none" readonly>
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
+                                <div class="form-group col-md-2 justify-center d-none">
                                     <label for="inputZip"> &emsp14; </label>
                                     <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_labour border border-1" readonly>
+                                        class="total_labour border border-1 d-none" readonly>
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
+                                <div class="form-group col-md-2 justify-center d-none">
                                     <label for="inputZip">total_profit {{ $children->id }}</label>
                                     <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_profit border border-1" readonly value="0">
+                                        class="total_profit border border-1 d-none" readonly value="0">
                                 </div>
-                                <div class="form-group col-md-2 justify-center">
+                                <div class="form-group col-md-2 justify-center d-none">
                                     <label for="inputZip"> &emsp14; </label>
 
                                 </div>
@@ -513,7 +513,7 @@
             </table>
 
             {{-- <input type="text"  id="{{ $item->id }}"
-                        value="0" class="totals border border-1" readonly> --}}
+                        value="0" class="totals border border-1 d-none" readonly> --}}
         </div>
         @endif
 
