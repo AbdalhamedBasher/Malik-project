@@ -145,7 +145,7 @@
                             $i = 1;
                         @endphp
      @foreach ($qoutations as  $qoute)
-         <tr><td>{{$i++}}</td> <td>{{$qoute->refrence}}</td><td>{{$qoute->customer}}</td> <td>{{$qoute->project_name}}</td><td>{{$summaries[$qoute->id]['product_factor']}}</td><td>{{($qoute->risk+$qoute->additional+$qoute->conslut+$qoute->indirect)}}</td><td><span class="badge badge-secondary p-2 text-white" >{{$qoute->statues}}</span></td> <td><a href="{{route('qoute.edit',$qoute->id)}}" class="btn btm-sm btn-primary"> تعديل/edite</a><a href="{{route('qoute.pdf',$qoute->id)}}" class="btn btm-sm btn-bd-primary mx-1"> طباعة/print</a></td>  </tr>
+         <tr><td>{{$i++}}</td> <td>{{$qoute->refrence}}</td><td>{{$qoute->customer}}</td> <td>{{$qoute->project_name}}</td><td>{{$summaries[$qoute->id]['product_factor']}}</td><td>{{($qoute->risk+$qoute->additional+$qoute->conslut+$qoute->indirect)}}</td><td><span class="badge badge-secondary p-2 text-white" >{{$qoute->statues}}</span></td> <td><a href="{{route('qoute.edit',$qoute->id)}}" class="btn btm-sm btn-primary"> تعديل/edite</a><a href="{{route('reports.price_offer',$qoute->id)}}" class="btn btm-sm btn-bd-primary mx-1"> طباعة/print</a></td>  </tr>
      @endforeach
 
 
