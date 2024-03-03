@@ -104,7 +104,7 @@ Route::get('qoute/create', [QoutationController::class,"create"])->name('qoute.c
 Route::post('qoute/store', [QoutationController::class,"store"])->name('qoute.store');
 
 Route::get('qoute/edit/{id}', [QoutationController::class,"edit"])->name('qoute.edit');
-Route::put('qoute/update', [QoutationController::class,"update"])->name('qoute.update');
+Route::put('qoute/update/{id}', [QoutationController::class,"update"])->name('qoute.update');
 Route::post('qoute/delete', [QoutationController::class,"destroy"])->name('qoute.delete');
 Route::get('qoute/pdf/{id}', [QoutationController::class,"pdf"])->name('qoute.pdf');
 

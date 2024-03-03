@@ -98,7 +98,18 @@
         </div>
 
         <div class="card-body">
-
+{{--"factor" => $request->factor,
+            "qoutation_date" => $request->qoutation_date,
+            "expire_date" => $request->expire_date,
+            "project_name" => $request->project_name,
+            "statues" => $request->statues,
+            "description" => $request->description,
+            "refrence" => 'Q' . $last,
+            'customer' => $request->customer,
+            "indrect" => $request->indrect,
+            "addition" => $request->addition,
+            "consult" => $request->consult,
+            "risk"--}}
 
             <div class="table-responsive">
                 <table class=" table table-bordered table-striped table-hover datatable datatable-Course overflow-x-scroll"
@@ -110,45 +121,32 @@
                             </th>
 
                             <th style="text-align: center">
-                                اسم المادة
-                            </th>
-                            <th style="text-align: center">
-                                الوحدات
-                            </th>
-                            <th style="text-align: center">
-                                الكمية
-                            </th>
-                            <th style="text-align: center">
-                                مج/المواد </th>
-                            <th style="text-align: center">
-                                المواد المساعدة
-                            </th>
-                            <th style="text-align: center">
-                                د/المواد
-                            </th>
-                            <th style="text-align: center">
-                                -غير ذلك المواد
-                            </th>
-                            <th style="text-align: center">
-                                الايادي العاملة</th>
-                            <th style="text-align: center">
-                                الايادي العاملة</th>
-                            <th style="text-align: center">
-                                د/ الايادي </th>
-                            <th style="text-align: center">
-                                غير ذلك- الايادي </th>
 
+رقم التسعيرة                            </th>
+<th style="text-align: center">
+    العميل                            </th>
+                            <th style="text-align: center">
+إسم المشروع                            </th>
+
+                            <th style="text-align: center">
+                               الربح</th>
+                            <th style="text-align: center">
+                             التكاليف
+                            </th>
+<th> Stautes الحالة </th>
+<th style="text-align: center">
                             &nbsp;
                             </th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @php
                             $i = 1;
                         @endphp
-     {{-- @foreach ($qouations as  $qoute)
-         <tr></tr>
-     @endforeach --}}
+     @foreach ($qoutations as  $qoute)
+         <tr><td>{{$i++}}</td> <td>{{$qoute->refrence}}</td><td>{{$qoute->customer}}</td> <td>{{$qoute->project_name}}</td><td>{{$summaries[$qoute->id]['product_factor']}}</td><td>{{($qoute->risk+$qoute->additional+$qoute->conslut+$qoute->indirect)}}</td><td><span class="badge badge-secondary p-2 text-white" >{{$qoute->statues}}</span></td> <td><a href="{{route('qoute.edit',$qoute->id)}}" class="btn btm-sm btn-primary"> تعديل/edite</a><a href="{{route('qoute.pdf',$qoute->id)}}" class="btn btm-sm btn-bd-primary mx-1"> طباعة/print</a></td>  </tr>
+     @endforeach
 
 
 
@@ -263,9 +261,7 @@
                                         <select class="form-control" id="exampleFormControlSelect1 main_catog"
                                             name="catogery">
                                             <option selected value="">-- إختر --</option>
-                                            @foreach ($catogery as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
+
                                         </select>
 
 
@@ -287,9 +283,7 @@
                                         <select class="form-control" id="exampleFormControlSelect1 main_catog"
                                             name="type">
                                             <option selected value="">-- إختر --</option>
-                                            @foreach ($type as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                            @endforeach
+
                                         </select>
 
 
@@ -316,9 +310,7 @@
                                                 <select class="form-control col-4"
                                                     id="exampleFormControlSelect1 main_catog" name="size">
                                                     <option selected value="">-- إختر --</option>
-                                                    @foreach ($size as $item)
-                                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                    @endforeach
+
                                                 </select>
                                             </div>
 
@@ -341,9 +333,7 @@
                                     <select class="form-control" id="exampleFormControlSelect1 main_catog"
                                         name="brand">
                                         <option selected value="">-- إختر --</option>
-                                        @foreach ($brand as $item)
-                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                        @endforeach
+
                                     </select>
 
 

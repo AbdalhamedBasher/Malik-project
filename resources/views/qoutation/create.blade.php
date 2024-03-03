@@ -237,7 +237,7 @@
                                                             @foreach ($children->item_lines as $product)
                                                                 <option value="{{ $product->id }}"
                                                                     data-price="{{ $product->price }}">
-                                                                    {{ $product->name . ' ' . $product->type_data->name }}
+                                                                    {{ $product->name }}
                                                                     <span
                                                                         id="{{ $product->id }}">{{ $product->price }}</span>
                                                                 </option>
@@ -583,6 +583,8 @@
                 <button class="form-control mx-3  btn-outline-primary border-2 contract " id="inputZip">تعميد Make
                     contract</button>
 
+                    <button class="form-control mx-3    btn-outline-danger border-2 contract " id="inputZip">
+                        Cancel الغاء </button>
             </div>
 
 

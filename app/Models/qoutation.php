@@ -2,10 +2,11 @@
 
 namespace App\Models;
 use App\Models\Customer;
-use App\Models\qoutation_batch;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\line;
+use App\Models\qoutation_batch;
 class qoutation extends Model
 {
     use HasFactory;
