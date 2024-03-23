@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\AboutCompanyController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\AttachmentController;
+use App\Http\Controllers\ProjectController;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -139,3 +142,5 @@ Route::get('/logo', [LogoController::class, 'index'])->name('logo');
 Route::get('attach', [AttachmentController::class,"index"]);
 // attachment store
 Route::post('attach', [AttachmentController::class,"store"])->name('attach');
+// project Route
+Route::get('project', [ProjectController::class,"index"])->name('project');

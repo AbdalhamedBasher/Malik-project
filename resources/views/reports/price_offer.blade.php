@@ -9,6 +9,7 @@
             font-family: 'OptimusPrinceps';
         }
         body{
+            background-color: #ffffff;
             direction: rtl;
             padding-left: 5%;
             padding-right: 5%;

@@ -183,7 +183,7 @@ label.error {
       <h4>
         &#128075;
         مرحبًا:
-        {{ auth()->user()->name }}
+        {{-- {{ auth()->user()->name }} --}}
 
       </h4>
 

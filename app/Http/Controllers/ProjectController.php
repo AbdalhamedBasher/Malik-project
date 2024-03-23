@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\project;
 use App\Http\Controllers\Controller;
+use App\Models\customer;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -15,7 +16,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $customers=customer::get();
+        $projects = project::get();
+
+        return view('project.index',compact('projects','customers'));
     }
 
     /**

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('email');
             $table->text('about');
-
+            $table->unsignedBigInteger('countery')->onDelete('restrict')->nullable();
             $table->string('logo');
         });
     }

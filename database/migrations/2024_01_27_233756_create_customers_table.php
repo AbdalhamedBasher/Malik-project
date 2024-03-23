@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone_number');
             $table->string('email');
             $table->string('tax_number');
+            $table->unsignedBigInteger('countery')->onDelete('restrict')->nullable();
             $table->timestamps();
         });
     }

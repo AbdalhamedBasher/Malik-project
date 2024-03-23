@@ -15,7 +15,7 @@ return new class extends Migration
     {
         if (!Schema::hasTable('lines')) {
 
-        Schema::createifNotexist('lines', function (Blueprint $table) {
+        Schema::create('lines', function (Blueprint $table) {
             $table->id();
             $table->text("name");
             $table->text("terms")->nullable();

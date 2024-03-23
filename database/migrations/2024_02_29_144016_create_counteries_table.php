@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('counteries', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->unsignedBigInteger('about_company')->onDelete('restrict')->nullable();
+
             $table->timestamps();
         });
     }

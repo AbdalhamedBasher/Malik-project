@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->text("name");
             $table->text("serial");
+            $table->unsignedBigInteger('customer')->onDelete('restrict')->nullable();
+            $table->foreign('customer')->references('id')->on('customers')->onDelete('cascade');
+            $table->text("status");
             $table->timestamps();
         });
     }
