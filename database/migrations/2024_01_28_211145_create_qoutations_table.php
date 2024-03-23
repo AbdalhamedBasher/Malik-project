@@ -28,7 +28,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer')->onDelete('cascade')->nullable();
             $table->foreign('customer')->references('id')->on('customers')->onDelete('cascade');
             $table->unsignedBigInteger('project')->onDelete('cascade')->nullable();
-            $table->foreign('project')->references('id')->on('units')->onDelete('cascade');
+            $table->foreign('project')->references('id')->on('projects')->onDelete('cascade');
 
             // add here prject table connection
             $table->timestamps();

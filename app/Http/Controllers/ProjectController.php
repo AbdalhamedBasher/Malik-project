@@ -22,15 +22,6 @@ class ProjectController extends Controller
         return view('project.index',compact('projects','customers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -40,30 +31,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       $project= project::create([
+        "serial"=>$request->serial,
+        "name"=>$request->name,
+        "customer"=>$request->customer,
+        "status"=>$request->status,
+       ]);
+       if($project){
+        return redirect()->back()->with("success",'تم إضافة المشروع بنجاح');
+       }
+       else {
+       return  redirect()->back()->with("danger",'حدث خطا ما الرجاء التواصل مع المبرمج');
+       }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function show(project $project)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(project $project)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -72,19 +54,21 @@ class ProjectController extends Controller
      * @param  \App\Models\project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, project $project)
+    public function update(Request $request)
     {
-        //
+        $project= project::find($request->id)->update([
+            "serial"=>$request->serial,
+            "name"=>$request->name,
+            "customer"=>$request->customer,
+            "status"=>$request->status,
+           ]);
+           if($project){
+            return redirect()->back()->with("success",'تم إضافة المشروع بنجاح');
+           }
+           else {
+           return  redirect()->back()->with("danger",'حدث خطا ما الرجاء التواصل مع المبرمج');
+           }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(project $project)
-    {
-        //
-    }
+
 }

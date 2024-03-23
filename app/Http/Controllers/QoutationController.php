@@ -8,6 +8,7 @@ use App\Models\customer;
 use App\Models\items;
 use App\Models\qoutation;
 use App\Models\line;
+use App\Models\project;
 use App\Models\qoutation_line;
 use App\Models\size;
 use App\Models\type;
@@ -41,13 +42,14 @@ class QoutationController extends Controller
         $catogery = catogery::get();
         $type = type::get();
         $size = size::get();
+        $project=project::get();
         $brand = brand::get();
 $summaries=[];
         foreach ($qoute as $key => $value) {
 
             $summaries[$value->id] = $this->summary($value->id);
         }
-        return view('qoutation.index')->with(['qoutations' => $qoute , 'summaries' => $summaries]);
+        return view('qoutation.index')->with(['qoutations' => $qoute , 'summaries' => $summaries ,"projects"=>$project]);
         }
         else {
             return view('qoutation.index')->with(['qoutations' => $qoute]);
@@ -74,10 +76,10 @@ $summaries=[];
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
+        $projects=project::get();
 
 
-
-        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units]);
+        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units,'projects'=>$projects]);
     }
     /**
      * Store a newly created resource in storage.
@@ -108,14 +110,16 @@ $summaries=[];
 
 
         ]);
+
         $qoute = qoutation::create([
 
 
 
-            "factor" => $request->factor,
+
             "qoutation_date" => $request->qoutation_date,
             "expire_date" => $request->expire_date,
-            "project_name" => $request->project_name,
+            "project" => $request->project,
+
             "statues" => $request->statues,
             "description" => $request->description,
             "refrence" => 'Q' . $last,
@@ -175,16 +179,6 @@ $summaries=[];
         //     return redirect()->back()->with(['message' => 'هناك خطا في التسعيرة']);        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\qoutation  $qoutation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(qoutation $qoutation)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -205,6 +199,7 @@ $summaries=[];
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
+        $projects=project::get();
         $qoute_batch = config('app.my_constant.key1');;
         foreach ($qoute->qoute_batch as $value) {
             $qoute_batch[$value->line] = $value;
@@ -216,7 +211,7 @@ $summaries=[];
         $sumation = $this->summary($qoute->id);
 
 
-        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, 'qoute_batch' => $qoute_batch]);
+        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, 'qoute_batch' => $qoute_batch,"projects"=>$projects]);
     }
 
     /**
@@ -238,10 +233,10 @@ $qoute = qoutation::find($id);
 
 
 
-            "factor" => $request->factor,
+
             "qoutation_date" => $request->qoutation_date,
             "expire_date" => $request->expire_date,
-            "project_name" => $request->project_name,
+            "project" => $request->project,
             "statues" => $request->statues,
             "description" => $request->description,
             "refrence" => 'Q' . $last,

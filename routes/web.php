@@ -144,3 +144,5 @@ Route::get('attach', [AttachmentController::class,"index"]);
 Route::post('attach', [AttachmentController::class,"store"])->name('attach');
 // project Route
 Route::get('project', [ProjectController::class,"index"])->name('project');
+Route::post('project/store', [ProjectController::class,"store"])->name('project.store');
+Route::put('project/update', [ProjectController::class,"update"])->name('project.update');

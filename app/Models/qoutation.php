@@ -24,6 +24,10 @@ class qoutation extends Model
 
         return $this->belongsTo(\App\Models\Customer::class, 'customer');
     }
+    public function project_data()
+    {
 
+        return $this->belongsTo(\App\Models\project::class, 'customer');
+    }
 
 }

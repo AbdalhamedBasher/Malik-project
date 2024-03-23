@@ -13,83 +13,7 @@
     </div>
 
 
-    <div class="card mt-1">
-        <div class="card-header d-flex justify-content-between" style="background-color: #433483a3 ; color:aliceblue">
-            <h1 class=" text-5xl">نظام التسعيرة</h1> <a href="{{ route('qoute.create') }}" class="btn  btn-secondary  btn-md">
-                <i class="icon-pencil"></i>تسعيرة جديدة</a>
-        </div>
-        <div id="chart"></div>
 
-
-
-
-    </div>
-    <div class="card mt-1 card-detail">
-        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
-
-        </div>
-
-        <div class="card-body">
-            <div class="line_form">
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="inputZip">المرجع</label>
-                        <input type="text" name="id" class="form-control" id="inputZip">
-
-
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputZip">المشروع</label>
-                        <input type="text" class="form-control project" name="projec" id="inputZip">
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label for="inputZip">النشاط</label>
-                        <input type="text" class="form-control line" name="factor" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="inputZip">الحالة</label>
-                        <input type="text" class="form-control statues" name="statues" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip"> تاريخ إصادار التسعيرة
-                        </label>
-                        <input type="date" class="form-control issue_date" name="statues" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip"> &emsp14; </label>
-                        <input type="text" class="form-control issue_from" name="issue_from" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip"> &emsp14; </label>
-                        <input type="text" class="form-control issue_todate" name="todate" id="inputZip">
-                    </div>
-                    {{-- تاريخ الانتهاء --}}
-                    <div class="form-group col-md-4">
-                        <label for="inputZip"> تاريخ إنتهاء التسعيرة
-                        </label>
-                        <input type="date" class="form-control expire_date" name="expire_date" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip"> &emsp14; </label>
-                        <input type="text" class="form-control from_expire_date" name="from_expire_date" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputZip"> &emsp14; </label>
-                        <input type="text" class="form-control expire_date" name="expire_date" id="inputZip">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip"> &emsp14; </label>
-                        <input type="submit" value=" بحث" class="form-control btn-bd-primary new_product" id="inputZip">
-                    </div>
-                    {{-- statues --}}
-                </div>
-
-            </div>
-        </div>
-
-        </form>
-    </div>
 
 
     <div class="card mt-1">
@@ -109,11 +33,11 @@
                                 #
                             </th>
                             <th style="text-align: center">
-                                رقم المشروع </th>
+                                project Code رقم المشروع </th>
                             <th style="text-align: center">
-                                العميل </th>
+                                customer   العميل </th>
                             <th style="text-align: center">
-                                إسم المشروع </th>
+                                Project Name إسم المشروع  </th>
                             <th> Stautes الحالة </th>
 
 
@@ -131,9 +55,10 @@
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->status }}</td>
                                 <td>
-                                    <a href="#" class="btn btm-sm btn-primary create"> تعديل/edite</a>
-                                    <a href="#" class="btn btm-sm btn-primary update"> تعديل/edite</a><a href="#"
-                                        class="btn btm-sm btn-bd-primary mx-1"> طباعة/print</a></td>
+                                    <a href="#" class="btn btm-sm  btn-outline-primary create"> جديد/new</a>
+                                    <a href="#" class="btn btm-sm  btn-outline-success update" data-id="{{$project->id}}"  data-serial="{{$project->serial}}" data-name="{{$project->name}}" data-customer="{{$project->customers_data->id}}" data-status="{{$project->status}}"> تعديل/edite</a>
+
+                                </td>
                             </tr>
                         @endforeach
 
@@ -149,213 +74,18 @@
 
         </div>
     </div>
-    <div class="card mt-1">
-        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
 
-        </div>
-
-        <div class="card-body">
-
-
-
-            <div class="form-row">
-
-
-
-
-
-                <div class="form-group col-md-2">
-                    <label for="inputZip"> مجموع المواد المساعدة</label>
-                    <input type="text" class="form-control" id="inputZip" readonly>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip"> مجموع الايادي العاملة</label>
-                    <input type="text" class="form-control" id="inputZip" readonly>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">مجموع الموادالمساعدة/الايادي </label>
-                    <input type="text" class="form-control" id="inputZip" readonly>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">التوقع للمواد </label>
-                    <input type="text" class="form-control" id="inputZip" readonly>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">ت/الايادي العاملة</label>
-                    <input type="text" class="form-control" id="inputZip" readonly>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="inputZip">المجموع </label>
-                    <input type="text" class="form-control" id="inputZip" readonly>
-                </div>
-
-            </div>
-
-        </div>
-
-        </form>
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="card">
-                        <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
-
-                        </div>
-
-                        <div class="card-body">
-                            <form action="#" method="POST" class="form-inlineform-row"
-                                enctype="multipart/form-data">
-                                @csrf
-
-                                <div class="form-group">
-                                    <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                                        <label for="name">اﻹسم*</label>
-                                        <input type="text" id="name" name="name" class="form-control"
-                                            value="{{ old('name', isset($user) ? $user->name : '') }}" required>
-                                        @if ($errors->has('name'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('name') }}
-                                            </em>
-                                        @endif
-                                        <p class="helper-block">
-                                            {{ trans('cruds.user.fields.name_helper') }}
-                                        </p>
-                                    </div>
-                                    <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
-                                        <label for="price">السعر*</label>
-                                        <input type="text" id="price" name="price" class="form-control"
-                                            value="{{ old('price') }}" required
-                                            onkeypress="return
-                                        onlyNumberKey(event)">
-                                        @if ($errors->has('price'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('price') }}
-                                            </em>
-                                        @endif
-
-                                    </div>
-
-
-                                    <div class=" {{ $errors->has('price') ? 'has-error' : '' }}"
-                                        style="border-radius: 50%;border:1px">
-                                        <span style="border-radius: 3rem">
-                                        </span>
-                                    </div>
-
-                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery">التصنيف</label>
-
-
-                                        <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                            name="catogery">
-                                            <option selected value="">-- إختر --</option>
-
-                                        </select>
-
-
-
-                                        @if ($errors->has('main_line'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('main_line') }}
-                                            </em>
-                                        @endif
-
-
-                                    </div>
-
-
-                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery">النوع</label>
-
-
-                                        <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                            name="type">
-                                            <option selected value="">-- إختر --</option>
-
-                                        </select>
-
-
-
-                                        @if ($errors->has('main_line'))
-                                            <em class="invalid-feedback">
-                                                {{ $errors->first('main_line') }}
-                                            </em>
-                                        @endif
-
-
-                                    </div>
-                                    <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                        <label for="line_catogery" class="m-1">المقاس</label>
-                                        <div class=" {{ $errors->has('price') ? 'has-error' : '' }}">
-                                            <div class="form-row">
-                                                <input type="text" id="price" name="size_number"
-                                                    class="form-control col-8" value="{{ old('price') }}" required>
-                                                @if ($errors->has('price'))
-                                                    <em class="invalid-feedback">
-                                                        {{ $errors->first('price') }}
-                                                    </em>
-                                                @endif
-                                                <select class="form-control col-4"
-                                                    id="exampleFormControlSelect1 main_catog" name="size">
-                                                    <option selected value="">-- إختر --</option>
-
-                                                </select>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-
-                                    @if ($errors->has('main_line'))
-                                        <em class="invalid-feedback">
-                                            {{ $errors->first('main_line') }}
-                                        </em>
-                                    @endif
-
-
-                                </div>
-                                <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
-                                    <label for="line_catogery">الماركة</label>
-
-
-                                    <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                        name="brand">
-                                        <option selected value="">-- إختر --</option>
-
-                                    </select>
-
-
-
-                                    @if ($errors->has('main_line'))
-                                        <em class="invalid-feedback">
-                                            {{ $errors->first('main_line') }}
-                                        </em>
-                                    @endif
-
-
-                                </div>
-
-                                <hr>
-
-                        </div>
-                        <div>
-
-                            <input class="btn btn-primary" style="" type="submit" value="حفظ">
-                        </div>
-                        </form>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     </div>
     {{-- modal for terms --}}
 
 
     </div>
+
+
+
+
+
+
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -420,18 +150,118 @@
 
     </div>
     <div class="modal fade" id="updateProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
+                            تعديل المشروع Update the project
+                    </div>
+
+                    <div class="card-body">
+                        <form action="{{ url('project/update') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
+                                <input type="hidden" id="id" name="id" class="form-control"
+                                    value="{{ old('name', isset($user) ? $user->name : '') }}" >
+
+                                <label for="name">اﻹسم*</label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                    value="{{ old('name') }}">
+
+                                @if ($errors->has('name'))
+                                    <em class="invalid-feedback">
+                                        {{ $errors->first('name') }}
+                                    </em>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('cruds.user.fields.name_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('serial') ? 'has-error' : '' }}" id="formupdate">
+
+                                <label for="name">رقم المشروع*</label>
+                                <input type="text" id="serial" name="serial" class="form-control"
+                                    value="{{ old('serial') }}">
+                                @if ($errors->has('serial'))
+                                    <em class="invalid-feedback">
+                                        {{ $errors->first('serial') }}
+                                    </em>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('cruds.user.fields.name_helper') }}
+                                </p>
+                            </div>
+                            <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}" id="formupdate">
+                                <label for="name">  حالة المشروع*</label>
+
+                                <select class="form-control status" id="exampleFormControlSelect1"
+                                    name="status">
+                                    <option value="">-- إختر --</option>
+                                    <option value="finished">منتهي</option>
+                                    <option value="working">قيد العمل</option>
+                                    <option value="stopped">مجمد</option>
+
+                                </select>
+                                @if ($errors->has('status'))
+                                    <em class="invalid-feedback">
+                                        {{ $errors->first('status') }}
+                                    </em>
+                                @endif
+                                <p class="helper-block">
+                                    {{ trans('cruds.user.fields.name_helper') }}
+                                </p>
+                            </div>
+
+                            <div class=" {{ $errors->has('line_catogery') ? 'has-error' : '' }}">
+                                <label for="line_catogery">العميل</label>
+
+
+                                <select class="form-control customer" id="exampleFormControlSelect1"
+                                    name="customer">
+                                    <option  value="">-- إختر --</option>
+                                    @foreach ($customers as $customer)
+                                        <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    @endforeach
+                                </select>
+
+
+
+                                @if ($errors->has('main_line'))
+                                    <em class="invalid-feedback">
+                                        {{ $errors->first('main_line') }}
+                                    </em>
+                                @endif
+
+
+                            </div>
+                            <div>
+
+                                <input class="btn btn-bd-primary" style="" type="submit" value="حفظ">
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="createProjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="card">
                 <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
-
+                     إنشاء مشروع جديد New Project
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ url('project/update') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('project/store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
+
                         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}" id="formupdate">
                             <input type="hidden" id="id" name="id" class="form-control"
                                 value="{{ old('name', isset($user) ? $user->name : '') }}" required>
@@ -450,7 +280,7 @@
                         </div>
                         <div class="form-group {{ $errors->has('serial') ? 'has-error' : '' }}" id="formupdate">
 
-                            <label for="name">اﻹسم*</label>
+                            <label for="name"> رقم المشروع*</label>
                             <input type="text" id="name" name="serial" class="form-control"
                                 value="{{ old('serial') }}" required>
                             @if ($errors->has('serial'))
@@ -462,14 +292,20 @@
                                 {{ trans('cruds.user.fields.name_helper') }}
                             </p>
                         </div>
-                        <div class="form-group {{ $errors->has('serial') ? 'has-error' : '' }}" id="formupdate">
+                        <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}" id="formupdate">
+                            <label for="name">  حالة المشروع*</label>
 
+                            <select class="form-control catogery" id="exampleFormControlSelect1 catogery"
+                                name="status">
+                                <option selected value="">-- إختر --</option>
+                                <option  value="finished">منتهي</option>
+                                <option  value="working">قيد العمل</option>
+                                <option  value="stopped">مجمد</option>
 
-                            <input type="text" id="serial" name="serial" class="form-control"
-                                value="{{ old('serial') }}" required>
-                            @if ($errors->has('serial'))
+                            </select>
+                            @if ($errors->has('status'))
                                 <em class="invalid-feedback">
-                                    {{ $errors->first('serial') }}
+                                    {{ $errors->first('status') }}
                                 </em>
                             @endif
                             <p class="helper-block">
@@ -484,7 +320,7 @@
                             <select class="form-control catogery" id="exampleFormControlSelect1 catogery"
                                 name="customer">
                                 <option selected value="">-- إختر --</option>
-                                @foreach($customers as $customer)
+                                @foreach ($customers as $customer)
                                     <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                 @endforeach
                             </select>
@@ -516,62 +352,7 @@
 @section('scripts')
     @parent
     <script>
-        // $(function() {
-        //     let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-        //     @can('course_delete')
-        //         let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
-        //         let deleteButton = {
-        //             text: deleteButtonTrans,
-        //             url: "#1",
-        //             className: 'btn-danger',
-        //             action: function(e, dt, node, config) {
-        //                 var ids = $.map(dt.rows({
-        //                     selected: true
-        //                 }).nodes(), function(entry) {
-        //                     return $(entry).data('entry-id')
-        //                 });
 
-        //                 if (ids.length === 0) {
-        //                     alert('{{ trans('global.datatables.zero_selected') }}')
-
-        //                     return
-        //                 }
-
-        //                 if (confirm('{{ trans('global.areYouSure') }}')) {
-        //                     $.ajax({
-        //                             headers: {
-        //                                 'x-csrf-token': _token
-        //                             },
-        //                             method: 'POST',
-        //                             url: config.url,
-        //                             data: {
-        //                                 ids: ids,
-        //                                 _method: 'DELETE'
-        //                             }
-        //                         })
-        //                         .done(function() {
-        //                             location.reload()
-        //                         })
-        //                 }
-        //             }
-        //         }
-        //         dtButtons.push(deleteButton)
-        //     @endcan
-
-        //     $.extend(true, $.fn.dataTable.defaults, {
-        //         order: [
-        //             [1, 'desc']
-        //         ],
-        //         pageLength: 100,
-        //     });
-        //     $('.datatable-Course:not(.ajaxTable)').DataTable({
-        //         buttons: dtButtons
-        //     })
-        //     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
-        //         $($.fn.dataTable.tables(true)).DataTable()
-        //             .columns.adjust();
-        //     });
-        // })
         $(document).ready(function() {
 
         });
@@ -637,11 +418,22 @@
 @section('scripts')
     @parent
     <script>
+        $(document).ready(function() {
+            $(".update").click(function(e) {
+                $('#updateProjectModal').modal('show');
+                // $('#updateModal .name').val($(this).data('name'))
+                $('#updateProjectModal #id').val($(this).data('id'))
+                $('#updateProjectModal #serial').val($(this).data('serial'))
+                $('#updateProjectModal #name').val($(this).data('name'))
+                console.log($(this).data('customer'));
+                $('select#exampleFormControlSelect1.form-control.customer').val($(this).data('customer')).change()
 
-     $(document).ready(function() {
-        $(".update").click(function(e) {
-            $('#updateProjectModal').modal('show');
-        });
- })
-</script>
+                $('select#exampleFormControlSelect1.form-control.status').val($(this).data('status')).change()
+                console.log($(this).data("status"));
+            });
+            $(".create").click(function(e) {
+                $('#createProjectModal').modal('show');
+            });
+        })
+    </script>
 @endsection

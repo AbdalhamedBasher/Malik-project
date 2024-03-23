@@ -31,6 +31,24 @@
 
                         </div>
                         <div class="form-group row-md-3">
+                            <label for="inputZip">المشروع/Project</label>
+                            <select id="inputState" name="project" class="customer form-control">
+                                <option selected>-- إختر --</option>
+
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project->id }}">
+                                        {{ $project->name }}
+                                    </option>
+                                @endforeach
+
+
+                            </select>
+
+                        </div>
+                        @error('project')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group row-md-3">
                             <label for="inputZip">العميل/customer</label>
                             <select id="inputState" name="customer" class="customer form-control">
                                 <option selected>-- إختر --</option>

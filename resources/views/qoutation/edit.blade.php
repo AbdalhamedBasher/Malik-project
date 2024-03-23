@@ -32,10 +32,29 @@
 
                         </div>
                         <div class="form-group row-md-3">
+                            <label for="inputZip">المشروع/Project</label>
+                            <select id="inputState" name="project" class="customer form-control">
+                                <option selected>-- إختر --</option>
+
+                                @foreach ($projects as $project)
+                                    <option value="{{ $project->id }}" $qoute->pro>
+                                        {{ $project->name }}
+                                    </option>
+                                @endforeach
+
+
+                            </select>
+
+                        </div>
+                        @error('project')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
+                        <div class="form-group row-md-3">
                             <label for="inputZip">العميل/customer</label>
                             <select id="inputState" name="customer" class="customer form-control">
 
                                 @foreach ($customer as $item)
+                                <option selected>-- إختر --</option>
                                     <option value="{{ $item->id }}" selected>
                                         {{ $item->name }}
                                     </option>
@@ -1387,7 +1406,7 @@
 
                         // let hole_tot = 0;
                         // // product total
-                        $('select').select2();
+
                         $(".products").change(function() {
                             $(this).closest("tr").find(".material").val($(
                                 this).find(
@@ -1565,7 +1584,7 @@
         })
 
 
-        $('select#inputState.customer').select2(); //edit
+
         $('.products').select2(); //edit
         $("select#inputState.customer").change(function(e) {
             $(this).valid();
