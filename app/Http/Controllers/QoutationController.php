@@ -14,7 +14,7 @@ use App\Models\size;
 use App\Models\type;
 use Illuminate\Http\Request;
 use App\Models\units;
-
+ use PDF;
 use function PHPSTORM_META\type;
 
 class QoutationController extends Controller
@@ -358,7 +358,10 @@ $qoute = qoutation::find($id);
     public function qoutation_pdf($qoutation)
     {
         $qoute = qoutation::find($qoutation);
-        $lines = \App\Models\line::get();
-        return view('reports.price_offer')->with(['qoute' => $qoute, 'lines' => $lines]);
+$lines=line::get();
+        $data=['qoute' => $qoute,'lines'=>$lines];
+        dd($data);
+        $pdf = PDF::loadView('reports.price_offer',$data);
+        return $pdf->download('pdf_file.pdf');
     }
 }

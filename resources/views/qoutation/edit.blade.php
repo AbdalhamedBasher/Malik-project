@@ -1039,7 +1039,7 @@
             $total_risk = $all_tot * $qoute->risk;
             $total_addition = $all_tot * $qoute->addition;
             $total_cost = $total_indirect + $total_consult + $total_addition + $all_tot;
-            $net_profit = (($all_profit - $total_cost) * 100) / ($all_profit || 1);
+            $net_profit = (($all_profit - $total_cost)) / ($all_profit || 1) * 100;
         @endphp
     </div>
     </div>
@@ -2246,25 +2246,25 @@ console.log($(this));
         /**
          * Calculates the total cost, net profit, and sale profit based on the given inputs.
          */
-        function calcualte() {
-            const getVal = (selector) => parseInt($(selector).val() || 0);
+         function calcualte() {
+                    const getVal = (selector) => parseInt($(selector).val() || 0);
 
-            const cost = getVal(".all_tot_summary1");
-            const consult = getVal(".consult") / 100;
-            const indirect = getVal(".indrect") / 100;
-            const addition_cost = getVal(".addition") / 100;
-            const risk = getVal(".risk") / 100;
+                    const cost = getVal(".all_tot_summary1");
+                    const consult = getVal(".consult") / 100;
+                    const indirect = getVal(".indrect") / 100;
+                    const addition_cost = getVal(".addition") / 100;
+                    const risk = getVal(".risk") / 100;
 
-            const result = cost + ((consult + indirect + addition_cost + risk) * cost);
-            const profit = getVal(".sale_factor_summary1");
+                    const result = cost + ((consult + indirect + addition_cost + risk) * cost);
+                    const profit = getVal(".sale_factor_summary1");
 
-            $(".sale_profit").val(profit);
-            $(".total-cost").val(result.toFixed(2));
-            // net is percent of profit after substracting the cost from profit
+                    $(".sale_profit").val(profit);
+                    $(".total-cost").val(result.toFixed(2));
+                    // net is percent of profit after substracting the cost from profit
 
-            const net = ((profit - result) / profit) * 100;
-            $(".net-profit").val(`${net.toFixed(2)}%`);
-        }
+                    const net = ((profit - result) / profit) * 100;
+                    $(".net-profit").val(`${net.toFixed(2)}%`);
+                }
         $(".discount-btn").click(function(e) {
             e.preventDefault()
 
