@@ -79,7 +79,7 @@
                         <div class="form-group row-md-3">
                             <label for="inputZip">المعامل/factor</label>
                             <input type="text" name="factor" class="form-control factor" id="inputZip"
-                                value="{{ $qoute->factor }}">
+                                value="{{ $qoute->qoute_batch[0]->factor }}">
 
 
                         </div>
@@ -288,7 +288,7 @@
                                                         $all_material = $tot_material * $value->qty;
                                                         $all_labour = $tot_labour * $value->qty;
                                                         $factor_price =
-                                                            $value->qoute_batch_items->qoutes->factor *
+                                                            $value->qoute_batch_items->factor *
                                                             $value->items->price;
                                                         $product_factor = $factor_price * $value->qty;
                                                         $all_tot = $all_material + $all_labour;
@@ -969,7 +969,7 @@
                                                 <td style="text-align: center">
 
                                                     <input type="text" id="{{ $children->id }}"
-                                                        value="{{ $qoute->factor }}" class="factor_summary" readonly>
+                                                        value="{{  $qoute->qoute_batch[0]->factor }}" class="factor_summary" readonly>
 
                                                 </td>
                                                 <td style="text-align: center">
@@ -1016,7 +1016,7 @@
                     </td>
                     <td style="text-align: center">
 
-                        <input type="text" name="" value="{{ $qoute->factor }}" class="factor_summary1"
+                        <input type="text" name="" value="{{ $qoute->qoute_batch[0]->factor }}" class="factor_summary1"
                             readonly>
 
                     </td>

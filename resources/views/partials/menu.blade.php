@@ -8,7 +8,41 @@
                     اللوحة الرئيسية
                 </a>
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link  nav-dropdown-toggle" href="#">
+                    <i style="color:#e6e4eca3" class="fa fa-file-text-o nav-icon"></i>
+                    التسعيرة </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        {{-- this for if its active but it in nav-link  {{ request()->is('admin/courses') || request()->is('admin/courses') ? 'active' : '' }} --}}
+                        <a href="{{route('qoute')}}"
+                            class="nav-link">
+                            <i style="color:#e6e4eca3" class="fa fas fa-bookmark nav-icon"></i>
+                           العرض
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('qoute/create')}}"
+                            class="nav-link">
+                            <i style="color:#e6e4eca3" class="fa fas fa-plus nav-icon">
 
+                            </i>
+                             جديد
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('qoute/edite')}}"
+                            class="nav-link">
+                            <i style="color:#e6e4eca3" class="fa fas fa-plus nav-icon">
+
+                            </i>
+                           تعديل
+                        </a>
+                    </li>
+                </ul>
+
+
+            </li>
 
 
 
@@ -39,7 +73,25 @@
 
 
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link  nav-dropdown-toggle" href="#">
+                    <i style="color:#e6e4eca3" class="fa fa-file-text-o nav-icon"></i>
+                    المشاريع </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        {{-- this for if its active but it in nav-link  {{ request()->is('admin/courses') || request()->is('admin/courses') ? 'active' : '' }} --}}
+                        <a href="{{route('project')}}"
+                            class="nav-link">
+                            <i style="color:#e6e4eca3" class="fa fas fa-bookmark nav-icon"></i>
+                           العرض
+                        </a>
+                    </li>
 
+
+                </ul>
+
+
+            </li>
 
             <li class="nav-item nav-dropdown">
                 <a class="nav-link  nav-dropdown-toggle" href="#">
