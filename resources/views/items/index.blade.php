@@ -75,7 +75,7 @@
                                 <td id="name">{{ $item->name }}</td>
                                 <td id="price">{{ $item->price }}</td>
                                 <td id="{{ $item->catogery }}">
-                                    {{ isset($item->catogery) ? $item->catogery_data->name : '' }}
+                                    {{ ($item->catogery) ? $item->catogery_data->name : '' }}
                                 </td>
                                 <td class="catogery" id="{{ $item->catogery }}">
                                     {{ isset($item->lines) ? $item->lines_data->name : '' }}
