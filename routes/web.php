@@ -18,8 +18,9 @@ use App\Http\Controllers\AboutCompanyController;
 use App\Http\Controllers\LogoController;
 use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ProjectController;
+use Illuminate\Contracts\Queue\Job;
 use SebastianBergmann\CodeCoverage\Report\Xml\Project;
-
+use App\Jobs\pdfJob;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

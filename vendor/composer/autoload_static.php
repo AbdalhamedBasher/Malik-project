@@ -180,6 +180,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         array (
             'Brick\\Math\\' => 11,
             'BenSampo\\Enum\\' => 14,
+            'Barryvdh\\Queue\\' => 15,
             'Barryvdh\\DomPDF\\' => 16,
         ),
         'A' => 
@@ -574,6 +575,10 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         array (
             0 => __DIR__ . '/..' . '/bensampo/laravel-enum/src',
         ),
+        'Barryvdh\\Queue\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src',
+        ),
         'Barryvdh\\DomPDF\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
@@ -629,6 +634,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\pagesRequest' => __DIR__ . '/../..' . '/app/Http/Requests/pagesRequest.php',
+        'App\\Jobs\\pdfJob' => __DIR__ . '/../..' . '/app/Jobs/pdfJob.php',
         'App\\Models\\AboutCompany' => __DIR__ . '/../..' . '/app/Models/AboutCompany.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\attachment' => __DIR__ . '/../..' . '/app/Models/attachment.php',
@@ -658,6 +664,10 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
+        'Barryvdh\\Queue\\AsyncQueue' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/AsyncQueue.php',
+        'Barryvdh\\Queue\\AsyncServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/AsyncServiceProvider.php',
+        'Barryvdh\\Queue\\Connectors\\AsyncConnector' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/Connectors/AsyncConnector.php',
+        'Barryvdh\\Queue\\Console\\AsyncCommand' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/Console/AsyncCommand.php',
         'BenSampo\\Enum\\Attributes\\Description' => __DIR__ . '/..' . '/bensampo/laravel-enum/src/Attributes/Description.php',
         'BenSampo\\Enum\\Casts\\EnumCast' => __DIR__ . '/..' . '/bensampo/laravel-enum/src/Casts/EnumCast.php',
         'BenSampo\\Enum\\Commands\\EnumAnnotateCommand' => __DIR__ . '/..' . '/bensampo/laravel-enum/src/Commands/EnumAnnotateCommand.php',

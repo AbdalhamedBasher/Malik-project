@@ -15,7 +15,8 @@
 
     <div class="card mt-1">
         <div class="card-header d-flex justify-content-between" style="background-color: #433483a3 ; color:aliceblue">
-<h1 class=" text-5xl">نظام التسعيرة</h1> <a href="{{route('qoute.create')}}" class="btn  btn-secondary  btn-md"> <i class="icon-pencil"></i>تسعيرة جديدة</a>
+            <h1 class=" text-5xl">نظام التسعيرة</h1> <a href="{{ route('qoute.create') }}" class="btn  btn-secondary  btn-md">
+                <i class="icon-pencil"></i>تسعيرة جديدة</a>
         </div>
         <div id="chart"></div>
 
@@ -33,7 +34,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="inputZip">المرجع</label>
-                        <input type="text" name="id" class="form-control"   id="inputZip">
+                        <input type="text" name="id" class="form-control" id="inputZip">
 
 
                     </div>
@@ -51,7 +52,7 @@
                         <input type="text" class="form-control statues" name="statues" id="inputZip">
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputZip">                    تاريخ إصادار التسعيرة
+                        <label for="inputZip"> تاريخ إصادار التسعيرة
                         </label>
                         <input type="date" class="form-control issue_date" name="statues" id="inputZip">
                     </div>
@@ -65,7 +66,7 @@
                     </div>
                     {{-- تاريخ الانتهاء --}}
                     <div class="form-group col-md-4">
-                        <label for="inputZip">                    تاريخ إنتهاء التسعيرة
+                        <label for="inputZip"> تاريخ إنتهاء التسعيرة
                         </label>
                         <input type="date" class="form-control expire_date" name="expire_date" id="inputZip">
                     </div>
@@ -79,8 +80,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <label for="inputZip"> &emsp14; </label>
-                        <input type="submit" value=" بحث" class="form-control btn-bd-primary new_product"
-                            id="inputZip">
+                        <input type="submit" value=" بحث" class="form-control btn-bd-primary new_product" id="inputZip">
                     </div>
                     {{-- statues --}}
                 </div>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="card-body">
-{{--"factor" => $request->factor,
+            {{-- "factor" => $request->factor,
             "qoutation_date" => $request->qoutation_date,
             "expire_date" => $request->expire_date,
             "project_name" => $request->project_name,
@@ -109,7 +109,7 @@
             "indrect" => $request->indrect,
             "addition" => $request->addition,
             "consult" => $request->consult,
-            "risk"--}}
+            "risk" --}}
 
             <div class="table-responsive">
                 <table class=" table table-bordered table-striped table-hover datatable datatable-Course overflow-x-scroll"
@@ -122,20 +122,20 @@
 
                             <th style="text-align: center">
 
-رقم التسعيرة                            </th>
-<th style="text-align: center">
-    العميل                            </th>
+                                رقم التسعيرة </th>
                             <th style="text-align: center">
-إسم المشروع                            </th>
+                                العميل </th>
+                            <th style="text-align: center">
+                                إسم المشروع </th>
 
                             <th style="text-align: center">
-                               الربح</th>
+                                الربح</th>
                             <th style="text-align: center">
-                             التكاليف
+                                التكاليف
                             </th>
-<th> Stautes الحالة </th>
-<th style="text-align: center">
-                            &nbsp;
+                            <th> Stautes الحالة </th>
+                            <th style="text-align: center">
+                                &nbsp;
                             </th>
 
                         </tr>
@@ -144,9 +144,20 @@
                         @php
                             $i = 1;
                         @endphp
-     @foreach ($qoutations as  $qoute)
-         <tr><td>{{$i++}}</td> <td>{{$qoute->refrence}}</td><td>{{$qoute->customers_data->name}}</td> <td>{{$qoute->project_data->name}}</td><td>{{$summaries[$qoute->id]['product_factor']}}</td><td>{{($qoute->risk+$qoute->additional+$qoute->conslut+$qoute->indirect)}}</td><td><span class="badge badge-secondary p-2 text-white" >{{$qoute->statues}}</span></td> <td><a href="{{route('qoute.edit',$qoute->id)}}" class="btn btm-sm btn-primary"> تعديل/edite</a><a href="{{route('reports.price_offer',$qoute->id)}}" class="btn btm-sm btn-bd-primary mx-1"> طباعة/print</a></td>  </tr>
-     @endforeach
+                        @foreach ($qoutations as $qoute)
+                            <tr>
+                                <td>{{ $i++ }}</td>
+                                <td>{{ $qoute->refrence }}</td>
+                                <td>{{ $qoute->customers_data->name }}</td>
+                                <td>{{ $qoute->project_data->name }}</td>
+                                <td>{{ $summaries[$qoute->id]['product_factor'] }}</td>
+                                <td>{{ $qoute->risk + $qoute->additional + $qoute->conslut + $qoute->indirect }}</td>
+                                <td><span class="badge badge-secondary p-2 text-white">{{ $qoute->statues }}</span></td>
+                                <td><a href="{{ route('qoute.edit', $qoute->id) }}" class="btn btm-sm btn-primary">
+                                        تعديل/edite</a><a href="{{ route('reports.price_offer', $qoute->id) }}"
+                                        class="btn btm-sm btn-bd-primary mx-1"> طباعة/print</a></td>
+                            </tr>
+                        @endforeach
 
 
 

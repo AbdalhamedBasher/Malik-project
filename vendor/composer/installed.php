@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'a341ca7e16b60312ef55d50043003bda0dfc0a96',
+        'reference' => 'e3ecc3cfb0c19628d437c19079a0fa79c35a45a7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -17,6 +17,17 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../asm89/stack-cors',
             'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'barryvdh/laravel-async-queue' => array(
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => '58583499e99c643ad7aa824b9e4afcf2104dcd41',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../barryvdh/laravel-async-queue',
+            'aliases' => array(
+                0 => '0.7.x-dev',
+            ),
             'dev_requirement' => false,
         ),
         'barryvdh/laravel-dompdf' => array(
@@ -457,7 +468,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'a341ca7e16b60312ef55d50043003bda0dfc0a96',
+            'reference' => 'e3ecc3cfb0c19628d437c19079a0fa79c35a45a7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

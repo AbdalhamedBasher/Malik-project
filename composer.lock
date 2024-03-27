@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd6d16f58878e74813151e57a8c76856",
+    "content-hash": "497d0e26f15f16e1c2ad01ad2925668e",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -61,6 +61,67 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.2.0"
             },
             "time": "2023-11-14T13:51:46+00:00"
+        },
+        {
+            "name": "barryvdh/laravel-async-queue",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-async-queue.git",
+                "reference": "58583499e99c643ad7aa824b9e4afcf2104dcd41"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-async-queue/zipball/58583499e99c643ad7aa824b9e4afcf2104dcd41",
+                "reference": "58583499e99c643ad7aa824b9e4afcf2104dcd41",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^6|^7|^8|^9|^10.0|^11.0",
+                "illuminate/support": "^6|^7|^8|^9|^10.0|^11.0",
+                "php": ">=7",
+                "symfony/process": "^4|^5|^6|^7.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.7-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Barryvdh\\Queue\\AsyncServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\Queue\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Async Queue Driver for Laravel (Push to background)",
+            "keywords": [
+                "async",
+                "background",
+                "laravel",
+                "queue"
+            ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-async-queue/issues",
+                "source": "https://github.com/barryvdh/laravel-async-queue/tree/master"
+            },
+            "abandoned": true,
+            "time": "2024-03-02T10:11:09+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
