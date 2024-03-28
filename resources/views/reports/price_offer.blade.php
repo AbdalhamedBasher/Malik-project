@@ -1,4 +1,5 @@
-
+@extends('layouts.app')
+@section('styles')
     <style>
         @font-face {
             font-family: 'OptimusPrinceps';
@@ -300,8 +301,8 @@
 
 
     </style>
-
-
+@endsection
+@section('content')
 <div>
     <h2 class="price-offer-intro">{{$qoute->description}}</h2>
     <div class="region_project_number">
@@ -314,13 +315,13 @@
 
 
     <div class="foundation-intro">
-
+        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
         <div>
             <h3 class="foundation-name">مؤسسة إدارة المساحات للمقاولات</h3>
             <h3>Spaces Management Est. For Contracting</h3>
 
         </div>
-
+        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
 
     </div>
     <div class="contents">
@@ -335,7 +336,7 @@
     <div class="provided-to">
 
     <h3>مقدم إلى شركة :</h3>
-    <h1 class="tagana-contracting">aaa</h1>
+    <h1 class="tagana-contracting">{{$qoute->customers_data?$qoute->customers_data->name:""}}</h1>
     </div>
 
     <div class="submit-by">
@@ -352,13 +353,13 @@
 
 
     <div class="foundation-intro">
-
+        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
         <div>
             <h3></h3>
             <h3>Spaces Management Est. For Contracting</h3>
 
         </div>
-
+        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
 
     </div>
     <div class="ref-date-page">
@@ -379,7 +380,7 @@
     <div class="mister-eng">
         <div style="color: blue;">
             <h3>السادة / مؤسسة تقانة للمقاولات</h3>
-            <h3> qqwewew </h3>
+            <h3> {{$qoute->customers_data->name}} </h3>
 
 
         </div>
@@ -399,18 +400,30 @@
     </p>
     <h3 class="terms">الشروط والأحكام العامة :</h3>
 
+    @foreach ($qoute->qoute_batch as $batch)
 
+        @foreach ($lines as $line)
+
+        @if ($line->id==$batch->line)
+            <li>
+                {{ $line->terms }}
+            </li>
+
+        @endif
+
+@endforeach
+@endforeach
     <p class="hope-satisfied">أملين أن يحوز عرضنا على رضاكم  ،،،</p>
     </p>
-
+ @include('reports._apart.fotter')
     <div class="foundation-intro">
-
+        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
         <div>
             <h3>مؤسسة إدارة المساحات للمقاولات</h3>
             <h3>Spaces Management Est. For Contracting</h3>
 
         </div>
-
+        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
 
     </div>
     <div class="ref-date-page">
@@ -445,11 +458,36 @@
             </thead>
             <tbody>
 <?php $i=1; ?>
+                @foreach ($qoute->qoute_batch as $batch)
+                <tr>
 
+                    <td>&emsp;</td>
+
+                    <td>&emsp;</td>
+                    <td>&emsp;</td>
+                </tr>
+                <tr>
+                    <td>{{$i++}}</td>
+
+
+                    <td>{{$batch->lines->name}}</td>
+                    <td>{{$batch->qoute_lines->sum('product_factor')}}</td>
+                </tr>
+                <tr>
+
+                    <td>&emsp;</td>
+
+                    <td>&emsp;</td>
+                    <td>&emsp;</td>
+                </tr>
+                @endforeach
+
+            </tbody>
+        </table>
 </div>
 <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
 <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
-
+@include('reports._apart.fotter')
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
     <div class="date-page">
@@ -466,11 +504,62 @@
 </p>
 </div>
 <div>
+    @foreach ($qoute->qoute_batch as $batch) )
+
+
+    <h3 class="second-summary">ج. جدول الكميات والومواصفات والأسعار للوحات الكهرباء SDP-:
+    </h3>
+    <h2>SECONDARY DISTRIBUTION BOARDS (SDB'S)</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>الإجمالي <span>Total</span></th>
+                    <th>سعر الوحدة<span>U/Price</span></th>
+                    <th>الكمية <span>QTY</span></th>
+                    <th>الوحدة<span>Unit</span></th>
+                    <th> وصــــف البند<span>Item Description</span></th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                <tr aria-rowspan="2" aria-colspan="6">
+                    <td aria-rowspan="2" aria-colspan="6">{{$batch->qoutes->description}}</td>
+
+
+                </tr>
+                @php
+                $i=1;
+                @endphp
+@foreach ($batch->qoute_lines as $qoute_line )
+
+
+                <tr>
+                    <td> {{ $qoute_line->product_factor* $qoute_line->qty}}</td>
+                    <td> {{$qoute_line->product_factor}}</td>
+                    <td> {{$qoute_line->unit ? $qoute_line->units->name:""}}</td>
+                    <td> {{$qoute_line->qty}}</td>
+                    <td> {{$qoute_line->items?$qoute_line->items->name:""}}</td>
+                    <td> {{$i++}}</td>
+                </tr>
+
+                @endforeach
+                <tr>
+
+                    <td>381,216.88</td>
+
+                    <td>Total OF SECONDARY DISTRIBUTION BOARDS (SDB'S) - SAR</td>
+                </tr>
+            </tbody>
+
+        </table>
 
     </div>
-
+    <img src="{{asset('images/1694333491.jpg')}}" style="width:20%;height:20%;">
 <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
-
+@include('reports._apart.fotter')
 <div class="ref-date-page">
     <h3 class="ref">Ref : 22-09-85</h3>
     <div class="date-page">
@@ -479,8 +568,20 @@
     </div>
 
 </div>
+@endforeach
+@foreach ($qoute->qoute_batch as $batch)
 
 
+<div>
+    <h3 class="fourth-summary"> {{ ($batch->lines->main_lines->name)}}</h3>
+    </h3>
+    <div class="images-container">
+    @foreach($batch->attachment as $attach  )
+
+        <img src="{{ Storage::url($attach->path)}}" style="width:20%;height:20%;">
+    @endforeach
+    </div>
+    @endforeach
     <div style="border-bottom-style:dotted;margin-top:2rem;"></div>
     <div class="page-footer">
         <div>
@@ -489,7 +590,7 @@
             <h3>سجل تجاري : 1010515706</h3>
         </div>
         <div>
-
+            <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
         </div>
         <div>
             <h3>KSA - Riyadh City , Dammam Road</h3>
@@ -499,13 +600,13 @@
     </div>
 </div>
 <div class="foundation-intro">
-
+    <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
     <div>
         <h3>مؤسسة إدارة المساحات للمقاولات</h3>
         <h3>Spaces Management Est. For Contracting</h3>
 
     </div>
-
+    <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
 
 </div>
 <div class="ref-date-page">
@@ -521,5 +622,5 @@
 
 
 </div>
-
+@endsection
 

@@ -14,9 +14,9 @@ use App\Models\size;
 use App\Models\type;
 use Illuminate\Http\Request;
 use App\Models\units;
- use PDF;
+use App\Jobs\DownloadQouation;
 use function PHPSTORM_META\type;
-
+use App\Jobs\GeneratePdf;
 class QoutationController extends Controller
 {
 
@@ -357,23 +357,14 @@ $qoute = qoutation::find($id);
     }
     public function qoutation_pdf($qoutation)
     {
-        set_time_limit(300);
+
         $qoute = qoutation::find($qoutation);
 $lines=line::get();
-$batch=  $this->makedata($qoute);
 
-        $data=['qoute' => $qoute,'batches'=>$batch];
 
-        $pdf = PDF::loadView('reports.price_offer',$data);
-        return $pdf->download('pdf_file.pdf');
-    }
-    public function makedata($qoute){
-        $qoute_batch=[];
-        foreach ($qoute->qoute_batch as $key => $batch) {
-            $qoute_batch['lines']= $batch->lines->name;
-            $qoute_batch['product_factor']= $batch->qoute_lines->sum('product_factor');
-        }
-        return  $qoute_batch;
+
+GeneratePdf::dispatch($lines,$qoute->refrence);
 
     }
+
 }
