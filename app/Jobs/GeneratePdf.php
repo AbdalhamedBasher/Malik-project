@@ -37,7 +37,7 @@ class GeneratePdf implements ShouldQueue
        $dompdf->loadHtml('<h1>Hello, PDF!</h1>');
        $dompdf->render();
        $output = $dompdf->output();
-
+return dd($output);
        // Save PDF to storage
        file_put_contents( resource_path('app/public/' . $this->filename), $output);
 

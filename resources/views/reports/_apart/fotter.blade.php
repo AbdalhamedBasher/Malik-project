@@ -1,8 +1,8 @@
 <div class="topic-footer">
-    <img src="{{asset('images/1694333491.jpg')}}" style="width:5%;height:5%;" class="first-img">
+
     <div>
         <h3>مؤسسة إدارة المساحات للمقاولات</h3>
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:5%;height:5%;">
+
         <h3>منسق المشاريع</h3>
     </div>
 </div>
@@ -13,7 +13,8 @@
         <h3>سجل تجاري : 1010515706</h3>
     </div>
     <div>
-        <img src="{{asset('images/1694333491.jpg')}}" style="width:10%;height:10%;">
+
+
     </div>
     <div>
         <h3>KSA - Riyadh City , Dammam Road</h3>

@@ -12,7 +12,7 @@
         <div class="card-body">
 
 {{-- show here the logo  --}}
-
+@
             @if(isset($logo))
 
 
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label for="name">Company Name</label>
+                    <label for="name">Company Name / الشركة</label>
                     <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ isset($about_company) ? $about_company->name : old('name') }}" required>
                     @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email / الايميل</label>
                     <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ isset($about_company) ? $about_company->email : old('email') }}" required>
                     @error('email')
                     <span class="invalid-feedback" role="alert">
@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phone">Phone</label>
+                    <label for="phone">Phone/ رقم الهاتف</label>
                     <input type="text" class="form-control @error('phone') is-invalid @enderror" id="phone" name="phone" value="{{ isset($about_company) ? $about_company->phone : old('phone') }}" required>
                     @error('phone')
                     <span class="invalid-feedback" role="alert">
@@ -58,8 +58,9 @@
 
             <div class="col-sm-6">
                 <div class="form-group">
+
                     <label for="logo">Logo</label>
-                    <input type="file" class="form-control-file @error('logo') is-invalid @enderror" id="logo" name="logo" accept="image/*" {{ isset($about_company) ? $about_company->logo : 'required' }}>
+                    <input type="file" class="form-control-file @error('logo') is-invalid @enderror" id="logo" name="logo" accept="image/*" >
                     @error('logo')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

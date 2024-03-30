@@ -17,6 +17,12 @@ use App\Models\units;
 use App\Jobs\DownloadQouation;
 use function PHPSTORM_META\type;
 use App\Jobs\GeneratePdf;
+use App\Models\AboutCompany;
+use Dompdf\Dompdf;
+use ArPHP\I18N\Arabic;
+use Dompdf\Options;
+use Illuminate\Support\Facades\View;
+
 class QoutationController extends Controller
 {
 
@@ -360,10 +366,29 @@ $qoute = qoutation::find($id);
 
         $qoute = qoutation::find($qoutation);
 $lines=line::get();
+$ourCompany=AboutCompany::get();
+dd($ourCompany);
+$options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $dompdf = new Dompdf($options);
+    $image = base64_encode(file_get_contents(public_path('images/1694333491.jpg'  )));
 
+$data=['qoute'=>$qoute,'lines'=>$lines,'image'=>$image];
 
+    $reportHtml = view('reports.price_offer',$data)->render();
 
-GeneratePdf::dispatch($lines,$qoute->refrence);
+    $arabic = new Arabic();
+    $p = $arabic->arIdentify($reportHtml);
+
+    for ($i = count($p)-1; $i >= 0; $i-=2) {
+        $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
+        $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+    }
+    $pdf = $dompdf->loadHTML($reportHtml);
+    $dompdf->render();
+     $dompdf->stream('document.pdf', ['Attachment' => false]);
+    // return $pdf->download('purchase.pdf');
+// GeneratePdf::dispatch($lines,$qoute->refrence);
 
     }
 

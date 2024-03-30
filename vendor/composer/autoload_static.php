@@ -10,14 +10,14 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
-        '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
-        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
+        'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
@@ -79,6 +79,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
+            'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\CssSelector\\' => 30,
@@ -154,6 +155,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         ),
         'E' => 
         array (
+            'Elibyy\\TCPDF\\' => 13,
             'Egulias\\EmailValidator\\' => 23,
         ),
         'D' => 
@@ -180,12 +182,14 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         array (
             'Brick\\Math\\' => 11,
             'BenSampo\\Enum\\' => 14,
+            'Beganovich\\Snappdf\\' => 19,
             'Barryvdh\\Queue\\' => 15,
             'Barryvdh\\DomPDF\\' => 16,
         ),
         'A' => 
         array (
             'Asm89\\Stack\\' => 12,
+            'ArPHP\\I18N\\' => 11,
             'App\\' => 4,
         ),
     );
@@ -310,6 +314,10 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Symfony\\Component\\Finder\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
+        ),
+        'Symfony\\Component\\Filesystem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/filesystem',
         ),
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
@@ -507,6 +515,10 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
+        'Elibyy\\TCPDF\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src',
+        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
@@ -575,6 +587,10 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         array (
             0 => __DIR__ . '/..' . '/bensampo/laravel-enum/src',
         ),
+        'Beganovich\\Snappdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/beganovich/snappdf/src',
+        ),
         'Barryvdh\\Queue\\' => 
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src',
@@ -586,6 +602,10 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Asm89\\Stack\\' => 
         array (
             0 => __DIR__ . '/..' . '/asm89/stack-cors/src',
+        ),
+        'ArPHP\\I18N\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/khaled.alshamaa/ar-php/src',
         ),
         'App\\' => 
         array (
@@ -635,7 +655,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\pagesRequest' => __DIR__ . '/../..' . '/app/Http/Requests/pagesRequest.php',
         'App\\Jobs\\DownloadQouation' => __DIR__ . '/../..' . '/app/Jobs/DownloadQouation.php',
-        'App\\Jobs\\pdfJob' => __DIR__ . '/../..' . '/app/Jobs/pdfJob.php',
+        'App\\Jobs\\GeneratePdf' => __DIR__ . '/../..' . '/app/Jobs/GeneratePdf.php',
         'App\\Models\\AboutCompany' => __DIR__ . '/../..' . '/app/Models/AboutCompany.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\attachment' => __DIR__ . '/../..' . '/app/Models/attachment.php',
@@ -659,6 +679,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'ArPHP\\I18N\\Arabic' => __DIR__ . '/..' . '/khaled.alshamaa/ar-php/src/Arabic.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -669,6 +690,14 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Barryvdh\\Queue\\AsyncServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/AsyncServiceProvider.php',
         'Barryvdh\\Queue\\Connectors\\AsyncConnector' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/Connectors/AsyncConnector.php',
         'Barryvdh\\Queue\\Console\\AsyncCommand' => __DIR__ . '/..' . '/barryvdh/laravel-async-queue/src/Console/AsyncCommand.php',
+        'Beganovich\\Snappdf\\Command\\ConvertHtmlToPdfCommand' => __DIR__ . '/..' . '/beganovich/snappdf/src/Command/ConvertHtmlToPdfCommand.php',
+        'Beganovich\\Snappdf\\Command\\DownloadChromiumCommand' => __DIR__ . '/..' . '/beganovich/snappdf/src/Command/DownloadChromiumCommand.php',
+        'Beganovich\\Snappdf\\Exception\\BinaryNotExecutable' => __DIR__ . '/..' . '/beganovich/snappdf/src/Exception/BinaryNotExecutable.php',
+        'Beganovich\\Snappdf\\Exception\\BinaryNotFound' => __DIR__ . '/..' . '/beganovich/snappdf/src/Exception/BinaryNotFound.php',
+        'Beganovich\\Snappdf\\Exception\\MissingContent' => __DIR__ . '/..' . '/beganovich/snappdf/src/Exception/MissingContent.php',
+        'Beganovich\\Snappdf\\Exception\\PlatformNotSupported' => __DIR__ . '/..' . '/beganovich/snappdf/src/Exception/PlatformNotSupported.php',
+        'Beganovich\\Snappdf\\Exception\\ProcessFailedException' => __DIR__ . '/..' . '/beganovich/snappdf/src/Exception/ProcessFailedException.php',
+        'Beganovich\\Snappdf\\Snappdf' => __DIR__ . '/..' . '/beganovich/snappdf/src/Snappdf.php',
         'BenSampo\\Enum\\Attributes\\Description' => __DIR__ . '/..' . '/bensampo/laravel-enum/src/Attributes/Description.php',
         'BenSampo\\Enum\\Casts\\EnumCast' => __DIR__ . '/..' . '/bensampo/laravel-enum/src/Casts/EnumCast.php',
         'BenSampo\\Enum\\Commands\\EnumAnnotateCommand' => __DIR__ . '/..' . '/bensampo/laravel-enum/src/Commands/EnumAnnotateCommand.php',
@@ -843,6 +872,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Database\\Seeders\\SizeSeeder' => __DIR__ . '/../..' . '/database/seeders/SizeSeeder.php',
         'Database\\Seeders\\TypeSeeder' => __DIR__ . '/../..' . '/database/seeders/TypeSeeder.php',
         'Database\\Seeders\\UnitsSeeder' => __DIR__ . '/../..' . '/database/seeders/UnitsSeeder.php',
+        'Datamatrix' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/datamatrix.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
@@ -1128,6 +1158,11 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/Warning.php',
+        'Elibyy\\TCPDF\\Facades\\TCPDF' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/Facades/TCPDF.php',
+        'Elibyy\\TCPDF\\FpdiTCPDFHelper' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/FpdiTCPDFHelper.php',
+        'Elibyy\\TCPDF\\ServiceProvider' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/ServiceProvider.php',
+        'Elibyy\\TCPDF\\TCPDF' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/TCPDF.php',
+        'Elibyy\\TCPDF\\TCPDFHelper' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/TCPDFHelper.php',
         'Faker\\Calculator\\Ean' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Ean.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Inn.php',
@@ -3818,6 +3853,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'NunoMaduro\\Collision\\SolutionsRepositories\\NullSolutionsRepository' => __DIR__ . '/..' . '/nunomaduro/collision/src/SolutionsRepositories/NullSolutionsRepository.php',
         'NunoMaduro\\Collision\\Writer' => __DIR__ . '/..' . '/nunomaduro/collision/src/Writer.php',
         'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
+        'PDF417' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/pdf417.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\ActualValueIsNotAnObjectException' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Exception/ActualValueIsNotAnObjectException.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
@@ -4730,6 +4766,7 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
         'Psy\\VersionUpdater\\SelfUpdate' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/SelfUpdate.php',
+        'QRcode' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/barcodes/qrcode.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',
@@ -5514,6 +5551,14 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Symfony\\Component\\EventDispatcher\\EventSubscriberInterface' => __DIR__ . '/..' . '/symfony/event-dispatcher/EventSubscriberInterface.php',
         'Symfony\\Component\\EventDispatcher\\GenericEvent' => __DIR__ . '/..' . '/symfony/event-dispatcher/GenericEvent.php',
         'Symfony\\Component\\EventDispatcher\\ImmutableEventDispatcher' => __DIR__ . '/..' . '/symfony/event-dispatcher/ImmutableEventDispatcher.php',
+        'Symfony\\Component\\Filesystem\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/filesystem/Exception/ExceptionInterface.php',
+        'Symfony\\Component\\Filesystem\\Exception\\FileNotFoundException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/FileNotFoundException.php',
+        'Symfony\\Component\\Filesystem\\Exception\\IOException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOException.php',
+        'Symfony\\Component\\Filesystem\\Exception\\IOExceptionInterface' => __DIR__ . '/..' . '/symfony/filesystem/Exception/IOExceptionInterface.php',
+        'Symfony\\Component\\Filesystem\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/InvalidArgumentException.php',
+        'Symfony\\Component\\Filesystem\\Exception\\RuntimeException' => __DIR__ . '/..' . '/symfony/filesystem/Exception/RuntimeException.php',
+        'Symfony\\Component\\Filesystem\\Filesystem' => __DIR__ . '/..' . '/symfony/filesystem/Filesystem.php',
+        'Symfony\\Component\\Filesystem\\Path' => __DIR__ . '/..' . '/symfony/filesystem/Path.php',
         'Symfony\\Component\\Finder\\Comparator\\Comparator' => __DIR__ . '/..' . '/symfony/finder/Comparator/Comparator.php',
         'Symfony\\Component\\Finder\\Comparator\\DateComparator' => __DIR__ . '/..' . '/symfony/finder/Comparator/DateComparator.php',
         'Symfony\\Component\\Finder\\Comparator\\NumberComparator' => __DIR__ . '/..' . '/symfony/finder/Comparator/NumberComparator.php',
@@ -6270,6 +6315,17 @@ class ComposerStaticInitafffcf2b551a4bf84249ce5abc9cf157
         'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
         'Symfony\\Polyfill\\Php83\\Php83' => __DIR__ . '/..' . '/symfony/polyfill-php83/Php83.php',
         'Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
+        'TCPDF' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf.php',
+        'TCPDF2DBarcode' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_barcodes_2d.php',
+        'TCPDFBarcode' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_barcodes_1d.php',
+        'TCPDF_COLORS' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_colors.php',
+        'TCPDF_FILTERS' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_filters.php',
+        'TCPDF_FONTS' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_fonts.php',
+        'TCPDF_FONT_DATA' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_font_data.php',
+        'TCPDF_IMAGES' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_images.php',
+        'TCPDF_IMPORT' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_import.php',
+        'TCPDF_PARSER' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_parser.php',
+        'TCPDF_STATIC' => __DIR__ . '/..' . '/tecnickcom/tcpdf/include/tcpdf_static.php',
         'Termwind\\Actions\\StyleToMethod' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Actions/StyleToMethod.php',
         'Termwind\\Components\\Anchor' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/Anchor.php',
         'Termwind\\Components\\BreakLine' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/BreakLine.php',

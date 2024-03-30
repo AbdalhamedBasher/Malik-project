@@ -178,6 +178,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Barryvdh\Queue\AsyncServiceProvider::class,
+        Elibyy\TCPDF\ServiceProvider::class,
     ],
 
     /*
@@ -194,6 +195,7 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // ...
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+        'PDF2' => Elibyy\TCPDF\Facades\TCPDF::class
     ])->toArray(),
 
 ];

@@ -1,0 +1,8 @@
+composer.phar
+/vendor/
+/.idea/
+.phpunit.result.cache
+composer.lock
+example.pdf
+.php_cs.cache
+.php-cs-fixer.cache
