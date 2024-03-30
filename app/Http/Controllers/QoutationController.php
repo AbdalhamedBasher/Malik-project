@@ -367,7 +367,7 @@ $qoute = qoutation::find($id);
         $qoute = qoutation::find($qoutation);
 $lines=line::get();
 $ourCompany=AboutCompany::get();
-dd($ourCompany);
+
 $options = new Options();
     $options->set('isHtml5ParserEnabled', true);
     $dompdf = new Dompdf($options);

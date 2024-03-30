@@ -149,7 +149,7 @@
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $qoute->refrence }}</td>
                                 <td>{{ $qoute->customers_data->name }}</td>
-                                <td>{{ $qoute->project_data->name }}</td>
+                                <td>{{($qoute->project)?$qoute->project_data->name:'' }}</td>
                                 <td>{{ $summaries[$qoute->id]['product_factor'] }}</td>
                                 <td>{{ $qoute->risk + $qoute->additional + $qoute->conslut + $qoute->indirect }}</td>
                                 <td><span class="badge badge-secondary p-2 text-white">{{ $qoute->statues }}</span></td>
