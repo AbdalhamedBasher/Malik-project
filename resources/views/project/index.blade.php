@@ -22,7 +22,13 @@
         </div>
 
         <div class="card-body">
-
+            <div style="margin-bottom: 10px;" class="row">
+                <div class="col-lg-12">
+                    <a class="btn btm-sm  btn-outline-primary create" id="icons" style="background-color: #433483a3 ; color:aliceblue">
+                        إضافة مشروع جديد
+                    </a>
+                </div>
+            </div>
 
             <div class="table-responsive">
                 <table class=" table table-bordered table-striped table-hover datatable datatable-Course overflow-x-scroll"
