@@ -412,8 +412,7 @@ class QoutationController extends Controller
     }
     public function qoutation_pdf($qoutation){
         $qoute = qoutation::find($qoutation);
-        $header = ''; // Extract header from $htmlContent
-        $footer = ''; // Extract footer from $htmlContent
+
 
         // Split HTML content into separate sections for each page
         // $pages = explode('<!-- PAGE_BREAK -->', $htmlContent);
@@ -426,10 +425,15 @@ class QoutationController extends Controller
         $mpdf->autoLangToFont = true;
         $mpdf->SetDirectionality('rtl');
         $mpdf->SetFont('sans-serif', '', 12);
+        $headerImage = public_path('images/header.png'); // Replace 'header.png' with your header image file
+        $mpdf->SetHTMLHeader('<div style="margin-bottom: 20mm;"><img src="' . $headerImage . '" style="border:1px" /></div>');
+
+        // Set footer image
+        $footerImage = public_path('images/footer.png'); // Replace 'footer.jpg' with your footer image file
+        $mpdf->SetHTMLFooter('<img src="' . $footerImage . '" style="width: 100%;" />');
 
         // Set header and footer
-        $mpdf->SetHTMLHeader($header);
-        $mpdf->SetHTMLFooter($footer);
+
 
         // Add each page content to PDF
 
@@ -442,7 +446,9 @@ class QoutationController extends Controller
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Invoice</title>
                     <style>
-
+                html{
+                    margin-top:5rem;
+                        }
 
 
                     .table {
@@ -547,11 +553,12 @@ class QoutationController extends Controller
 
                     </style>
                 </head>
-                <body>
+                <body style="margin-top: 20mm">
+                <h1 style="margin-top: 40mm;">.....</h1>
                 <div class="introduction">
 
                 <p>الرقم -:'.$qoute->refrence.'/ DQF     </p>
-                <p>التاريخ -: '.$qoute->qoutation_date.'  م</p>
+                <p>التاريخ -: '.  $qoute->qoutation_date.'  م</p>
 
                 <p class="dear-fawzan-company"> السادة /   '.$qoute->customers_data->name.'
                 </p>
@@ -606,7 +613,9 @@ $row='';
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Document</title>
                     <style>
-
+                    *{
+                        margin-top:5rem;
+                            }
                     .table {
                 width: 100%;
                 margin-bottom: 1rem;
@@ -861,7 +870,12 @@ $row='';
 
                 </style>
                 </head>
-                <body>     <div>
+                <body>
+
+                <h1 style="margin-top: 40mm;">.....</h1>
+
+                <div>
+
                 <h3 class="early-fire-warning">
                     أولا-: ('.$batch->lines->name.' -  '.$batch->lines->main_lines->name.' ) .
 
