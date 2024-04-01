@@ -160,7 +160,14 @@
                              المواد
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        {{-- this for if its active but it in nav-link  {{ request()->is('admin/courses') || request()->is('admin/courses') ? 'active' : '' }} --}}
+                        <a href="{{route('units')}}"
+                            class="nav-link">
+                            <i style="color:#e6e4eca3" class="fa fas fa-bookmark nav-icon"></i>
+                           العرض
+                        </a>
+                    </li>
                 </ul>
 
 
