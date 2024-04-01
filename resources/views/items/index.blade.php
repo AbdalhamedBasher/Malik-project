@@ -74,12 +74,13 @@
                                 <td>{{ $i++ }}</td>
                                 <td id="name">{{ $item->name }}</td>
                                 <td id="price">{{ $item->price }}</td>
+                                <td class="lines" id="{{ $item->lines }}">
+                                    {{ ($item->line) ? $item->line_data->name: '' }}
+                                </td>
                                 <td id="{{ $item->catogery }}">
-                                    {{ ($item->catogery) ? $item->catogery_data->name : '' }}
+                                    {{ $item->catogery ? $item->catogery_data->name : '' }}
                                 </td>
-                                <td class="catogery" id="{{ $item->catogery }}">
-                                    {{ isset($item->lines) ? $item->lines_data->name : '' }}
-                                </td>
+
                                 <td class="brand" id="{{ $item->brand }}">
                                     {{ is_null($item->brand) ? '' : $item->brand_data->name }}
                                 </td>
@@ -97,7 +98,14 @@
                                     <span class="d-flex space-x-1">
                                         <a class="btn update m-1" style="background-color: #433483a3 ; color:aliceblue"
                                             data-id="{{ $item->id }}" data-name="{{ $item->name }}"
-                                            data-price='{{ $item->catogery }}'>
+                                            data-price='{{ $item->price }}'
+                                            data-catogery={{$item->catogery}}
+                                            data-type={{$item->type}}
+                                            data-brand={{$item->brand}}
+                                            data-line={{$item->line}}
+                                            data-size={{$item->size}}
+                                            data-size_number={{$item->size_number}}
+                                            >
                                             تعديل </a>
                                         {{--  --}}
 
@@ -291,158 +299,165 @@
     </div>
     {{-- modal for terms --}}
     <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="card">
-                <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="card">
+                    <div class="card-header" style="background-color:#433483a3  ;color:#e6e4eca3 ; font-size:1rem">
 
-                </div>
+                    </div>
 
-                <div class="card-body">
-                    <form action="{{ route('item') }}" method="POST" class="form-inlineform-row"
-                        enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="name">اﻹسم*</label>
-                                <input type="text" id="name" name="name" class="form-control"
-                                    value="{{ old('name', isset($user) ? $user->name : '') }}" required>
-                                @if ($errors->has('name'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('name') }}
-                                    </em>
-                                @endif
-                                <p class="helper-block">
-                                    {{ trans('cruds.user.fields.name_helper') }}
-                                </p>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="price">السعر*</label>
-                                <input type="text" id="price" name="price" class="form-control"
-                                    value="{{ old('price') }}" required
-                                    onkeypress="return
+                    <div class="card-body">
+                        <form action="{{ route('item.update') }}" method="POST" class="form-inlineform-row"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="hidden" id="id" name="id" class="form-control"
+                                        value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    <label for="name">اﻹسم*</label>
+                                    <input type="text" id="name" name="name" class="form-control"
+                                        value="{{ old('name', isset($user) ? $user->name : '') }}" required>
+                                    @if ($errors->has('name'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('name') }}
+                                        </em>
+                                    @endif
+                                    <p class="helper-block">
+                                        {{ trans('cruds.user.fields.name_helper') }}
+                                    </p>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="price">السعر*</label>
+                                    <input type="text" id="price" name="price" class="form-control price"
+                                        value="{{ old('price') }}" required
+                                        onkeypress="return
                                     onlyNumberKey(event)">
-                                @if ($errors->has('price'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('price') }}
-                                    </em>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="line_catogery">التصنيف</label>
-
-
-                                <select class="form-control" id="exampleFormControlSelect1 main_catog" name="catogery">
-                                    <option selected value="">-- إختر --</option>
-                                    @foreach ($catogery as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-
-
-
-                                @if ($errors->has('main_line'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('main_line') }}
-                                    </em>
-                                @endif
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="line_catogery">النوع</label>
-
-
-                                <select class="form-control" id="exampleFormControlSelect1 main_catog" name="type">
-                                    <option selected value="">-- إختر --</option>
-                                    @foreach ($type as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-
-
-
-                                @if ($errors->has('main_line'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('type') }}
-                                    </em>
-                                @endif
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="line_catogery">الماركة</label>
-
-
-                                <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                    name="brand">
-                                    <option selected value="">-- إختر --</option>
-                                    @foreach ($brand as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-
-
-
-                                @if ($errors->has('main_line'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('main_line') }}
-                                    </em>
-                                @endif
-
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="line_catogery">النشاط</label>
-
-
-                                <select class="form-control" id="exampleFormControlSelect1 main_catog"
-                                    name="line">
-                                    <option selected value="">-- إختر --</option>
-                                    @foreach ($lines as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-
-
-
-                                @if ($errors->has('main_line'))
-                                    <em class="invalid-feedback">
-                                        {{ $errors->first('main_line') }}
-                                    </em>
-                                @endif
-
+                                    @if ($errors->has('price'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('price') }}
+                                        </em>
+                                    @endif
+                                </div>
                             </div>
 
-                            <div class="form-group mx-3">
-                                <label for="category">المقاس</label>
-                                <div class="input-group">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="line_catogery">التصنيف</label>
 
-                                    <input type="text" class="form-control" name="size_number">
-                                    <select class="form-control size" id="size" name="size">
-                                        <option selected value="">-- اختر --</option>
-                                        @foreach ($size as $item)
+
+                                    <select class="form-control catogery" id="exampleFormControlSelect1 main_catog"
+                                        name="catogery">
+                                        <option value="">-- إختر --</option>
+                                        @foreach ($catogery as $item)
+                                            <option value="{{ $item->id }}" >{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="line_catogery">النوع</label>
+
+
+                                    <select class="form-control type" id="exampleFormControlSelect1 main_catog"
+                                        name="type">
+                                        <option  value="">-- إختر --</option>
+                                        @foreach ($type as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
                                     </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('type') }}
+                                        </em>
+                                    @endif
                                 </div>
-                                @if ($errors->has('category'))
-                                    <em class="invalid-feedback">{{ $errors->first('category') }}</em>
-                                @endif
+                                <div class="form-group col-md-4">
+                                    <label for="line_catogery">الماركة</label>
+
+
+                                    <select class="form-control brand" id="exampleFormControlSelect1 main_catog"
+                                        name="brand">
+                                        <option  value="">-- إختر --</option>
+                                        @foreach ($brand as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="line_catogery">النشاط</label>
+
+
+                                    <select class="form-control line" id="exampleFormControlSelect1 main_catog"
+                                        name="line">
+                                        <option  value="">-- إختر --</option>
+                                        @foreach ($lines as $item)
+                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+
+
+
+                                    @if ($errors->has('main_line'))
+                                        <em class="invalid-feedback">
+                                            {{ $errors->first('main_line') }}
+                                        </em>
+                                    @endif
+
+                                </div>
+
+                                <div class="form-group mx-3">
+                                    <label for="category">المقاس</label>
+                                    <div class="input-group">
+
+                                        <input type="text" class="form-control size_number" name="size_number">
+                                        <select class="form-control size" id="size" name="size">
+                                            <option selected value="">-- اختر --</option>
+                                            @foreach ($size as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('category'))
+                                        <em class="invalid-feedback">{{ $errors->first('category') }}</em>
+                                    @endif
+                                </div>
+
+
+
                             </div>
-
-
-
-                        </div>
-                        <div class="d-flex  justify-content-center">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
-                        </div>
-                    </form>
+                            <div class="d-flex  justify-content-center">
+                                <button type="submit" class="btn btn-primary">Sign in</button>
+                            </div>
+                        </form>
 
 
 
 
 
 
+
+                    </div>
 
                 </div>
 
@@ -451,8 +466,6 @@
         </div>
 
     </div>
-
-</div>
     </div>
     </div>
     </div>
@@ -604,13 +617,15 @@
 
                 $('#updateModal').modal('show');
                 $('#updateModal #id').val($(this).data('id'))
-                $('#updateModal #price').val($(this).data('price'))
+                $('#updateModal .price').val($(this).data('price'))
                 $('#updateModal #name').val($(this).data('name'))
-                $('#updateModal .catogery').val($('#' + $(this).data('id') + '>.catogery').attr("id"))
-                $('#updateModal .type').val($('#' + $(this).data('id') + '>.type').attr("id"))
-                $('#updateModal .size').val($('#' + $(this).data('id') + '>.size').attr("id"))
-                $('#updateModal .brand').val($('#' + $(this).data('id') + '>.brand').attr("id"))
-                $('#updateModal .size_number').val($('#' + $(this).data('id') + '>.size span').html())
+                $('#updateModal .catogery').val($(this).data('catogery'))
+                $('#updateModal .type').val( $(this).data('type'))
+                $('#updateModal .line').val( $(this).data('line'))
+                $('#updateModal .size').val($(this).data('size'))
+                $('#updateModal .size_number').val($(this).data('size_number'))
+                $('#updateModal .brand').val( $(this).data('brand'))
+                $('#updateModal .size_number').val()
                 console.log($('#' + $(this).data('id') + '>.size span').html());
 
                 $('#updateModal form #exampleFormControlSelect1 .brand').val('brand').change()

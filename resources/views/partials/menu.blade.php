@@ -92,7 +92,25 @@
 
 
             </li>
+            <li class="nav-item nav-dropdown">
+                <a class="nav-link  nav-dropdown-toggle" href="#">
+                    <i style="color:#e6e4eca3" class="fa fa-file-text-o nav-icon"></i>
+                    العملاء </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        {{-- this for if its active but it in nav-link  {{ request()->is('admin/courses') || request()->is('admin/courses') ? 'active' : '' }} --}}
+                        <a href="{{route('customer')}}"
+                            class="nav-link">
+                            <i style="color:#e6e4eca3" class="fa fas fa-bookmark nav-icon"></i>
+                           العرض
+                        </a>
+                    </li>
 
+
+                </ul>
+
+
+            </li>
             <li class="nav-item nav-dropdown">
                 <a class="nav-link  nav-dropdown-toggle" href="#">
                     <i style="color:#e6e4eca3" class="fa fa-file-text-o nav-icon"></i>

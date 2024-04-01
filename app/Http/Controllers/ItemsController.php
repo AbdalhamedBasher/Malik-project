@@ -96,6 +96,7 @@ class ItemsController extends Controller
                 "price"=>$request->price,
                 "brand"=>$request->brand,
                 "size"=>$request->size,
+                "type"=>$request->type,
                 "size_number"=>$request->size_number,
 
 

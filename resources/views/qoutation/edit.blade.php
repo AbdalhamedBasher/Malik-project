@@ -33,11 +33,12 @@
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">المشروع/Project</label>
+                        
                             <select id="inputState" name="project" class="customer form-control">
-                                <option selected>-- إختر --</option>
+                                <option>-- إختر --</option>
 
                                 @foreach ($projects as $project)
-                                    <option value="{{ $project->id }}" $qoute->pro>
+                                    <option value="{{ $project->id }}" {{$project->id==$qoute->project?'selected':''}} >
                                         {{ $project->name }}
                                     </option>
                                 @endforeach
@@ -50,16 +51,17 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group row-md-3">
+                           
                             <label for="inputZip">العميل/customer</label>
                             <select id="inputState" name="customer" class="customer form-control">
 
-                                @foreach ($customer as $item)
-                                    <option selected>-- إختر --</option>
-                                    <option value="{{ $item->id }}" selected>
-                                        {{ $item->name }}
+                                @foreach ($customers as $customer)
+                                    <option value="" >-- إختر --</option>
+                                    <option value="{{ $customer->id }}" {{$customer->id==$qoute->customer?'selected':''}}>
+                                        {{ $customer->name }}
                                     </option>
                                 @endforeach
-                                <option value="0"></option>
+                             
 
                             </select>
 
@@ -83,13 +85,7 @@
 
 
                         </div>
-                        <div class="form-group row-md-3">
-                            <label for="inputZip">المشروع/project</label>
-                            <input type="text" name="project_name" class="form-control" id="inputZip"
-                                value="{{ $qoute->project_name }}">
-
-
-                        </div>
+                        
                         <div class="form-group row-md-3">
                             <label for="inputZip">تاريخ الانشاء/issue date</label>
                             <input type="date" name="qoutation_date" class="form-control qoutation_date" id="inputZip"
@@ -1990,8 +1986,7 @@
 
 
 
-            $(this).find('select').val('');
-
+           
 
 
 

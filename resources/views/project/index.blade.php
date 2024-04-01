@@ -57,12 +57,13 @@
                             <tr>
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $project->serial }}</td>
-                                <td>{{ $project->customers_data->name }}</td>
+                                <td>{{ ($project->customers_data)?$project->customers_data->name:'' }}</td>
                                 <td>{{ $project->name }}</td>
                                 <td>{{ $project->status }}</td>
                                 <td>
+                              
                                     <a href="#" class="btn btm-sm  btn-outline-primary create"> جديد/new</a>
-                                    <a href="#" class="btn btm-sm  btn-outline-success update" data-id="{{$project->id}}"  data-serial="{{$project->serial}}" data-name="{{$project->name}}" data-customer="{{$project->customers_data->id}}" data-status="{{$project->status}}"> تعديل/edite</a>
+                                    <a href="#" class="btn btm-sm  btn-outline-success update" data-id="{{($project)?$project->id:''}}"  data-serial="{{($project)?$project->serial:''}}" data-name="{{$project->name}}" data-customer="{{$project->customers_data->id}}" data-status="{{$project->status}}"> تعديل/edite</a>
 
                                 </td>
                             </tr>

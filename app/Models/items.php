@@ -15,7 +15,7 @@ class items extends Model
     }
     public function catogery_data()
     {
-        return $this->belongsTo(catogery::class, 'catogery', 'id');
+        return $this->belongsTo(catogery::class, 'catogery');
     }
     public function size_data()
     {
@@ -32,5 +32,9 @@ class items extends Model
     public function qoute_line()
     {
         return $this->belongsTo(qoutation::class,'id','qoute');
+    }
+    public function line_data()
+    {
+        return $this->belongsTo(line::class,'line');
     }
 }

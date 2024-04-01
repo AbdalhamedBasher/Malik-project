@@ -27,9 +27,12 @@ return new class extends Migration
             $table->unsignedDouble("material_acc");
             $table->unsignedDouble("material_other");
             $table->unsignedDouble("labour");
+            $table->unsignedDouble("labour_other");
+         
             // total_material total_labour product_factor
             $table->unsignedDouble("total_material");
-            $table->unsignedDouble("total_material");
+            $table->unsignedDouble("total_labour");
+            
             $table->unsignedDouble("product_factor");
             $table->timestamps();
         });

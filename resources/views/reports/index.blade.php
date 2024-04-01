@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('styles')
+
     <style>
         @font-face {
             font-family: 'OptimusPrinceps';

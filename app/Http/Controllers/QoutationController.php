@@ -21,6 +21,7 @@ use App\Models\AboutCompany;
 use Dompdf\Dompdf;
 use ArPHP\I18N\Arabic;
 use Dompdf\Options;
+use Mpdf\Mpdf;
 use Illuminate\Support\Facades\View;
 
 class QoutationController extends Controller
@@ -41,27 +42,25 @@ class QoutationController extends Controller
     public function index()
     {
         $qoute = qoutation::get();
-        if ( $qoute) {
+        if ($qoute) {
 
-        $line_name = line::get();
-        $items = items::get();
-        $catogery = catogery::get();
-        $type = type::get();
-        $size = size::get();
-        $project=project::get();
-        $brand = brand::get();
-$summaries=[];
-        foreach ($qoute as $key => $value) {
+            $line_name = line::get();
+            $items = items::get();
+            $catogery = catogery::get();
+            $type = type::get();
+            $size = size::get();
+            $project = project::get();
+            $brand = brand::get();
+            $summaries = [];
+            foreach ($qoute as $key => $value) {
 
-            $summaries[$value->id] = $this->summary($value->id);
-        }
-        return view('qoutation.index')->with(['qoutations' => $qoute , 'summaries' => $summaries ,"projects"=>$project]);
-        }
-        else {
+                $summaries[$value->id] = $this->summary($value->id);
+            }
+            return view('qoutation.index')->with(['qoutations' => $qoute, 'summaries' => $summaries, "projects" => $project]);
+        } else {
             return view('qoutation.index')->with(['qoutations' => $qoute]);
         }
-
-}
+    }
 
 
     /**
@@ -82,10 +81,10 @@ $summaries=[];
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
-        $projects=project::get();
+        $projects = project::get();
 
 
-        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units,'projects'=>$projects]);
+        return view('qoutation.create')->with(['line' => $line, 'qoute_id' => $qoute_id, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'projects' => $projects]);
     }
     /**
      * Store a newly created resource in storage.
@@ -205,7 +204,7 @@ $summaries=[];
         $size = size::get();
         $brand = brand::get();
         $units = units::get();
-        $projects=project::get();
+        $projects = project::get();
         $qoute_batch = config('app.my_constant.key1');;
         foreach ($qoute->qoute_batch as $value) {
             $qoute_batch[$value->line] = $value;
@@ -217,7 +216,7 @@ $summaries=[];
         $sumation = $this->summary($qoute->id);
 
 
-        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customer' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, 'qoute_batch' => $qoute_batch,"projects"=>$projects]);
+        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customers' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, 'qoute_batch' => $qoute_batch, "projects" => $projects]);
     }
 
     /**
@@ -230,7 +229,7 @@ $summaries=[];
     public function update(Request $request,  $id)
     {
         $qout_line = [];
-$qoute = qoutation::find($id);
+        $qoute = qoutation::find($id);
 
         $last = (qoutation::max("id") == null) ? 1 : qoutation::max("id") + 1;
 
@@ -272,7 +271,7 @@ $qoute = qoutation::find($id);
 
                 if (isset($request->item[$line])) {
                     foreach ($request->item[$line] as $key => $value) {
-
+                        if ($qoute_batch) {
                         $qout_line[$key] = $qoute_batch->qoute_lines()->update([
 
                             "qty" => $request->qty[$line][$key],
@@ -291,15 +290,16 @@ $qoute = qoutation::find($id);
 
                         ]);
                     }
+                    }
                 }
             }
         }
 
         if (($qoute)) {
             return redirect()->route('qoute')->with(['message' => 'تم تعديل التسعيرة']);
+        } else {
+            return redirect()->back()->with(['message' => 'هناك خطا في التسعيرة']);
         }
-        else {
-            return redirect()->back()->with(['message' => 'هناك خطا في التسعيرة']);        }
     }
 
     /**
@@ -361,35 +361,533 @@ $qoute = qoutation::find($id);
     {
         return view('reports.index');
     }
-    public function qoutation_pdf($qoutation)
+    public function qoutation_pdf1($qoutation)
     {
 
+        // $qoute = qoutation::find($qoutation);
+        // $lines = line::get();
+        // $ourCompany = AboutCompany::get();
+
+        // $options = new Options();
+        // $options->set('isHtml5ParserEnabled', true);
+        // $dompdf = new Dompdf($options);
+        // $image = base64_encode(file_get_contents(public_path('images/1694333491.jpg')));
+
+        // $data = ['qoute' => $qoute, 'lines' => $lines, 'image' => $image, 'title' => $qoute->refrence];
+        // $reportHtml = view('reports.price_offer', $data)->render();
+
+        // $arabic = new Arabic();
+        // $p = $arabic->arIdentify($reportHtml);
+
+        // for ($i = count($p) - 1; $i >= 0; $i -= 2) {
+        //     $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i - 1], $p[$i] - $p[$i - 1]));
+        //     $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i - 1], $p[$i] - $p[$i - 1]);
+        // }
+        // $pdf = $dompdf->loadHTML($reportHtml);
+        // $dompdf->render();
+        // $dompdf->stream('document.pdf', ['Attachment' => false]);
+        // return $pdf->download('purchase.pdf');
+        // GeneratePdf::dispatch($lines,$qoute->refrence);
+        $mpdf = new Mpdf();
+
+        // Set Arabic font
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+        $mpdf->SetDirectionality('rtl');
+        $mpdf->SetFont('Arial', '', 12);
+
+         $mpdf->AddPage();
+        $mpdf->WriteHTML('<p style="text-align: right;">محتوى الصفحة الأولى</p>');
+
+        // Add content to page 2
+        $mpdf->AddPage();
+        $mpdf->WriteHTML('<p style="text-align: right;">محتوى الصفحة الثانية</p>');
+
+        // Add content to additional pages as needed
+        // $mpdf->AddPage();
+        // $mpdf->WriteHTML('<p style="text-align: right;">محتوى الصفحة الثالثة</p>');
+
+        // Output PDF
+        $mpdf->Output();
+    }
+    public function qoutation_pdf($qoutation){
         $qoute = qoutation::find($qoutation);
-$lines=line::get();
-$ourCompany=AboutCompany::get();
+        $header = ''; // Extract header from $htmlContent
+        $footer = ''; // Extract footer from $htmlContent
 
-$options = new Options();
-    $options->set('isHtml5ParserEnabled', true);
-    $dompdf = new Dompdf($options);
-    $image = base64_encode(file_get_contents(public_path('images/1694333491.jpg'  )));
+        // Split HTML content into separate sections for each page
+        // $pages = explode('<!-- PAGE_BREAK -->', $htmlContent);
 
-$data=['qoute'=>$qoute,'lines'=>$lines,'image'=>$image];
+        // Create new mPDF instance
+        $mpdf = new Mpdf();
 
-    $reportHtml = view('reports.price_offer',$data)->render();
+        // Set Arabic font
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+        $mpdf->SetDirectionality('rtl');
+        $mpdf->SetFont('sans-serif', '', 12);
 
-    $arabic = new Arabic();
-    $p = $arabic->arIdentify($reportHtml);
+        // Set header and footer
+        $mpdf->SetHTMLHeader($header);
+        $mpdf->SetHTMLFooter($footer);
 
-    for ($i = count($p)-1; $i >= 0; $i-=2) {
-        $utf8ar = $arabic->utf8Glyphs(substr($reportHtml, $p[$i-1], $p[$i] - $p[$i-1]));
-        $reportHtml = substr_replace($reportHtml, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+        // Add each page content to PDF
+       
+        // <p> الموافق -: '.$qoute->expire_date.' هـ    </p> 
+                
+                $mpdf->WriteHTML( '<!DOCTYPE html>
+                <html lang="ar">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Invoice</title>
+                    <style>
+                   
+                
+                
+                    .table {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                        color: #212529;
+                    }
+                
+                    .introduction {
+                        font-weight: bold;
+                    }
+                
+                    p.dear-fawzan-company {
+                        margin-top: 5rem;
+                        margin-bottom: 2rem;
+                    }
+                
+                    .topic {
+                        font-weight: bold;
+                    }
+                
+                    .topic-introduction {
+                        margin-bottom: 2rem;
+                        position: relative;
+                        padding-bottom: 3px;
+                    }
+                
+                    .topic-introduction::after {
+                      
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        height: 1px;
+                        width: 34%;
+                        /* Adjust as needed */
+                        background: black;
+                        /* Change color as needed */
+                    }
+                
+                    .topic p {
+                        font-size: 16px;
+                    }
+                
+                    p.phone-number {
+                        margin-top: 2rem;
+                        margin-right: 70%;
+                
+                    }
+                
+                    p.thanks {
+                        margin-top: 2rem;
+                        font-weight: bold;
+                        margin-right: 10%;
+                
+                
+                    }
+                
+                    h3.sales-department {
+                        margin-top: 2rem;
+                        font-weight: 500;
+                        margin-right: 70%;
+                
+                    }
+                
+                    h3.early-fire-warning {
+                        position: relative;
+                        margin-top: 3rem;
+                        margin-bottom: 2rem;
+                    }
+                
+                    h3.early-fire-warning::after {
+                  
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        height: 1px;
+                        width: 42%;
+                        /* Adjust as needed */
+                        background: black;
+                        /* Change color as needed */
+                    }
+                
+                
+                    h3.firefighting-system {
+                        position: relative;
+                        margin-top: 3rem;
+                        margin-bottom: 2rem;
+                
+                    }
+                
+                    h3.firefighting-system::after {
+                  
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        height: 1px;
+                        width: 15%;
+                        /* Adjust as needed */
+                        background: black;
+                        /* Change color as needed */
+                    }
+                
+                    </style>
+                </head>
+                <body>
+                <div class="introduction">
+        
+                <p>الرقم -:'.$qoute->refrence.'/ DQF     </p>
+                <p>التاريخ -: '.$qoute->qoutation_date.'  م</p>
+              
+                <p class="dear-fawzan-company"> السادة /   '.$qoute->customers_data->name.'
+                </p>
+             </div>
+             <div class="topic">
+             <h3 class="topic-introduction">الموضوع :    '.$qoute->project_data->name.'.
+             </h3>
+             <p>
+                
+             
+             <pre>'.$qoute->description.'</pre>
+                 ونحن على استعداد للتجاوب مع أي استفسار أو تساؤل على الرقم التالى -:
+             </p>
+         
+                 
+                 <p class="mt-3 phone-number">
+                     0507063545
+                 </p>
+                 <p class="thanks">
+                     ولكم منا جزيل الشكر ،،،
+         
+                 </p>
+                 <h3 class="sales-department">
+                     قسم المبيعات
+         
+                 </h3>
+             </div>    
+         
+                
+            </div>
+                 
+                </body>
+                </html>');   
+            
+              
+              foreach($qoute->qoute_batch as $batch){
+                $mpdf->AddPage();
+                $mpdf->WriteHTML(' <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Document</title>
+                    <style>
+                   
+                    .table {
+                width: 100%;
+                margin-bottom: 1rem;
+                color: #212529;
+                }
+                .introduction{
+                font-weight: bold;
+                }
+                p.dear-fawzan-company{
+                margin-top:5rem; 
+                margin-bottom: 2rem;
+                }
+                .topic{
+                font-weight: bold;
+                }
+                .topic-introduction{
+                margin-bottom: 2rem;
+                position: relative;
+                padding-bottom: 3px;
+                }
+                .topic-introduction::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 34%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                .topic p{
+                font-size:16px;
+                }
+                
+                p.phone-number{
+                margin-top: 2rem;
+                margin-right:70%;
+                
+                }
+                p.thanks{
+                margin-top: 2rem;
+                font-weight: bold;
+                margin-right:10%;
+                
+                
+                }
+                h3.sales-department{
+                margin-top: 2rem;
+                font-weight:500;
+                margin-right:70%;
+                
+                }
+                h3.early-fire-warning{
+                position: relative;
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+                }
+                
+                h3.early-fire-warning::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 42%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                
+                
+                h3.firefighting-system{
+                position: relative;
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+                
+                }
+                h3.firefighting-system::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 15%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                
+                
+                .table th,
+                .table td {
+                padding: 0.75rem;
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+                }
+                
+                .table thead th {
+                vertical-align: bottom;
+                border-bottom: 2px solid #dee2e6;
+                }
+                
+                .table-striped tbody tr:nth-of-type(odd) {
+                background-color: rgba(0, 0, 0, 0.05);
+                }
+                
+                .table-bordered {
+                border: 1px solid #dee2e6;
+                }
+                
+                .table-bordered th,
+                .table-bordered td {
+                border: 1px solid #dee2e6;
+                }
+                
+                .table-responsive {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                }
+                div.terms-and-conditions{
+                font-weight: bold;
+                font-size:20px;
+                }
+                
+                h3.terms-and-conditions-title{
+                margin-top: 3rem;
+                margin-bottom: 1rem;
+                font-weight: bold;
+                position: relative;
+                }
+                h3.terms-and-conditions-title::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 19%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                
+                }
+                
+                span.hash-tag{
+                margin-left: 5%;
+                }
+                
+                ul.expiry-date{
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                font-weight: 500;
+                font-size: 20px;
+                
+                }
+                h3.non-included-work-title{
+                position: relative;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                }
+                h3.non-included-work-title::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 20%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                ul.non-included-work-list{
+                font-weight: 500;
+                font-size: 20px;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                }
+                @media(max-width:750px){
+                .topic-introduction{
+                margin-bottom: 2rem;
+                position: relative;
+                padding-bottom: 3px;
+                }
+                .topic-introduction::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 82%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                h3.early-fire-warning{
+                position: relative;
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+                }
+                
+                h3.early-fire-warning::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 99%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                h3.firefighting-system{
+                position: relative;
+                margin-top: 3rem;
+                margin-bottom: 2rem;
+                
+                }
+                h3.firefighting-system::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 35%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                h3.terms-and-conditions-title{
+                margin-top: 3rem;
+                margin-bottom: 1rem;
+                font-weight: bold;
+                position: relative;
+                }
+                h3.terms-and-conditions-title::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 35%; 
+                background: black; 
+                
+                }
+                h3.non-included-work-title{
+                position: relative;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                }
+                h3.non-included-work-title::after{
+               
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                width: 45%; /* Adjust as needed */
+                background: black; /* Change color as needed */
+                }
+                .terms-and-conditions div h3{
+                font-size: 20px;
+                
+                }
+                }
+                
+                
+                
+                </style>
+                </head>
+                <body>     <div>
+                <h3 class="early-fire-warning">
+                    أولا-: (الإنذار المبكر ضد الحريق - نظام إنذار عادي) .
+    
+                </h3>
+                
+            </div>
+       </div>
+       <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+           <tr>
+               <th>البيان</th>
+               <th>النوع</th>
+               <th>العدد</th>
+               <th>السعر الإفرادي</th>
+               <th>السعر الإجمالي</th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>5 الأسلاك والمواس6 و مواد التمد3دات ولوازمها 
+                </td>
+                <td>محلية الصنع </td>
+                <td>مقطوعية</td>
+                <td>4500</td>
+                <td>4500</td>
+            </tr>
+          
+        </tbody>                        
+       </table>
+       </body>
+</html>');
+              }
+
+
+        // Output PDF
+        return $mpdf->Output();
     }
-    $pdf = $dompdf->loadHTML($reportHtml);
-    $dompdf->render();
-     $dompdf->stream('document.pdf', ['Attachment' => false]);
-    // return $pdf->download('purchase.pdf');
-// GeneratePdf::dispatch($lines,$qoute->refrence);
-
-    }
-
 }

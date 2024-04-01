@@ -62,7 +62,7 @@ Route::get('lines/show/{id}', [LineController::class,"show"])->name('lines.show'
 Route::get('item', [ItemsController::class,"index"]);
 Route::post('item', [ItemsController::class,"store"])->name('item');
 Route::post('item/delete', [ItemsController::class,"destroy"])->name('item.delete');
-Route::post('item/update', [ItemsController::class,"update"])->name('item.update');
+Route::put('item/update', [ItemsController::class,"update"])->name('item.update');
 // grtItems
 Route::get('item/data', [ItemsController::class,"getItems"])->name('getItems');
 
@@ -128,7 +128,7 @@ Route::get('customer/data/{id}', [customerController::class,"data_customer"])->n
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //reports routes
-Route::get('/reports',[QoutationController::class,'contract'])->name('reports');
+Route::get('/reports/{qouation_batch}',[QoutationController::class,'contract'])->name('reports');
 
 Route::get('/reports/qoutation_pdf/{qoutation}',[QoutationController::class,'qoutation_pdf'])->name('reports.price_offer');
 

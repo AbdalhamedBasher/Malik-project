@@ -348,7 +348,12 @@
         $(document).ready(function() {
 
 
+            $("#icons").click(function(e) {
 
+$('#exampleModal').modal('show');
+
+
+})
 
 
 

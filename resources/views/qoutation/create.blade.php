@@ -70,7 +70,7 @@
 
                         <div class="form-group row-md-3">
                             <label for="inputZip">الوصف/description</label>
-                            <input type="text" name="description" class="form-control" id="inputZip">
+                            <input type="textarea" name="description" class="form-control" id="inputZip">
 
 
                         </div>
