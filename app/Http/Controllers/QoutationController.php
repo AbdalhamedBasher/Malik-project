@@ -432,9 +432,9 @@ class QoutationController extends Controller
         $mpdf->SetHTMLFooter($footer);
 
         // Add each page content to PDF
-       
-        // <p> الموافق -: '.$qoute->expire_date.' هـ    </p> 
-                
+
+        // <p> الموافق -: '.$qoute->expire_date.' هـ    </p>
+
                 $mpdf->WriteHTML( '<!DOCTYPE html>
                 <html lang="ar">
                 <head>
@@ -442,36 +442,36 @@ class QoutationController extends Controller
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Invoice</title>
                     <style>
-                   
-                
-                
+
+
+
                     .table {
                         width: 100%;
                         margin-bottom: 1rem;
                         color: #212529;
                     }
-                
+
                     .introduction {
                         font-weight: bold;
                     }
-                
+
                     p.dear-fawzan-company {
                         margin-top: 5rem;
                         margin-bottom: 2rem;
                     }
-                
+
                     .topic {
                         font-weight: bold;
                     }
-                
+
                     .topic-introduction {
                         margin-bottom: 2rem;
                         position: relative;
                         padding-bottom: 3px;
                     }
-                
+
                     .topic-introduction::after {
-                      
+
                         position: absolute;
                         right: 0;
                         bottom: 0;
@@ -481,40 +481,40 @@ class QoutationController extends Controller
                         background: black;
                         /* Change color as needed */
                     }
-                
+
                     .topic p {
                         font-size: 16px;
                     }
-                
+
                     p.phone-number {
                         margin-top: 2rem;
                         margin-right: 70%;
-                
+
                     }
-                
+
                     p.thanks {
                         margin-top: 2rem;
                         font-weight: bold;
                         margin-right: 10%;
-                
-                
+
+
                     }
-                
+
                     h3.sales-department {
                         margin-top: 2rem;
                         font-weight: 500;
                         margin-right: 70%;
-                
+
                     }
-                
+
                     h3.early-fire-warning {
                         position: relative;
                         margin-top: 3rem;
                         margin-bottom: 2rem;
                     }
-                
+
                     h3.early-fire-warning::after {
-                  
+
                         position: absolute;
                         right: 0;
                         bottom: 0;
@@ -524,17 +524,17 @@ class QoutationController extends Controller
                         background: black;
                         /* Change color as needed */
                     }
-                
-                
+
+
                     h3.firefighting-system {
                         position: relative;
                         margin-top: 3rem;
                         margin-bottom: 2rem;
-                
+
                     }
-                
+
                     h3.firefighting-system::after {
-                  
+
                         position: absolute;
                         right: 0;
                         bottom: 0;
@@ -544,15 +544,15 @@ class QoutationController extends Controller
                         background: black;
                         /* Change color as needed */
                     }
-                
+
                     </style>
                 </head>
                 <body>
                 <div class="introduction">
-        
+
                 <p>الرقم -:'.$qoute->refrence.'/ DQF     </p>
                 <p>التاريخ -: '.$qoute->qoutation_date.'  م</p>
-              
+
                 <p class="dear-fawzan-company"> السادة /   '.$qoute->customers_data->name.'
                 </p>
              </div>
@@ -560,34 +560,44 @@ class QoutationController extends Controller
              <h3 class="topic-introduction">الموضوع :    '.$qoute->project_data->name.'.
              </h3>
              <p>
-                
-             
+
+
              <pre>'.$qoute->description.'</pre>
                  ونحن على استعداد للتجاوب مع أي استفسار أو تساؤل على الرقم التالى -:
              </p>
-         
-                 
+
+
                  <p class="mt-3 phone-number">
                      0507063545
                  </p>
                  <p class="thanks">
                      ولكم منا جزيل الشكر ،،،
-         
+
                  </p>
                  <h3 class="sales-department">
                      قسم المبيعات
-         
+
                  </h3>
-             </div>    
-         
-                
+             </div>
+
+
             </div>
-                 
+
                 </body>
-                </html>');   
-            
-              
+                </html>');
+$row='';
+
               foreach($qoute->qoute_batch as $batch){
+                foreach ($batch->qoute_lines as $key => $lines_data) {
+                 $row.=   '<tr>
+                <td>'.$lines_data->items->name.'
+                </td>
+                <td>'.$lines_data->items->type_data->name.'</td>
+                <td>'.$lines_data->qty.'</td>
+                <td>'.$lines_data->items->price.'</td>
+                <td>'.$lines_data->items->price * $lines_data->qty.'</td>
+            </tr>';
+                }
                 $mpdf->AddPage();
                 $mpdf->WriteHTML(' <!DOCTYPE html>
                 <html lang="en">
@@ -596,7 +606,7 @@ class QoutationController extends Controller
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Document</title>
                     <style>
-                   
+
                     .table {
                 width: 100%;
                 margin-bottom: 1rem;
@@ -606,7 +616,7 @@ class QoutationController extends Controller
                 font-weight: bold;
                 }
                 p.dear-fawzan-company{
-                margin-top:5rem; 
+                margin-top:5rem;
                 margin-bottom: 2rem;
                 }
                 .topic{
@@ -618,7 +628,7 @@ class QoutationController extends Controller
                 padding-bottom: 3px;
                 }
                 .topic-introduction::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -629,33 +639,33 @@ class QoutationController extends Controller
                 .topic p{
                 font-size:16px;
                 }
-                
+
                 p.phone-number{
                 margin-top: 2rem;
                 margin-right:70%;
-                
+
                 }
                 p.thanks{
                 margin-top: 2rem;
                 font-weight: bold;
                 margin-right:10%;
-                
-                
+
+
                 }
                 h3.sales-department{
                 margin-top: 2rem;
                 font-weight:500;
                 margin-right:70%;
-                
+
                 }
                 h3.early-fire-warning{
                 position: relative;
                 margin-top: 3rem;
                 margin-bottom: 2rem;
                 }
-                
+
                 h3.early-fire-warning::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -663,16 +673,16 @@ class QoutationController extends Controller
                 width: 42%; /* Adjust as needed */
                 background: black; /* Change color as needed */
                 }
-                
-                
+
+
                 h3.firefighting-system{
                 position: relative;
                 margin-top: 3rem;
                 margin-bottom: 2rem;
-                
+
                 }
                 h3.firefighting-system::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -680,33 +690,33 @@ class QoutationController extends Controller
                 width: 15%; /* Adjust as needed */
                 background: black; /* Change color as needed */
                 }
-                
-                
+
+
                 .table th,
                 .table td {
                 padding: 0.75rem;
                 vertical-align: top;
                 border-top: 1px solid #dee2e6;
                 }
-                
+
                 .table thead th {
                 vertical-align: bottom;
                 border-bottom: 2px solid #dee2e6;
                 }
-                
+
                 .table-striped tbody tr:nth-of-type(odd) {
                 background-color: rgba(0, 0, 0, 0.05);
                 }
-                
+
                 .table-bordered {
                 border: 1px solid #dee2e6;
                 }
-                
+
                 .table-bordered th,
                 .table-bordered td {
                 border: 1px solid #dee2e6;
                 }
-                
+
                 .table-responsive {
                 display: block;
                 width: 100%;
@@ -717,7 +727,7 @@ class QoutationController extends Controller
                 font-weight: bold;
                 font-size:20px;
                 }
-                
+
                 h3.terms-and-conditions-title{
                 margin-top: 3rem;
                 margin-bottom: 1rem;
@@ -725,26 +735,26 @@ class QoutationController extends Controller
                 position: relative;
                 }
                 h3.terms-and-conditions-title::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
                 height: 1px;
                 width: 19%; /* Adjust as needed */
                 background: black; /* Change color as needed */
-                
+
                 }
-                
+
                 span.hash-tag{
                 margin-left: 5%;
                 }
-                
+
                 ul.expiry-date{
                 margin-top: 2rem;
                 margin-bottom: 2rem;
                 font-weight: 500;
                 font-size: 20px;
-                
+
                 }
                 h3.non-included-work-title{
                 position: relative;
@@ -752,7 +762,7 @@ class QoutationController extends Controller
                 margin-bottom: 2rem;
                 }
                 h3.non-included-work-title::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -773,7 +783,7 @@ class QoutationController extends Controller
                 padding-bottom: 3px;
                 }
                 .topic-introduction::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -786,9 +796,9 @@ class QoutationController extends Controller
                 margin-top: 3rem;
                 margin-bottom: 2rem;
                 }
-                
+
                 h3.early-fire-warning::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -800,10 +810,10 @@ class QoutationController extends Controller
                 position: relative;
                 margin-top: 3rem;
                 margin-bottom: 2rem;
-                
+
                 }
                 h3.firefighting-system::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -818,14 +828,14 @@ class QoutationController extends Controller
                 position: relative;
                 }
                 h3.terms-and-conditions-title::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
                 height: 1px;
-                width: 35%; 
-                background: black; 
-                
+                width: 35%;
+                background: black;
+
                 }
                 h3.non-included-work-title{
                 position: relative;
@@ -833,7 +843,7 @@ class QoutationController extends Controller
                 margin-bottom: 2rem;
                 }
                 h3.non-included-work-title::after{
-               
+
                 position: absolute;
                 right: 0;
                 bottom: 0;
@@ -843,20 +853,20 @@ class QoutationController extends Controller
                 }
                 .terms-and-conditions div h3{
                 font-size: 20px;
-                
+
                 }
                 }
-                
-                
-                
+
+
+
                 </style>
                 </head>
                 <body>     <div>
                 <h3 class="early-fire-warning">
-                    أولا-: (الإنذار المبكر ضد الحريق - نظام إنذار عادي) .
-    
+                    أولا-: ('.$batch->lines->name.' -  '.$batch->lines->main_lines->name.' ) .
+
                 </h3>
-                
+
             </div>
        </div>
        <div class="table-responsive">
@@ -871,16 +881,9 @@ class QoutationController extends Controller
            </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>5 الأسلاك والمواس6 و مواد التمد3دات ولوازمها 
-                </td>
-                <td>محلية الصنع </td>
-                <td>مقطوعية</td>
-                <td>4500</td>
-                <td>4500</td>
-            </tr>
-          
-        </tbody>                        
+           '.$row.'
+
+        </tbody>
        </table>
        </body>
 </html>');
