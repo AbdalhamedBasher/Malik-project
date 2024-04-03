@@ -10,6 +10,9 @@ use App\Models\qoutation;
 use App\Models\line;
 use App\Models\project;
 use App\Models\qoutation_line;
+use App\Models\qoutation_batch;
+
+
 use App\Models\size;
 use App\Models\type;
 use Illuminate\Http\Request;
@@ -22,6 +25,7 @@ use Dompdf\Dompdf;
 use ArPHP\I18N\Arabic;
 use Dompdf\Options;
 use Mpdf\Mpdf;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class QoutationController extends Controller
@@ -197,6 +201,7 @@ class QoutationController extends Controller
         // $qoute_id = qoutation::get()->count() == 0 ? qoutation::get()->count() + 1 : qoutation::get()->max();
         $customer = customer::get();
         $qoute = qoutation::find($id);
+
         $line = line::where(["main_line" => null])->get();
         $items = items::get();
         $catogery = catogery::get();
@@ -205,19 +210,22 @@ class QoutationController extends Controller
         $brand = brand::get();
         $units = units::get();
         $projects = project::get();
-        $qoute_batch = config('app.my_constant.key1');;
+        $sumation=[];
+        if($qoute){
         foreach ($qoute->qoute_batch as $value) {
             $qoute_batch[$value->line] = $value;
         }
+        $sumation = $this->summary($qoute->id);
+        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customers' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, "projects" => $projects]);
 
+    }
 
         $qoute_line_total = [];
         // sumation of all qoute lines in qoutation batch
-        $sumation = $this->summary($qoute->id);
 
+return redirect()->back()->withInput();
 
-        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customers' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, 'qoute_batch' => $qoute_batch, "projects" => $projects]);
-    }
+         }
 
     /**
      * Update the specified resource in storage.
@@ -225,82 +233,76 @@ class QoutationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\qoutation  $qoutation
      * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request,  $id)
-    {
-        $qout_line = [];
-        $qoute = qoutation::find($id);
-
-        $last = (qoutation::max("id") == null) ? 1 : qoutation::max("id") + 1;
+     */public function update(Request $request, $id)
+{
+    DB::beginTransaction();
 
 
-        $qoute->update([
+        $quote = qoutation::find($id);
 
-
-
+        $quote->update([
 
             "qoutation_date" => $request->qoutation_date,
             "expire_date" => $request->expire_date,
             "project" => $request->project,
+
             "statues" => $request->statues,
             "description" => $request->description,
-            "refrence" => 'Q' . $last,
+
             'customer' => $request->customer,
             "indrect" => $request->indrect,
             "addition" => $request->addition,
             "consult" => $request->consult,
             "risk" => $request->risk,
-
-
         ]);
-        if (isset($request->lines)) {
-
-
-            foreach ($request->lines as $key => $line) {
-                $qoute_batch = $qoute->qoute_batch()->update([
-                    "line" => $line,
-                    "factor" => $request->factor,
-                    "qoute" => $qoute->id,
-
-                ]);
+if ($request->lines) {
+    # code...
 
 
 
+            $quoteBatch = $quote->qoute_batch()->exists() ? $quote->qoute_batch : $quote->qoute_batch()->create([
+                "factor" => $request->factor, // You might want to clarify where $request->factor comes from
+                "quote" => $quote->id,
+            ]);
+foreach ( $quoteBatch as $key => $batch) {
+    # code...
+
+            if ( sizeof($request->item[$batch->line])>0) {
+                foreach ($request->item[$batch->line] as $key => $item) {
+
+                    $quoteLine = $batch->qoute_lines()->CreateUpdate(
+                        [
+                            'id' => $batch->id,
+                            'item' => $item,
 
 
-
-                if (isset($request->item[$line])) {
-                    foreach ($request->item[$line] as $key => $value) {
-                        if ($qoute_batch) {
-                        $qout_line[$key] = $qoute_batch->qoute_lines()->update([
-
-                            "qty" => $request->qty[$line][$key],
-                            "item" => $value,
-                            "unit" => $request->unit[$line][$key],
-                            "qoute_batch" =>  $qoute_batch->id,
-                            "material" => $request->material[$line][$key],
-                            "material_acc" => $request->material_acc[$line][$key],
-                            "material_other" => $request->material_acc[$line][$key],
-                            "total_material" => $request->total_material[$line][$key],
-                            "labour" => $request->labour[$line][$key],
-                            "labour_other" => $request->labour_other[$line][$key],
-                            "total_labour" => $request->total_labour[$line][$key],
-                            "product_factor" => $request->product_factor[$line][$key],
-
-
-                        ]);
-                    }
-                    }
+                            "qty" => $request->qty[$batch->line][$key],
+                            "unit" => $request->unit[$batch->line][$key],
+                            "material" => $request->material[$batch->line][$key],
+                            "material_acc" => $request->material_acc[$batch->line][$key],
+                            "material_other" => $request->material_acc[$batch->line][$key], // Is this intended?
+                            "total_material" => $request->total_material[$batch->line][$key],
+                            "labour" => $request->labour[$batch->line][$key],
+                            "labour_other" => $request->labour_other[$batch->line][$key],
+                            "total_labour" => $request->total_labour[$batch->line][$key],
+                            "product_factor" => $request->product_factor[$batch->line][$key],
+                        ]
+                    );
                 }
+
+            } else {
+                return redirect()->back()->with(['message' => 'خطا المنتجات غير موجودة']);
             }
         }
 
-        if (($qoute)) {
-            return redirect()->route('qoute')->with(['message' => 'تم تعديل التسعيرة']);
-        } else {
-            return redirect()->back()->with(['message' => 'هناك خطا في التسعيرة']);
-        }
+        DB::commit();
+
+    } else {
+
     }
+}
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -308,6 +310,7 @@ class QoutationController extends Controller
      * @param  \App\Models\qoutation  $qoutation
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(qoutation $qoutation)
     {
         //
@@ -601,8 +604,8 @@ $row='';
                 </td>
                 <td>'.$lines_data->items->type_data->name.'</td>
                 <td>'.$lines_data->qty.'</td>
-                <td>'.$lines_data->items->price.'</td>
-                <td>'.$lines_data->items->price * $lines_data->qty.'</td>
+                <td>'.$lines_data->items->price * $batch->factor.'</td>
+                <td>'.$lines_data->items->price * $batch->factor * $lines_data->qty.'</td>
             </tr>';
                 }
                 $mpdf->AddPage();

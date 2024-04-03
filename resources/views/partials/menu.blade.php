@@ -165,7 +165,7 @@
                         <a href="{{route('units')}}"
                             class="nav-link">
                             <i style="color:#e6e4eca3" class="fa fas fa-bookmark nav-icon"></i>
-                           العرض
+                           الوحدة
                         </a>
                     </li>
                 </ul>
