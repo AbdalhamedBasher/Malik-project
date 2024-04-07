@@ -33,11 +33,11 @@
                         <div class="form-group row-md-3">
                             <label for="inputZip">المشروع/Project</label>
                             <select id="inputState" name="project" class="customer form-control">
-                                <option selected>-- إختر --</option>
+                                <option>-- إختر --</option>
 
-                                @foreach ($projects as $project)
-                                    <option value="{{ $project->id }}">
-                                        {{ $project->name }}
+                                @foreach ($projects as $proj)
+                                    <option value="{{ $proj->id }}" {{ $proj->id == $qoute->project ? 'selected' : '' }}>
+                                        {{ $proj->name }}{{ $proj->id == $qoute->project ? 'selected' : '' }}
                                     </option>
                                 @endforeach
 
@@ -51,11 +51,11 @@
                         <div class="form-group row-md-3">
                             <label for="inputZip">العميل/customer</label>
                             <select id="inputState" name="customer" class="customer form-control">
-                                <option selected>-- إختر --</option>
+                                <option>-- إختر --</option>
 
-                                @foreach ($customer as $item)
-                                    <option value="{{ $item->id }}">
-                                        {{ $item->name }}
+                                @foreach ($customers as $cust)
+                                    <option value="{{ $cust->id }}" {{ $cust->id == $qoute->customer ? 'selected' : '' }}>
+                                        {{ $cust->name }}
                                     </option>
                                 @endforeach
 
@@ -70,35 +70,34 @@
 
                         <div class="form-group row-md-3">
                             <label for="inputZip">الوصف/description</label>
-                            <input type="textarea" name="description" class="form-control" id="inputZip">
+                            <input type="text" name="description" class="form-control" id="inputZip"
+                                value="{{ $qoute->description }}">
 
 
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">المعامل/factor</label>
-                            <input type="text" name="factor" class="form-control factor" id="inputZip">
+                            <input type="text" name="factor" class="form-control factor" id="inputZip"
+                                value="{{ $qoute->qoute_batch[0]->factor }}">
 
 
                         </div>
-                        <div class="form-group row-md-3">
-                            <label for="inputZip">المشروع/project</label>
-                            <input type="text" name="project_name" class="form-control" id="inputZip">
 
-
-                        </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">تاريخ الانشاء/issue date</label>
                             <input type="date" name="qoutation_date" class="form-control qoutation_date" id="inputZip"
-                                value="{{ date('m/d/y') }}">
+                                value="{{ $qoute->qoutation_date }}">
 
 
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">تاريخ الانتهاء/expire date</label>
-                            <input type="date" name="expire_date" class="form-control expire_date" id="inputZip">
+                            <input type="date" name="expire_date" class="form-control expire_date" id="inputZip"
+                                value="{{ $qoute->expire_date }}">
 
 
                         </div>
+
 
 
                         </span>
@@ -116,21 +115,24 @@
                                     <tbody class="customer_data">
                                         <tr class=" border-bottom-0 ">
                                             <td class=" border-bottom-0  border-top-0">الاسم/Name</td>
-                                            <td class=" border-bottom-0  border-top-0 cust-name">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0 cust-name">
+                                                {{ $qoute->customers_data->name }}</td>
 
 
 
                                         </tr>
                                         <tr class=" border-bottom-0 ">
                                             <td class=" border-bottom-0  border-top-0">رقم الهاتف/Phone Number</td>
-                                            <td class=" border-bottom-0  border-top-0  cust-phone">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0  cust-phone">
+                                                {{ $qoute->customers_data->phone_number }}</td>
 
 
 
                                         </tr>
                                         <tr class=" border-bottom-0 ">
                                             <td class=" border-bottom-0  border-top-0">الايميل/Email</td>
-                                            <td class=" border-bottom-0  border-top-0 cust-email">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0 cust-email">
+                                                {{ $qoute->customers_data->email }}</td>
 
 
 
@@ -138,7 +140,8 @@
                                         <tr class= "border-bottom-0 ">
                                             <td class=" border-bottom-0  border-top-0">السجل التجاري/commercial registration
                                             </td>
-                                            <td class=" border-bottom-0  border-top-0 cust-tax-number">&emsp13;</td>
+                                            <td class=" border-bottom-0  border-top-0 cust-tax-number">
+                                                {{ $qoute->customers_data->tax_number }}</td>
 
 
 
@@ -165,6 +168,13 @@
                     </div>
                 </div>
                 <input type="hidden" name="statues" class="statues">
+                @php
+                    $material_summary = [];
+                    $labour_summary = [];
+                    $profit_summary = [];
+                    $total_summary = [];
+
+                @endphp
                 @foreach ($line as $item)
                     <div class="card mt-1 card-detail border-0">
                         <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
@@ -172,365 +182,407 @@
                         </div>
 
                         @foreach ($item->child_lines as $children)
-                            <div class="card-body border-2">
+                            @php
+                                $material_summary[$children->id] = 0;
+                                $labour_summary[$children->id] = 0;
+                                $profit_summary[$children->id] = 0;
+                                $total_summary[$children->id] = 0;
+                                $all_tot = 0;
+                                $all_profit = 0;
+                                $all_labour = 0;
+                                $all_material = 0;
 
-                                <div class="table-responsive">
-                                    <div class="">
+                            @endphp
+                            @if (isset($qoute_batch[$children->id]))
+                                <div class="card-body border-2">
 
-                                        <input type="checkbox" class="lines" name="lines[]" value="{{ $children->id }}"
-                                            id="">
-                                        <label class="" for="">
-                                            {{ $children->name }}
+                                    <div class="table-responsive">
+                                        <div class="">
 
-                                        </label>
-                                    </div>
+                                            <input type="checkbox" class="lines" name="lines[]"
+                                                value="{{ $qoute_batch[$children->id]->line }}" id="">
+                                            <label class="" for="">
+                                                {{ $children->name }}
 
-                                    <table class="overflow-x-scroll" style="text-align: center">
-                                        <thead class=" overflow-x-scroll bg-blue-50">
-                                            <tr class=" border border-1 overflow-x-scroll">
-                                                <th class=" border border-1 ">
-                                                    #
-                                                </th>
+                                            </label>
+                                        </div>
 
-
-                                                <th style="text-align: center">
-                                                    اسم المادة/Product Name
-                                                </th>
-                                                <th style="text-align: center">
-                                                    الوحدات/Unit
-                                                </th>
-                                                <th style="text-align: center">
-                                                    سعر الوحدة/Product*factor
-                                                </th>
-                                                <th style="text-align: center">
-                                                    الكمية/Qty
-                                                </th>
-                                                <th style="text-align: center">
-                                                    المجموع/Sale Price</th>
-                                                <th style="text-align: center">
-                                                    المواد المساعدة/Material Price
-                                                </th>
-                                                <th style="text-align: center">
-                                                    د-المواد/Decoration Product
-                                                </th>
-                                                <th style="text-align: center">
-                                                    -غير ذلك المواد/Other Material
-                                                </th>
-                                                <th style="text-align: center">
-                                                    المجموع المواد/Material Total</th>
-                                                <th style="text-align: center">
-                                                    المجموع المواد/الكلي /Material Per Qty</th>
-
-                                                <th style="text-align: center">
-                                                    الايادي العاملة/Labour</th>
-
-                                                <th style="text-align: center">
-                                                    غير ذلك- الايادي /Other Labour</th>
-                                                <th style="text-align: center">
-                                                    المجموع العمالة Labour Total</th>
-                                                <th style="text-align: center">
-                                                    الايادي العاملة/الكلي/Total Labour Per Qty</th>
-                                                <th style="text-align: center">
-                                                    مجموع التكلفة الكلية/All Total </th>
-                                                <th> &nbsp;</th>
+                                        <table class="overflow-x-scroll" style="text-align: center">
+                                            <thead class=" overflow-x-scroll bg-blue-50">
+                                                <tr class=" border border-1 overflow-x-scroll">
+                                                    <th class=" border border-1 ">
+                                                        #
+                                                    </th>
 
 
-                                            </tr>
-                                        </thead>
+                                                    <th style="text-align: center">
+                                                        اسم المادة/Product Name
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        الوحدات/Unit
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        سعر الوحدة/Product*factor
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        الكمية/Qty
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        المجموع/Sale Price</th>
+                                                    <th style="text-align: center">
+                                                        المواد المساعدة/Material Price
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        د-المواد/Decoration Product
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        -غير ذلك المواد/Other Material
+                                                    </th>
+                                                    <th style="text-align: center">
+                                                        المجموع المواد/Material Total</th>
+                                                    <th style="text-align: center">
+                                                        المجموع المواد/الكلي /Material Per Qty</th>
 
-                                        <tbody class="line_data" id="{{ $children->id }}">
+                                                    <th style="text-align: center">
+                                                        الايادي العاملة/Labour</th>
 
-                                            <tr id="{{ $children->id }}">
-                                                <td class="counter">
-                                                    {{ $children->id }}
-                                                </td>
+                                                    <th style="text-align: center">
+                                                        غير ذلك- الايادي /Other Labour</th>
+                                                    <th style="text-align: center">
+                                                        المجموع العمالة Labour Total</th>
+                                                    <th style="text-align: center">
+                                                        الايادي العاملة/الكلي/Total Labour Per Qty</th>
+                                                    <th style="text-align: center">
+                                                        مجموع التكلفة الكلية/All Total </th>
+                                                    <th> &nbsp;</th>
 
-                                                <td style="text-align: center">
 
-                                                    @if ($children->item_lines)
-                                                        <select class="form-control products  w-full"
-                                                            id="{{ $children->id }}" name="item[{{ $children->id }}][]">
-                                                            <option selected value=""> </option>
+                                                </tr>
+                                            </thead>
 
-                                                            @foreach ($children->item_lines as $product)
-                                                                <option value="{{ $product->id }}"
-                                                                    data-price="{{ $product->price }}">
-                                                                    {{ $product->name }}
-                                                                    <span
-                                                                        id="{{ $product->id }}">{{ $product->price }}</span>
+                                            <tbody class="line_data" id="{{ $children->id }}">
+                                                @if (isset($qoute_batch[$children->id]->qoute_lines))
+                                                    @php
+                                                        $tot_material =
+                                                            $value->material +
+                                                            $value->material_acc +
+                                                            $value->material_other;
+                                                        $tot_labour = $value->labour + $value->labour_other;
+                                                        $all_material = $tot_material * $value->qty;
+                                                        $all_labour = $tot_labour * $value->qty;
+                                                        $factor_price =
+                                                            $value->qoute_batch_items->factor * $value->items
+                                                                ? $value->items->price
+                                                                : 0;
+                                                        $product_factor = $factor_price * $value->qty;
+                                                        $all_tot = $all_material + $all_labour;
+                                                    @endphp
+
+                                                    <tr id="{{ $value->qoute_batch_items->lines->item_lines }}">
+                                                        <td class="counter">
+                                                            {{ $value->qoute_batch_items->line }}
+                                                        </td>
+
+                                                        <td style="text-align: center">
+
+                                                            @if ($value->qoute_batch_items->lines->item_lines)
+                                                                <select class="form-control products w-full"
+                                                                    id="{{ $value->qoute_batch_items->line }}"
+                                                                    name="item[{{ $value->qoute_batch_items->line }}][]">
+
+                                                                    @foreach ($items as $product)
+                                                                        <option
+                                                                            {{ $product->id == $value->item ? 'selected' : '' }}
+                                                                            value="{{ $product->id }}"
+                                                                            data-price="{{ $product->price }}">
+                                                                            {{ $product->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            @endif
+                                                            <input type="hidden" name="" class="product-price"
+                                                                readonly id="{{ $children->id }}">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <select class="form-control select2"
+                                                            id="{{ $value->qoute_batch_items->line }}"
+                                                            name="unit[{{ $value->qoute_batch_items->line }}][]">
+                                                            <option  value=""> </option>
+                                                            @foreach ($units as $unit)
+                                                                <option value="{{ $unit->id }}"
+                                                                    {{ $unit->id == $value->unit ? 'selected' : '' }}>
+                                                                    {{ $unit->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="factor_price[{{ $value->qoute_batch_items->line  }}][]"
+                                                                class="border border-1 factor_price" readonly
+                                                                id="{{  $value->qoute_batch_items->line  }}"
+                                                                value="{{$factor_price ?? 0 }}">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" name="qty[{{ $value->qoute_batch_items->line }}][]"
+                                                                class="border border-1 qty" id="{{ $value->qoute_batch_items->line }}"
+                                                                value="{{ $value->qty ?? 0}}">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="product_factor[{{ $value->qoute_batch_items->line }}][]" readonly
+                                                                id="{{ $value->qoute_batch_items->line }}" value="{{ $product_factor ?? 0 }}"
+                                                                class="border border-1 simetot">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" name="material[{{  $value->qoute_batch_items->line }}][]"
+                                                                id="{{  $value->qoute_batch_items->line }}" value="0"
+                                                                class="border border-1 material">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="material_acc[{{  $value->qoute_batch_items->line }}][]" value="0"
+                                                                id="{{  $value->qoute_batch_items->line }}"
+                                                                class="border border-1 material_acc">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="material_other[{{  $value->qoute_batch_items->line }}][]"
+                                                                value="0" id="{{  $value->qoute_batch_items->line }}"
+                                                                class="border border-1 material_other">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="tot_material[{{  $value->qoute_batch_items->line }}][]"
+                                                                id="{{  $value->qoute_batch_items->line }}" value="0" readonly
+                                                                class="border border-1 tot_material">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="total_material[{{  $value->qoute_batch_items->line }}][]"
+                                                                id="{{  $value->qoute_batch_items->line }}" readonly
+                                                                class=" border border-1 all_material px-4" value="0">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" name="labour[{{  $value->qoute_batch_items->line }}][]"
+                                                                id="{{  $value->qoute_batch_items->line }}" value="0"
+                                                                class="border border-1 labour">
+                                                        </td>
+
+
+                                                        <td style="text-align: center">
+
+                                                            <input type="text"
+                                                                name="labour_other[{{  $value->qoute_batch_items->line }}][]"
+                                                                id="{{  $value->qoute_batch_items->line }}" value="0"
+                                                                class=" border border-1 labour_other">
+                                                        </td>
+                                                        <td style="text-align: center">
+
+
+                                                            <input type="text"
+                                                                name="worker_tot[{{  $value->qoute_batch_items->line }}][]" id=""
+                                                                class=" border border-1 tot_labour" value="0"
+                                                                readonly>
+                                                        </td>
+                                                        <td style="text-align: center">
+
+
+                                                            <input type="text"
+                                                                name="total_labour[{{  $value->qoute_batch_items->line }}][]"
+                                                                id="{{  $value->qoute_batch_items->line }}" value="0"
+                                                                class=" border border-1 all_labour px-4" readonly>
+                                                        </td>
+                                                        <td style="text-align: center">
+
+                                                            <input type="text" id="{{  $value->qoute_batch_items->line }}"
+                                                                value="0" class=" border border-1 all_tot" readonly>
+
+                                                        </td>
+
+                                                    </tr>
+
+                                                    @endforeach
                                                     @endif
-                                                    <input type="hidden" name="" class="product-price" readonly
-                                                        id="{{ $children->id }}">
-                                                </td>
-                                                <td style="text-align: center">
+                                            </tbody>
+                                        </table>
+                                        <input type="submit" value="{{  $value->qoute_batch_items->line }}"
+                                            class=" btn btn-primary btn-line col-sm-2" id="{{  $value->qoute_batch_items->line }}">
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center d-none">
+                                        <label for="inputZip"> &emsp14; </label>
 
-                                                    <select class="form-control select2" id="{{ $children->id }}"
-                                                        name="unit[{{ $children->id }}][]">
-                                                        <option selected value=""> </option>
-                                                        @foreach ($units as $unit)
-                                                            <option value="{{ $unit->id }}">{{ $unit->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </td>
-                                                <td style="text-align: center">
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center d-none">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="text" name="total[]" id="{{  $value->qoute_batch_items->line }}"
+                                            class="total border border-1 d-none" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center d-none">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="text" name="total[]" id="{{  $value->qoute_batch_items->line }}"
+                                            class="total_material border border-1 d-none" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center d-none">
+                                        <label for="inputZip"> &emsp14; </label>
+                                        <input type="text" name="total[]" id="{{  $value->qoute_batch_items->line }}"
+                                            class="total_labour border border-1 d-none" readonly>
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center d-none">
+                                        <label for="inputZip">total_profit {{  $value->qoute_batch_items->line }}</label>
+                                        <input type="text" name="total[]" id="{{  $value->qoute_batch_items->line }}"
+                                            class="total_profit border border-1 d-none" readonly value="0">
+                                    </div>
+                                    <div class="form-group col-md-2 justify-center d-none">
+                                        <label for="inputZip"> &emsp14; </label>
 
-                                                    <input type="text" name="factor_price[{{ $children->id }}][]"
-                                                        class="border border-1 factor_price" readonly
-                                                        id="{{ $children->id }}">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="qty[{{ $children->id }}][]"
-                                                        class="border border-1 qty" id="{{ $children->id }}"
-                                                        value="0">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="product_factor[{{ $children->id }}][]"
-                                                        readonly id="{{ $children->id }}" value="0"
-                                                        class="border border-1 simetot">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="material[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class="border border-1 material">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="material_acc[{{ $children->id }}][]"
-                                                        value="0" id="{{ $children->id }}"
-                                                        class="border border-1 material_acc">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="material_other[{{ $children->id }}][]"
-                                                        value="0" id="{{ $children->id }}"
-                                                        class="border border-1 material_other">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="tot_material[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0" readonly
-                                                        class="border border-1 tot_material">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="total_material[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" readonly
-                                                        class=" border border-1 all_material px-4" value="0">
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="labour[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class="border border-1 labour">
-                                                </td>
-
-
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="labour_other[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class=" border border-1 labour_other">
-                                                </td>
-                                                <td style="text-align: center">
-
-
-                                                    <input type="text" name="worker_tot[{{ $children->id }}][]"
-                                                        id="" class=" border border-1 tot_labour" value="0"
-                                                        readonly>
-                                                </td>
-                                                <td style="text-align: center">
-
-
-                                                    <input type="text" name="total_labour[{{ $children->id }}][]"
-                                                        id="{{ $children->id }}" value="0"
-                                                        class=" border border-1 all_labour px-4" readonly>
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" id="{{ $children->id }}" value="0"
-                                                        class=" border border-1 all_tot" readonly>
-
-                                                </td>
-
-                                            </tr>
-
-
-
-                                        </tbody>
-                                    </table>
-                                    <input type="submit" value="{{ $children->id }}"
-                                        class=" btn btn-primary btn-line col-sm-2" id="{{ $children->id }}">
+                                    </div>
                                 </div>
-                                <div class="form-group col-md-2 justify-center d-none">
-                                    <label for="inputZip"> &emsp14; </label>
-
-                                </div>
-                                <div class="form-group col-md-2 justify-center d-none">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total border border-1 d-none" readonly>
-                                </div>
-                                <div class="form-group col-md-2 justify-center d-none">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_material border border-1 d-none" readonly>
-                                </div>
-                                <div class="form-group col-md-2 justify-center d-none">
-                                    <label for="inputZip"> &emsp14; </label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_labour border border-1 d-none" readonly>
-                                </div>
-                                <div class="form-group col-md-2 justify-center d-none">
-                                    <label for="inputZip">total_profit {{ $children->id }}</label>
-                                    <input type="text" name="total[]" id="{{ $children->id }}"
-                                        class="total_profit border border-1 d-none" readonly value="0">
-                                </div>
-                                <div class="form-group col-md-2 justify-center d-none">
-                                    <label for="inputZip"> &emsp14; </label>
-
-                                </div>
-                            </div>
+                            @endforeach
                         @endforeach
+
+
+                    </div>
+                    <div class="card mt-1">
+                        <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+
+                        </div>
+                        @if (sizeof($line) > 0)
+                            <div class="card-body">
+                                @foreach ($line as $item)
+                                    <div class="table-responsive">
+
+
+                                        <table class=" table table-bordered   overflow-x-scroll"
+                                            style="text-align: center">
+                                            <h2 class=" text-3xl">{{ $item->name }}</h2>
+                                            <thead class=" overflow-x-scroll bg-blue-50">
+                                                <tr class=" overflow-x-scroll">
+                                                    <th width="10">
+                                                        #
+                                                    </th>
+
+                                                    <th style="text-align: center">
+
+                                                        /Filed النظام </th>
+
+                                                    <th style="text-align: center">
+                                                        Material Total المجموع المواد/الكلي</th>
+
+
+                                                    <th style="text-align: center">
+                                                        Labour Total الايادي العاملة/الكلي</th>
+                                                    <th style="text-align: center">
+                                                        Total Cost مجموع التكلفة الكلية </th>
+                                                    <th style="text-align: center">
+                                                        factor </th>
+                                                    <th style="text-align: center">
+                                                        Sale Pirce سعر البيع </th>
+                                                    &nbsp;
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php $i = 1; ?>
+                                                @if (sizeof($item->child_lines) > 0)
+                                                    @foreach ($item->child_lines as $children)
+                                                        <tr class="summary">
+                                                            <td width="10">
+                                                                {{ $i++ }}
+                                                            </td>
+
+                                                            <td style="text-align: center">
+                                                                {{ $children->name }}
+
+                                                            <td style="text-align: center">
+
+                                                                <input type="text" id="{{ $children->id }}" readonly
+                                                                    class="all_material_summary" value="0">
+                                                            </td>
+
+                                                            <td style="text-align: center">
+
+
+                                                                <input type="text" id="{{ $children->id }}"
+                                                                    value="0" class="all_labour_summary" readonly>
+                                                            </td>
+                                                            <td style="text-align: center">
+
+                                                                <input type="text" id="{{ $children->id }}"
+                                                                    value="0" class="all_tot_summary" readonly>
+
+                                                            </td>
+                                                            <td style="text-align: center">
+
+                                                                <input type="text" id="{{ $children->id }}"
+                                                                    value="0" class="factor_summary" readonly>
+
+                                                            </td>
+                                                            <td style="text-align: center">
+
+                                                                <input type="text" id="{{ $children->id }}"
+                                                                    value="0" class="sale_factor_summary" readonly>
+
+                                                            </td>
+                                                        </tr>
+
+
+                                            </tbody>
+                                @endforeach
+                        @endif
                 @endforeach
+                <tfoot>
+                    <tr>
+                        <td width="10">
+                            &emsp;
+                        </td>
+
+                        <td style="text-align: center">
+                            Total المجموع
+
+                        <td style="text-align: center">
+
+                            <input type="text" name="" id="" readonly class="all_material_summary1"
+                                value="0">
+                        </td>
+
+                        <td style="text-align: center">
 
 
-        </div>
-        <div class="card mt-1">
-            <div class="card-header" style="background-color: #433483a3 ; color:aliceblue">
+                            <input type="text" name="" id="" value="0"
+                                class="all_labour_summary1" readonly>
+                        </td>
+                        <td style="text-align: center">
 
-            </div>
-            @if (sizeof($line) > 0)
-                <div class="card-body">
-                    @foreach ($line as $item)
-                        <div class="table-responsive">
+                            <input type="text" name="" id="" value="0" class="all_tot_summary1"
+                                readonly>
 
+                        </td>
+                        <td style="text-align: center">
 
-                            <table class=" table table-bordered   overflow-x-scroll" style="text-align: center">
-                                <h2 class=" text-3xl">{{ $item->name }}</h2>
-                                <thead class=" overflow-x-scroll bg-blue-50">
-                                    <tr class=" overflow-x-scroll">
-                                        <th width="10">
-                                            #
-                                        </th>
+                            <input type="text" name="" value="0" class="factor_summary1" readonly>
 
-                                        <th style="text-align: center">
+                        </td>
+                        <td style="text-align: center">
 
-                                            /Filed النظام </th>
+                            <input type="text" value="0" class="sale_factor_summary1" readonly>
 
-                                        <th style="text-align: center">
-                                            Material Total المجموع المواد/الكلي</th>
+                        </td>
+                    </tr>
+                </tfoot>
+                </table>
 
-
-                                        <th style="text-align: center">
-                                            Labour Total الايادي العاملة/الكلي</th>
-                                        <th style="text-align: center">
-                                            Total Cost مجموع التكلفة الكلية </th>
-                                        <th style="text-align: center">
-                                            factor </th>
-                                        <th style="text-align: center">
-                                            Sale Pirce سعر البيع </th>
-                                        &nbsp;
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $i = 1; ?>
-                                    @if (sizeof($item->child_lines) > 0)
-                                        @foreach ($item->child_lines as $children)
-                                            <tr class="summary">
-                                                <td width="10">
-                                                    {{ $i++ }}
-                                                </td>
-
-                                                <td style="text-align: center">
-                                                    {{ $children->name }}
-
-                                                <td style="text-align: center">
-
-                                                    <input type="text" id="{{ $children->id }}" readonly
-                                                        class="all_material_summary" value="0">
-                                                </td>
-
-                                                <td style="text-align: center">
-
-
-                                                    <input type="text" id="{{ $children->id }}" value="0"
-                                                        class="all_labour_summary" readonly>
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" id="{{ $children->id }}" value="0"
-                                                        class="all_tot_summary" readonly>
-
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" id="{{ $children->id }}" value="0"
-                                                        class="factor_summary" readonly>
-
-                                                </td>
-                                                <td style="text-align: center">
-
-                                                    <input type="text" id="{{ $children->id }}" value="0"
-                                                        class="sale_factor_summary" readonly>
-
-                                                </td>
-                                            </tr>
-
-
-                                </tbody>
-                    @endforeach
-            @endif
-            @endforeach
-            <tfoot>
-                <tr>
-                    <td width="10">
-                        &emsp;
-                    </td>
-
-                    <td style="text-align: center">
-                        Total المجموع
-
-                    <td style="text-align: center">
-
-                        <input type="text" name="" id="" readonly class="all_material_summary1"
-                            value="0">
-                    </td>
-
-                    <td style="text-align: center">
-
-
-                        <input type="text" name="" id="" value="0" class="all_labour_summary1"
-                            readonly>
-                    </td>
-                    <td style="text-align: center">
-
-                        <input type="text" name="" id="" value="0" class="all_tot_summary1"
-                            readonly>
-
-                    </td>
-                    <td style="text-align: center">
-
-                        <input type="text" name="" value="0" class="factor_summary1" readonly>
-
-                    </td>
-                    <td style="text-align: center">
-
-                        <input type="text" value="0" class="sale_factor_summary1" readonly>
-
-                    </td>
-                </tr>
-            </tfoot>
-            </table>
-
-            {{-- <input type="text"  id="{{ $item->id }}"
+                {{-- <input type="text"  id="{{ $item->id }}"
                         value="0" class="totals border border-1 d-none" readonly> --}}
         </div>
         @endif
@@ -708,16 +760,7 @@
 
                 })
 
-                $(".line_data").find("input").each(function() {
-                    $(this).val(0);
-                })
 
-                $(".summary").find("input:text").each(function() {
-                    $(this).val(0);
-                })
-                $("tfoot").find("input").each(function() {
-                    $(this).val(0);
-                })
                 $(".btn-line").click(function(e) {
                     e.preventDefault();
                     //  get data with jquery
@@ -737,119 +780,119 @@
 
                             // create a new row for each line
                             var row = `<tr id="${data.line.id}">
-                                                <td class="counter">
-                                                    ${data.line.id}
-                                                </td>
-                                                <td style="text-align: center">
-                                                    <select class="form-control products  w-full"
-                                                        id="${data.line.id}" name="item[${data.line.id}][]">
-                                                        <option selected value=""> </option>
+                                        <td class="counter">
+                                            ${data.line.id}
+                                        </td>
+                                        <td style="text-align: center">
+                                            <select class="form-control products  w-full"
+                                                id="${data.line.id}" name="item[${data.line.id}][]">
+                                                <option selected value=""> </option>
 
-                                                        ${data.products.map(product => `
-                                                    <option value="${product.id}" data-price="${product.price}">
-                                                        ${product.name}
-                                                    </option>
-                                                `).join('')}
-                                                    <input type="hidden" name="" class="product-price" readonly
-                                                        id="${data.line.id}">
-                                                </td>
-                                                <td style="text-align: center">
+                                                ${data.products.map(product => `
+                                        <option value="${product.id}" data-price="${product.price}">
+                                            ${product.name}
+                                        </option>
+                                    `).join('')}
+                                            <input type="hidden" name="" class="product-price" readonly
+                                                id="${data.line.id}">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <select class="form-control select2" id="${data.line.id}"
-                                                        name="unit[${data.line.id}][]">
-                                                        <option selected value=""> </option>
-                                                        ${data.units.map(unit => `
-                                                    <option value="${unit.id}" data-price="${unit.price}">
-                                                        ${unit.name}
+                                            <select class="form-control select2" id="${data.line.id}"
+                                                name="unit[${data.line.id}][]">
+                                                <option selected value=""> </option>
+                                                ${data.units.map(unit => `
+                                        <option value="${unit.id}" data-price="${unit.price}">
+                                            ${unit.name}
 
-                                                    </option>
-                                                `).join('')}
-                                                    </select>
-                                                </td>
-                                                <td style="text-align: center">
+                                        </option>
+                                    `).join('')}
+                                            </select>
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="factor_price[${data.line.id}][]"
-                                                        class="border border-1 factor_price" readonly
-                                                        id="${data.line.id}">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="factor_price[${data.line.id}][]"
+                                                class="border border-1 factor_price" readonly
+                                                id="${data.line.id}">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="qty[${data.line.id}][]"
-                                                        class="border border-1 qty" id="${data.line.id}"
-                                                        value="0">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="qty[${data.line.id}][]"
+                                                class="border border-1 qty" id="${data.line.id}"
+                                                value="0">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="product_factor[${data.line.id}][]"
-                                                        readonly id="${data.line.id}" value="0"
-                                                        class="border border-1 simetot">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="product_factor[${data.line.id}][]"
+                                                readonly id="${data.line.id}" value="0"
+                                                class="border border-1 simetot">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="material[${data.line.id}][]"
-                                                        id="${data.line.id}" value="0"
-                                                        class="border border-1 material">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="material[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class="border border-1 material">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="material_acc[${data.line.id}][]"
-                                                        value="0" id="${data.line.id}"
-                                                        class="border border-1 material_acc">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="material_acc[${data.line.id}][]"
+                                                value="0" id="${data.line.id}"
+                                                class="border border-1 material_acc">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="material_other[${data.line.id}][]"
-                                                        value="0" id="${data.line.id}"
-                                                        class="border border-1 material_other">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="material_other[${data.line.id}][]"
+                                                value="0" id="${data.line.id}"
+                                                class="border border-1 material_other">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="tot_material[${data.line.id}][]"
-                                                        id="${data.line.id}" value="0" readonly
-                                                        class="border border-1 tot_material">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="tot_material[${data.line.id}][]"
+                                                id="${data.line.id}" value="0" readonly
+                                                class="border border-1 tot_material">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="total_material[${data.line.id}][]"
-                                                        id="${data.line.id}" readonly
-                                                        class=" border border-1 all_material px-4" value="0">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="total_material[${data.line.id}][]"
+                                                id="${data.line.id}" readonly
+                                                class=" border border-1 all_material px-4" value="0">
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" name="labour[${data.line.id}][]"
-                                                        id="${data.line.id}" value="0"
-                                                        class="border border-1 labour">
-                                                </td>
-
-
-                                                <td style="text-align: center">
-
-                                                    <input type="text" name="labour_other[${data.line.id}][]"
-                                                        id="${data.line.id}" value="0"
-                                                        class=" border border-1 labour_other">
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="labour[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class="border border-1 labour">
+                                        </td>
 
 
-                                                    <input type="text" name="worker_tot[${data.line.id}][]"
-                                                        id="" class=" border border-1 tot_labour" value="0"
-                                                        readonly>
-                                                </td>
-                                                <td style="text-align: center">
+                                        <td style="text-align: center">
+
+                                            <input type="text" name="labour_other[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class=" border border-1 labour_other">
+                                        </td>
+                                        <td style="text-align: center">
 
 
-                                                    <input type="text" name="total_labour[${data.line.id}][]"
-                                                        id="${data.line.id}" value="0"
-                                                        class=" border border-1 all_labour px-4" readonly>
-                                                </td>
-                                                <td style="text-align: center">
+                                            <input type="text" name="worker_tot[${data.line.id}][]"
+                                                id="" class=" border border-1 tot_labour" value="0"
+                                                readonly>
+                                        </td>
+                                        <td style="text-align: center">
 
-                                                    <input type="text" id="${data.line.id}" value="0"
-                                                        class=" border border-1 all_tot" readonly>
 
-                                                </td>
+                                            <input type="text" name="total_labour[${data.line.id}][]"
+                                                id="${data.line.id}" value="0"
+                                                class=" border border-1 all_labour px-4" readonly>
+                                        </td>
+                                        <td style="text-align: center">
 
-                                            </tr>`;
+                                            <input type="text" id="${data.line.id}" value="0"
+                                                class=" border border-1 all_tot" readonly>
+
+                                        </td>
+
+                                    </tr>`;
 
 
 
@@ -867,7 +910,7 @@
 
                                 // let hole_tot = 0;
                                 // // product total
-                                $('select').select2();
+
                                 $(".products").change(function() {
                                     $(this).closest("tr").find(".material").val($(
                                         this).find(
@@ -1045,10 +1088,8 @@
                     $(".qoute").submit()
                 })
 
-                $(".line_data").each(function() {
-                    $(this).find("input").val(0)
-                })
-                $('select#inputState.customer').select2(); //edit
+
+
                 $('.products').select2(); //edit
                 $("select#inputState.customer").change(function(e) {
                     $(this).valid();
@@ -1098,10 +1139,11 @@
 
 
                     // call qty event on input if not null call it with its id
-                    $(".qty").each(function() {
-                        if ($(this).val() != null) {
-                            $(this).trigger('input')
-                        }
+                    $("input.qty").each(function() {
+
+                        // $(this).trigger('input')
+                        console.log($(this));
+
                     })
 
 
@@ -1145,9 +1187,7 @@
 
 
                 // every textfiled in breif in eqaull to 0
-                $(".breif").find("input").each(function() {
-                    $(this).val(0);
-                })
+
 
 
                 $(".qty").on('input', function(e) {
@@ -1173,9 +1213,9 @@
                     summary_product_factor();
                     calcualte()
                     $(".labour_other").each(function() {
-                        if ($(this).val() != null) {
-                            $(this).trigger('input')
-                        }
+
+                        $(this).trigger('input')
+
                     })
                 })
 
@@ -1468,20 +1508,8 @@
                     });
                 }
 
-                $(".total_profit").each(function() {
-                    $(this).val(0)
-                })
-                // make all total 0
-                $(".all_tot").each(function() {
-                    $(this).val(0)
-                })
-                // make all material 0
 
-                $(".all_material").each(function() {
-                    $(this).val(0)
-                })
 
-                $(this).find('select').val('');
 
 
 
@@ -1677,9 +1705,7 @@
 
 
 
-                $(".summary").find("input:text").each(function() {
-                    $(this).val(0)
-                })
+
 
 
 
@@ -1827,6 +1853,3 @@
             });
         </script>
     @endsection
-
-
-@endsection

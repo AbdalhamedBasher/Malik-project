@@ -33,7 +33,7 @@
                         </div>
                         <div class="form-group row-md-3">
                             <label for="inputZip">المشروع/Project</label>
-                        
+
                             <select id="inputState" name="project" class="customer form-control">
                                 <option>-- إختر --</option>
 
@@ -51,7 +51,7 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                         <div class="form-group row-md-3">
-                           
+
                             <label for="inputZip">العميل/customer</label>
                             <select id="inputState" name="customer" class="customer form-control">
 
@@ -61,7 +61,7 @@
                                         {{ $customer->name }}
                                     </option>
                                 @endforeach
-                             
+
 
                             </select>
 
@@ -85,7 +85,7 @@
 
 
                         </div>
-                        
+
                         <div class="form-group row-md-3">
                             <label for="inputZip">تاريخ الانشاء/issue date</label>
                             <input type="date" name="qoutation_date" class="form-control qoutation_date" id="inputZip"
@@ -277,7 +277,7 @@
                                                             $all_labour = $tot_labour * $value->qty;
                                                             $factor_price =
                                                                 $value->qoute_batch_items->factor *
-                                                                $value->items->price;
+                                                                ($value->items->price)? $value->items->price:0;
                                                             $product_factor = $factor_price * $value->qty;
                                                             $all_tot = $all_material + $all_labour;
                                                         @endphp
@@ -295,26 +295,24 @@
                                                                         id="{{ $value->qoute_batch_items->line }}"
                                                                         name="item[{{ $value->qoute_batch_items->line }}][]">
 
-                                                                        @foreach ($items as $product)
+                                                                        @foreach ($items as $item)
                                                                             <option
-                                                                                {{ $product->id == $value->item ? 'selected' : '' }}
-                                                                                value="{{ $product->id }}"
-                                                                                data-price="{{ $product->price }}">
-                                                                                {{ $product->name }}
+
+                                                                                value="{{ $item->id }}"
+                                                                                data-price="{{ $item->price }}">
+                                                                                {{ $item->name }}
                                                                             </option>
                                                                         @endforeach
                                                                     </select>
                                                                 @endif
-                                                                <input type="hidden" name=""
-                                                                    class="product-price" readonly
-                                                                    id="{{ $value->qoute_batch_items->line }}">
+
                                                             </td>
                                                             <td style="text-align: center">
 
                                                                 <select class="form-control select2"
                                                                     id="{{ $value->qoute_batch_items->line }}"
                                                                     name="unit[{{ $value->qoute_batch_items->line }}][]">
-                                                                    <option selected value=""> </option>
+                                                                    <option  value=""> </option>
                                                                     @foreach ($units as $unit)
                                                                         <option value="{{ $unit->id }}"
                                                                             {{ $unit->id == $value->unit ? 'selected' : '' }}>
@@ -439,20 +437,19 @@
                                                         </tr>
                                                     @endforeach
                                                 @else
-                                                    <tr id="{{ $children->line }}">
+                                                    <tr id="{{ $children->id }}">
                                                         <td class="counter">
 
-                                                            {{ $children->line }}
+                                                            {{ $children->id }}
                                                         </td>
 
                                                         <td style="text-align: center">
 
                                                             @if (isset($children->item_lines))
                                                                 <select class="form-control products  w-full"
-                                                                    id="{{ $children->line }}"
-                                                                    name="item[{{ $children->line }}][]">
-                                                                    <option selected value=""> </option>
-
+                                                                    id="{{ $children->id }}"
+                                                                    name="item[{{ $children->id }}][]">
+                                                                    <option  value=""> </option>
                                                                     @foreach ($children->item_lines as $product)
                                                                         <option value="{{ $product->id }}"
                                                                             data-price="{{ $product->price }}">
@@ -464,13 +461,13 @@
                                                                 </select>
                                                             @endif
                                                             <input type="hidden" name="" class="product-price"
-                                                                readonly id="{{ $children->line }}">
+                                                                readonly id="{{ $children->id }}">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <select class="form-control select2"
-                                                                id="{{ $children->line }}"
-                                                                name="unit[{{ $children->line }}][]">
+                                                                id="{{ $children->id }}"
+                                                                name="unit[{{ $children->id }}][]">
                                                                 <option selected value=""> </option>
                                                                 @foreach ($units as $unit)
                                                                     <option value="{{ $unit->id }}">
@@ -482,62 +479,62 @@
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="factor_price[{{ $children->line }}][]"
+                                                                name="factor_price[{{ $children->id }}][]"
                                                                 class="border border-1 factor_price" readonly
-                                                                id="{{ $children->line }}">
+                                                                id="{{ $children->id }}">
                                                         </td>
                                                         <td style="text-align: center">
 
-                                                            <input type="text" name="qty[{{ $children->line }}][]"
-                                                                class="border border-1 qty" id="{{ $children->line }}"
+                                                            <input type="text" name="qty[{{ $children->id }}][]"
+                                                                class="border border-1 qty" id="{{ $children->id }}"
                                                                 value="0">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="product_factor[{{ $children->line }}][]" readonly
-                                                                id="{{ $children->line }}" value="0"
+                                                                name="product_factor[{{ $children->id }}][]" readonly
+                                                                id="{{ $children->id }}" value="0"
                                                                 class="border border-1 simetot">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="material[{{ $children->line }}][]"
-                                                                id="{{ $children->line }}" value="0"
+                                                                name="material[{{ $children->id }}][]"
+                                                                id="{{ $children->id }}" value="0"
                                                                 class="border border-1 material">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="material_acc[{{ $children->line }}][]"
-                                                                value="0" id="{{ $children->line }}"
+                                                                name="material_acc[{{ $children->id }}][]"
+                                                                value="0" id="{{ $children->id }}"
                                                                 class="border border-1 material_acc">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="material_other[{{ $children->line }}][]"
-                                                                value="0" id="{{ $children->line }}"
+                                                                name="material_other[{{ $children->id }}][]"
+                                                                value="0" id="{{ $children->id }}"
                                                                 class="border border-1 material_other">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="tot_material[{{ $children->line }}][]"
-                                                                id="{{ $children->line }}" value="0" readonly
+                                                                name="tot_material[{{ $children->id }}][]"
+                                                                id="{{ $children->id }}" value="0" readonly
                                                                 class="border border-1 tot_material">
                                                         </td>
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="total_material[{{ $children->line }}][]"
-                                                                id="{{ $children->line }}" readonly
+                                                                name="total_material[{{ $children->id }}][]"
+                                                                id="{{ $children->id }}" readonly
                                                                 class=" border border-1 all_material px-4" value="0">
                                                         </td>
                                                         <td style="text-align: center">
 
-                                                            <input type="text" name="labour[{{ $children->line }}][]"
-                                                                id="{{ $children->line }}" value="0"
+                                                            <input type="text" name="labour[{{ $children->id }}][]"
+                                                                id="{{ $children->id }}" value="0"
                                                                 class="border border-1 labour">
                                                         </td>
 
@@ -545,15 +542,15 @@
                                                         <td style="text-align: center">
 
                                                             <input type="text"
-                                                                name="labour_other[{{ $children->line }}][]"
-                                                                id="{{ $children->line }}" value="0"
+                                                                name="labour_other[{{ $children->id }}][]"
+                                                                id="{{ $children->id }}" value="0"
                                                                 class=" border border-1 labour_other">
                                                         </td>
                                                         <td style="text-align: center">
 
 
                                                             <input type="text"
-                                                                name="worker_tot[{{ $children->line }}][]"
+                                                                name="worker_tot[{{ $children->id }}][]"
                                                                 id="" class=" border border-1 tot_labour"
                                                                 value="0" readonly>
                                                         </td>
@@ -561,13 +558,13 @@
 
 
                                                             <input type="text"
-                                                                name="total_labour[{{ $children->line }}][]"
-                                                                id="{{ $children->line }}" value="0"
+                                                                name="total_labour[{{ $children->id }}][]"
+                                                                id="{{ $children->id }}" value="0"
                                                                 class=" border border-1 all_labour px-4" readonly>
                                                         </td>
                                                         <td style="text-align: center">
 
-                                                            <input type="text" id="{{ $children->line }}"
+                                                            <input type="text" id="{{ $children->id }}"
                                                                 value="0" class=" border border-1 all_tot" readonly>
 
                                                         </td>
@@ -630,7 +627,7 @@
                             class="total_labour border border-1 d-none" readonly>
                     </div>
                     <div class="form-group col-md-2 justify-center d-none">
-                        <label for="inputZip"> {{ $children->line }}</label>
+                        <label for="inputZip"> {{ $children->id }}</label>
                         <input type="text" name="total[]" id="{{ $children->id }}"
                             class="total_profit border border-1 d-none" readonly value="0">
                     </div>
@@ -644,8 +641,9 @@
                         <div class="table-responsive">
                             <div class="">
 
-                                <input type="checkbox" class="lines" name="lines[]" value="{{ $children->line }}"
+                                <input type="checkbox" class="lines" name="lines[]" value="{{ $children->id }}"
                                     id="">
+
                                 <label class="" for="">
                                     {{ $children->name }}
 
@@ -699,43 +697,41 @@
                                             الايادي العاملة/الكلي/Total Labour Per Qty</th>
                                         <th style="text-align: center">
                                             مجموع التكلفة الكلية/All Total </th>
-                                        <th> &nbsp;</th>
 
 
                                     </tr>
                                 </thead>
 
-                                <tbody class="line_data" id="{{ $children->line }}">
+                                <tbody class="line_data" id="{{ $children->id }}">
 
-                                    <tr id="{{ $children->line }}">
+                                    <tr id="{{ $children->id }}">
                                         <td class="counter">
 
-                                            {{ $children->line }}
+                                            {{ $children->id }}
                                         </td>
 
                                         <td style="text-align: center">
 
                                             @if (isset($children->item_lines))
-                                                <select class="form-control products  w-full" id="{{ $children->line }}"
-                                                    name="item[{{ $children->line }}][]">
-                                                    <option selected value=""> </option>
+                                                <select class="form-control products  w-full" id="{{ $children->id }}"
+                                                    name="item[{{ $children->id }}][]">
+                                                    <option  value=""> </option>
 
                                                     @foreach ($children->item_lines as $product)
                                                         <option value="{{ $product->id }}"
                                                             data-price="{{ $product->price }}">
                                                             {{ $product->name }}
-                                                            <span id="{{ $product->id }}">{{ $product->price }}</span>
+
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             @endif
-                                            <input type="hidden" name="" class="product-price" readonly
-                                                id="{{ $children->line }}">
+
                                         </td>
                                         <td style="text-align: center">
 
-                                            <select class="form-control select2" id="{{ $children->line }}"
-                                                name="unit[{{ $children->line }}][]">
+                                            <select class="form-control select2" id="{{ $children->id }}"
+                                                name="unit[{{ $children->id }}][]">
                                                 <option selected value=""> </option>
                                                 @foreach ($units as $unit)
                                                     <option value="{{ $unit->id }}">
@@ -746,82 +742,82 @@
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="factor_price[{{ $children->line }}][]"
+                                            <input type="text" name="factor_price[{{ $children->id }}][]"
                                                 class="border border-1 factor_price" readonly
-                                                id="{{ $children->line }}">
+                                                id="{{ $children->id }}">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="qty[{{ $children->line }}][]"
-                                                class="border border-1 qty" id="{{ $children->line }}" value="0">
+                                            <input type="text" name="qty[{{ $children->id }}][]"
+                                                class="border border-1 qty" id="{{ $children->id }}" value="0">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="product_factor[{{ $children->line }}][]"
-                                                readonly id="{{ $children->line }}" value="0"
+                                            <input type="text" name="product_factor[{{ $children->id }}][]"
+                                                readonly id="{{ $children->id }}" value="0"
                                                 class="border border-1 simetot">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="material[{{ $children->line }}][]"
-                                                id="{{ $children->line }}" value="0"
+                                            <input type="text" name="material[{{ $children->id }}][]"
+                                                id="{{ $children->id }}" value="0"
                                                 class="border border-1 material">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="material_acc[{{ $children->line }}][]"
-                                                value="0" id="{{ $children->line }}"
+                                            <input type="text" name="material_acc[{{ $children->id }}][]"
+                                                value="0" id="{{ $children->id }}"
                                                 class="border border-1 material_acc">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="material_other[{{ $children->line }}][]"
-                                                value="0" id="{{ $children->line }}"
+                                            <input type="text" name="material_other[{{ $children->id }}][]"
+                                                value="0" id="{{ $children->id }}"
                                                 class="border border-1 material_other">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="tot_material[{{ $children->line }}][]"
-                                                id="{{ $children->line }}" value="0" readonly
+                                            <input type="text" name="tot_material[{{ $children->id }}][]"
+                                                id="{{ $children->id }}" value="0" readonly
                                                 class="border border-1 tot_material">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="total_material[{{ $children->line }}][]"
-                                                id="{{ $children->line }}" readonly
+                                            <input type="text" name="total_material[{{ $children->id }}][]"
+                                                id="{{ $children->id }}" readonly
                                                 class=" border border-1 all_material px-4" value="0">
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" name="labour[{{ $children->line }}][]"
-                                                id="{{ $children->line }}" value="0"
+                                            <input type="text" name="labour[{{ $children->id }}][]"
+                                                id="{{ $children->id }}" value="0"
                                                 class="border border-1 labour">
                                         </td>
 
 
                                         <td style="text-align: center">
 
-                                            <input type="text" name="labour_other[{{ $children->line }}][]"
-                                                id="{{ $children->line }}" value="0"
+                                            <input type="text" name="labour_other[{{ $children->id }}][]"
+                                                id="{{ $children->id }}" value="0"
                                                 class=" border border-1 labour_other">
                                         </td>
                                         <td style="text-align: center">
 
 
-                                            <input type="text" name="worker_tot[{{ $children->line }}][]"
+                                            <input type="text" name="worker_tot[{{ $children->id }}][]"
                                                 id="" class=" border border-1 tot_labour" value="0"
                                                 readonly>
                                         </td>
                                         <td style="text-align: center">
 
 
-                                            <input type="text" name="total_labour[{{ $children->line }}][]"
-                                                id="{{ $children->line }}" value="0"
+                                            <input type="text" name="total_labour[{{ $children->id }}][]"
+                                                id="{{ $children->id }}" value="0"
                                                 class=" border border-1 all_labour px-4" readonly>
                                         </td>
                                         <td style="text-align: center">
 
-                                            <input type="text" id="{{ $children->line }}" value="0"
+                                            <input type="text" id="{{ $children->id }}" value="0"
                                                 class=" border border-1 all_tot" readonly>
 
                                         </td>
@@ -833,27 +829,27 @@
                                 </tbody>
                             </table>
                             <input type="submit" value="إضافة Add" class=" btn btn-primary btn-line col-sm-2"
-                                id="{{ $children->line }}">
+                                id="{{ $children->id }}">
                         </div>
 
                         <div class="form-group col-md-2 justify-center d-none">
                             <label for="inputZip"> &emsp14; </label>
-                            <input type="text" name="total[]" id="{{ $children->line }}"
+                            <input type="text" name="total[]" id="{{ $children->id }}"
                                 class="total border border-1 d-none" reado d-nonenly>
                         </div>
                         <div class="form-group col-md-2 justify-center d-none">
                             <label for="inputZip"> &emsp14; </label>
-                            <input type="text" name="total[]" id="{{ $children->line }}"
+                            <input type="text" name="total[]" id="{{ $children->id }}"
                                 class="total_material border border d-none" readonly>
                         </div>
                         <div class="form-group col-md-2 justify-center d-none">
                             <label for="inputZip"> &emsp14; </label>
-                            <input type="text" name="total[]" id="{{ $children->line }}"
+                            <input type="text" name="total[]" id="{{ $children->id }}"
                                 class="total_labour border border-1 d-none" readonly>
                         </div>
                         <div class="form-group col-md-2 justify-center d-none">
-                            <label for="inputZip"> {{ $children->line }}</label>
-                            <input type="text" name="total[]" id="{{ $children->line }}"
+                            <label for="inputZip"> {{ $children->id }}</label>
+                            <input type="text" name="total[]" id="{{ $children->id }}"
                                 class="total_profit border border-1 d-none" readonly value="0">
                         </div>
                         <div class="form-group col-md-2 justify-center d-none">
@@ -1986,7 +1982,7 @@
 
 
 
-           
+
 
 
 
