@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '06046df0ceb6d4dfd5fb241614503af176829eee',
+        'reference' => 'c2c4b6536842b9433dc2206b914dc535975428ec',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -19,16 +19,14 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'barryvdh/laravel-async-queue' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '58583499e99c643ad7aa824b9e4afcf2104dcd41',
+        'barryvdh/laravel-debugbar' => array(
+            'pretty_version' => 'v3.13.3',
+            'version' => '3.13.3.0',
+            'reference' => '241e9bddb04ab42a04a5fe8b2b9654374c864229',
             'type' => 'library',
-            'install_path' => __DIR__ . '/../barryvdh/laravel-async-queue',
-            'aliases' => array(
-                0 => '0.7.x-dev',
-            ),
-            'dev_requirement' => false,
+            'install_path' => __DIR__ . '/../barryvdh/laravel-debugbar',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'barryvdh/laravel-dompdf' => array(
             'pretty_version' => 'v2.1.1',
@@ -495,7 +493,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '06046df0ceb6d4dfd5fb241614503af176829eee',
+            'reference' => 'c2c4b6536842b9433dc2206b914dc535975428ec',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -599,6 +597,15 @@
             'install_path' => __DIR__ . '/../masterminds/html5',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'maximebf/debugbar' => array(
+            'pretty_version' => 'v1.22.3',
+            'version' => '1.22.3.0',
+            'reference' => '7aa9a27a0b1158ed5ad4e7175e8d3aee9a818b96',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../maximebf/debugbar',
+            'aliases' => array(),
+            'dev_requirement' => true,
         ),
         'mockery/mockery' => array(
             'pretty_version' => '1.6.11',

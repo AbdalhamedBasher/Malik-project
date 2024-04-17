@@ -177,7 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Barryvdh\Queue\AsyncServiceProvider::class,
+      
         Elibyy\TCPDF\ServiceProvider::class,
     ],
 

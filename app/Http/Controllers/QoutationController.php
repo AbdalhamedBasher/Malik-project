@@ -45,7 +45,7 @@ class QoutationController extends Controller
      */
     public function index()
     {
-        $qoute = qoutation::get();
+        $qoute = qoutation::with('qoute_batch','customers_data','project_data')->get();
         if ($qoute) {
 
             $line_name = line::get();
@@ -202,7 +202,7 @@ class QoutationController extends Controller
         $customer = customer::get();
         $qoute = qoutation::find($id);
 
-        $line = line::where(["main_line" => null])->get();
+        $line = line::where(["main_line" => null])->with('child_lines')->get();
         $items = items::get();
         $catogery = catogery::get();
         $type = type::get();
@@ -216,7 +216,9 @@ class QoutationController extends Controller
             $qoute_batch[$value->line] = $value;
         }
         $sumation = $this->summary($qoute->id);
-        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customers' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, "projects" => $projects]);
+            $qoute_batch[$value->line] = $value;
+      
+        return view('qoutation.edit')->with(['qoute' => $qoute, 'line' => $line, 'customers' => $customer, 'items' => $items, 'catogery' => $catogery, 'type' => $type, 'size' => $size, 'brand' => $brand, 'units' => $units, 'sumation' => $sumation, "projects" => $projects,'qoute_batch'=>$qoute_batch]);
 
     }
 
@@ -233,11 +235,11 @@ return redirect()->back()->withInput();
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\qoutation  $qoutation
      * @return \Illuminate\Http\Response
-     */public function update(Request $request, $id)
+     */
+    public function update(Request $request, $id)
 {
-    DB::beginTransaction();
 
-
+    
         $quote = qoutation::find($id);
 
         $quote->update([
@@ -256,7 +258,7 @@ return redirect()->back()->withInput();
             "risk" => $request->risk,
         ]);
 if ($request->lines) {
-    # code...
+   
 
 
 
@@ -264,18 +266,19 @@ if ($request->lines) {
                 "factor" => $request->factor, // You might want to clarify where $request->factor comes from
                 "quote" => $quote->id,
             ]);
+          if( $quoteBatch ){
+          
+          }
 foreach ( $quoteBatch as $key => $batch) {
-    # code...
+   
 
             if ( sizeof($request->item[$batch->line])>0) {
                 foreach ($request->item[$batch->line] as $key => $item) {
-
-                    $quoteLine = $batch->qoute_lines()->CreateUpdate(
+            
+                    $quoteLine = $batch->qoute_lines()->updateOrCreate(
+                      
                         [
-                            'id' => $batch->id,
                             'item' => $item,
-
-
                             "qty" => $request->qty[$batch->line][$key],
                             "unit" => $request->unit[$batch->line][$key],
                             "material" => $request->material[$batch->line][$key],
@@ -289,16 +292,16 @@ foreach ( $quoteBatch as $key => $batch) {
                         ]
                     );
                 }
-
+                return redirect()->route('qoute')->with(['message' => $batch->id.'تم تعديل التسعيرة رقم']);
             } else {
                 return redirect()->back()->with(['message' => 'خطا المنتجات غير موجودة']);
             }
         }
 
-        DB::commit();
+       
 
     } else {
-
+        return redirect()->back()->with(['message' => 'خطا المنتجات غير موجودة']);
     }
 }
 

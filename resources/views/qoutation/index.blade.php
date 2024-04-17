@@ -98,18 +98,6 @@
         </div>
 
         <div class="card-body">
-            {{-- "factor" => $request->factor,
-            "qoutation_date" => $request->qoutation_date,
-            "expire_date" => $request->expire_date,
-            "project_name" => $request->project_name,
-            "statues" => $request->statues,
-            "description" => $request->description,
-            "refrence" => 'Q' . $last,
-            'customer' => $request->customer,
-            "indrect" => $request->indrect,
-            "addition" => $request->addition,
-            "consult" => $request->consult,
-            "risk" --}}
 
             <div class="table-responsive">
                 <table class=" table table-bordered table-striped table-hover datatable datatable-Course overflow-x-scroll"

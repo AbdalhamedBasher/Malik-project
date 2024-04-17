@@ -718,6 +718,14 @@
                 $("tfoot").find("input").each(function() {
                     $(this).val(0);
                 })
+
+                $(".qty").each(function() {
+                        if ($(this).val() != null) {
+                            $(this).trigger('input')
+                        }
+                    })
+
+
                 $(".btn-line").click(function(e) {
                     e.preventDefault();
                     //  get data with jquery
